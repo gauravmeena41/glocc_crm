@@ -59,5 +59,13 @@ describe("CRM", function () {
     );
 
     // await crm.changeUserteam(1, "Commerce Cloud");
+
+    await crm.assignTask(1, "testing", "testing description");
+    let user = await crm.searchUser(1);
+    console.log(user.tasks);
+    await crm.comleteTask(1, 0);
+
+    user = await crm.searchUser(1);
+    console.log(user.tasks);
   });
 });

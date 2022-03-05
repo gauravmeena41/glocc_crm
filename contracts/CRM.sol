@@ -221,4 +221,26 @@ contract CRM {
         User storage user = users[_userId];
         user.checkOut.push(block.timestamp);
     }
+
+    function assignTask(
+        uint256 userId,
+        string memory _taskName,
+        string memory _taskDescription
+    ) external onlyAdmin {
+        Task memory task;
+        task.taskId = _taskCount.current();
+        task.taskName = _taskName;
+        task.taskDescription = _taskDescription;
+        task.taskStatus = "pending";
+        task.taskCreatedDate = block.timestamp;
+        _taskCount.increment();
+
+        User storage user = users[userId];
+        user.tasks.push(task);
+    }
+
+    function comleteTask(uint256 _userId, uint256 _taskId) external onlyAdmin {
+        User storage user = users[_userId];
+        user.tasks[_taskId].taskStatus = "completed";
+    }
 }
