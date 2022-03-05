@@ -1,4 +1,7 @@
 import Head from "next/head";
+import Mainbar from "../components/Mainbar";
+import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 
 export default function Home() {
   return (
@@ -6,7 +9,6 @@ export default function Home() {
       <Head>
         <title>CRM</title>
       </Head>
-      <h1>CRM</h1>
     </div>
   );
 }
