@@ -20,7 +20,7 @@ describe("CRM", function () {
     await crm.changeAdminavatar("admin.png");
     const admin = await crm.admin();
 
-    console.log(admin);
+    // console.log(admin);
 
     // await crm.addUser("guru", "guru@gmail.com", false, "Blockchain Developer");
     // await crm.addUser("Guru", "guru@gmail.com", false, "Blockchain Developer");
@@ -59,8 +59,5 @@ describe("CRM", function () {
     );
 
     // await crm.changeUserteam(1, "Commerce Cloud");
-
-    // const user = await crm.searchUser(1);
-    // console.log(user);
   });
 });

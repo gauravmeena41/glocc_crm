@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract CRM {
     using Counters for Counters.Counter;
     Counters.Counter private _userCount;
+    Counters.Counter private _taskCount;
 
     string[] private teams = [
         "Commerce-cloud",
@@ -26,6 +27,15 @@ contract CRM {
         bool isAdmin;
         uint256[] checkIn;
         uint256[] checkOut;
+        Task[] tasks;
+    }
+
+    struct Task {
+        uint256 taskId;
+        string taskName;
+        string taskDescription;
+        string taskStatus;
+        uint256 taskCreatedDate;
     }
 
     User public admin;
