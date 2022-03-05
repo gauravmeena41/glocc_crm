@@ -9,6 +9,10 @@ export default function Home() {
       <Head>
         <title>CRM</title>
       </Head>
+      <div className="flex">
+        <Sidebar />
+        <Mainbar />
+      </div>
     </div>
   );
 }
