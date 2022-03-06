@@ -5,7 +5,7 @@ import { store } from "../redux/store";
 
 const MyApp = ({ Component, pageProps }) => {
   return (
-    <div>
+    <div className="dark:bg-[#18191a]">
       <Provider store={store}>
         <Navbar />
         <Component {...pageProps} />

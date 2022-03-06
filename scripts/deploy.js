@@ -10,12 +10,22 @@ const main = async () => {
     "https://avatars.dicebear.com/api/adventurer-neutral/gaurav_meena:seed.svg"
   );
   await crm.deployed();
-  console.log("Social deployed: ", crm.address);
+  console.log("GLLOC deployed: ", crm.address);
+
+  await crm.addUser(
+    "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c",
+    "Guru Meena",
+    "gurumeena41.gm@gmail.com",
+    "https://avatars.dicebear.com/api/adventurer-neutral/guru_meena:seed.svg",
+    false,
+    "Developer",
+    "Commerce_cloud"
+  );
 
   fs.writeFileSync(
     "./config.js",
     `
-    export const contractAddress = "${crm.address}";
+    export const gllocAddress = "${crm.address}";
     export const ownerAddress = "${crm.signer.address}"
     `
   );

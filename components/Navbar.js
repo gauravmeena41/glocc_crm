@@ -2,7 +2,7 @@ import Link from "next/link";
 import { SearchIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 import { searchUser } from "../helper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../redux/index";
@@ -21,6 +21,10 @@ const Navbar = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <nav className="flex items-center justify-between p-1 md:p-2 px-5 border-b bg-gray-50 dark:border-gray-500 dark:bg-background">

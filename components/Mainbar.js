@@ -5,7 +5,7 @@ const Mainbar = () => {
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 w-full">
       <div
         className="col-span-1 row-span-1  shadow-shadow-base hover:shadow-shadow-medium 
-      m-8 hover:m-5 rounded-md  transition-all duration-300 h-[350px] dark:bg-card"
+      m-8 hover:scale-[1.02]  rounded-md  transition-all duration-300 h-[350px] dark:bg-card"
       >
         <div className="h-[10%]">
           <h1 className="font-medium text-center text-xl dark:text-[#e4e6eb] shadow p-1">
@@ -23,7 +23,7 @@ const Mainbar = () => {
       </div>
       <div
         className="col-span-1 row-span-1  shadow-shadow-base hover:shadow-shadow-medium 
-      m-8 hover:m-5 rounded-md  transition-all duration-300 h-[350px] dark:bg-card"
+      m-8 hover:scale-[1.02]  rounded-md  transition-all duration-300 h-[350px] dark:bg-card"
       >
         <div className="h-[10%]">
           <h1 className="font-medium text-center text-xl dark:text-[#e4e6eb] shadow p-1">

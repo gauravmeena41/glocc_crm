@@ -1,7 +1,7 @@
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers } from "ethers";
-import { contractAddress } from "./config";
+import { gllocAddress } from "./config";
 import CRM from "./artifacts/contracts/CRM.sol/CRM.json";
 
 export const getWeb3Modal = async () => {
@@ -28,7 +28,7 @@ export const getContract = async () => {
     const signer = provider.getSigner();
     let account = await provider.listAccounts();
 
-    const contract = new ethers.Contract(contractAddress, CRM.abi, signer);
+    const contract = new ethers.Contract(gllocAddress, CRM.abi, signer);
     return { contract, account };
   } catch (error) {
     console.log(error);
@@ -58,9 +58,11 @@ export const searchUser = async () => {
     let user = await contract.contract.admin();
 
     if (user.userAddress === contract.account[0]) {
+      console.log(user);
       return user;
     } else {
-      return await contract.contract.searchUser(contract.account);
+      user = await contract.contract.searchUser(contract.account[0]);
+      return user;
     }
   } catch (error) {
     console.log(error);

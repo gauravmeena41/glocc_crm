@@ -9,6 +9,7 @@ module.exports = {
         "shadow-base": "rgba(0, 0, 0, 0.16) 0px 1px 4px",
         "shadow-medium": "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
         "inner-shadow": "rgba(0, 0, 0, 0.6) 0px -90px 36px -28px inset",
+        "equal-shadow": "0px 0px 4px 1px rgba(0, 0, 0, 0.18)",
       },
       colors: {
         background: "#18191a",

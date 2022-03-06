@@ -16,6 +16,7 @@ contract CRM {
     ];
 
     struct User {
+        uint256 userId;
         address userAddress;
         string name;
         string email;
@@ -49,12 +50,13 @@ contract CRM {
         uint256 _mobile,
         string memory _avatar
     ) {
+        admin.userId = block.timestamp;
         admin.userAddress = msg.sender;
         admin.name = _name;
         admin.email = _email;
         admin.mobile = _mobile;
         admin.avatar = _avatar;
-        admin.role = "admin";
+        admin.role = "Admin";
         admin.team = "Management";
         admin.isAdmin = true;
     }
@@ -93,14 +95,17 @@ contract CRM {
         address _userAddress,
         string memory _name,
         string memory _email,
+        string memory _avatar,
         bool _isAdmin,
         string memory _role,
         string memory _team
     ) external onlyAdmin {
         User storage user = users[_userAddress];
+        user.userId = block.timestamp;
         user.userAddress = _userAddress;
         user.name = _name;
         user.email = _email;
+        user.avatar = _avatar;
         user.role = _role;
         user.team = _team;
         user.isAdmin = _isAdmin;
