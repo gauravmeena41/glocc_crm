@@ -16,7 +16,6 @@ contract CRM {
     ];
 
     struct User {
-        uint256 userId;
         address userAddress;
         string name;
         string email;
@@ -40,7 +39,9 @@ contract CRM {
 
     User public admin;
 
-    mapping(uint256 => User) public users;
+    mapping(address => User) public users;
+
+    address[] private usersAddresses;
 
     constructor(
         string memory _name,
@@ -48,7 +49,6 @@ contract CRM {
         uint256 _mobile,
         string memory _avatar
     ) {
-        admin.userId = 0;
         admin.userAddress = msg.sender;
         admin.name = _name;
         admin.email = _email;
@@ -90,52 +90,53 @@ contract CRM {
     }
 
     function addUser(
+        address _userAddress,
         string memory _name,
         string memory _email,
         bool _isAdmin,
         string memory _role,
         string memory _team
     ) external onlyAdmin {
-        _userCount.increment();
-        User storage user = users[_userCount.current()];
-        user.userId = _userCount.current();
-        user.userAddress = msg.sender;
+        User storage user = users[_userAddress];
+        user.userAddress = _userAddress;
         user.name = _name;
         user.email = _email;
         user.role = _role;
         user.team = _team;
         user.isAdmin = _isAdmin;
+        usersAddresses.push(_userAddress);
     }
 
-    function fetchUsers() external view returns (User[] memory) {
-        uint256 userCount = _userCount.current();
-        uint256 currentIndex = 0;
-
-        User[] memory result = new User[](userCount);
-
-        for (uint256 i = userCount; i > 0; i--) {
-            User storage currentItem = users[i];
-            result[currentIndex] = currentItem;
-            currentIndex++;
-        }
-        return result.length > 0 ? result : new User[](0);
+    function fetchUsersAddress()
+        external
+        view
+        onlyAdmin
+        returns (address[] memory)
+    {
+        return usersAddresses;
     }
 
-    function searchUser(uint256 _userId) external view returns (User memory) {
-        User storage user = users[_userId];
+    function searchUser(address _userAddress)
+        external
+        view
+        returns (User memory)
+    {
+        User storage user = users[_userAddress];
         return user;
     }
 
-    function removeUser(uint256 _userId) external onlyAdmin {
-        delete users[_userId];
+    function removeUser(address _userAddress) external onlyAdmin {
+        delete users[_userAddress];
     }
 
-    function changeUsername(uint256 _userId, string memory _name) external {
-        User storage user = users[_userId];
+    function changeUsername(address _userAddress, string memory _name)
+        external
+    {
+        User storage user = users[_userAddress];
 
         require(
-            user.userAddress == msg.sender || user.isAdmin,
-            "Only owner can change username"
+            user.userAddress == msg.sender || msg.sender == admin.userAddress,
+            "Only owner and can change username"
         );
 
         require(
@@ -146,11 +147,13 @@ contract CRM {
         user.name = _name;
     }
 
-    function changeUseremail(uint256 _userId, string memory _email) external {
-        User storage user = users[_userId];
+    function changeUseremail(address _userAddress, string memory _email)
+        external
+    {
+        User storage user = users[_userAddress];
 
         require(
-            user.userAddress == msg.sender || user.isAdmin,
+            user.userAddress == msg.sender || msg.sender == admin.userAddress,
             "Only owner can change username"
         );
 
@@ -162,11 +165,13 @@ contract CRM {
         user.email = _email;
     }
 
-    function changeUseravatar(uint256 _userId, string memory _avatar) external {
-        User storage user = users[_userId];
+    function changeUseravatar(address _userAddress, string memory _avatar)
+        external
+    {
+        User storage user = users[_userAddress];
 
         require(
-            user.userAddress == msg.sender || user.isAdmin,
+            user.userAddress == msg.sender || msg.sender == admin.userAddress,
             "Only owner can change username"
         );
 
@@ -178,11 +183,11 @@ contract CRM {
         user.avatar = _avatar;
     }
 
-    function changeUsermobile(uint256 _userId, uint256 _mobile) external {
-        User storage user = users[_userId];
+    function changeUsermobile(address _userAddress, uint256 _mobile) external {
+        User storage user = users[_userAddress];
 
         require(
-            user.userAddress == msg.sender || user.isAdmin,
+            user.userAddress == msg.sender || msg.sender == admin.userAddress,
             "Only owner can change username"
         );
         require(_mobile == 10, "Mobile number should be a valid mobile number");
@@ -190,40 +195,36 @@ contract CRM {
         user.mobile = _mobile;
     }
 
-    function changeUserrole(uint256 _userId, string memory _role) external {
-        User storage user = users[_userId];
-
-        require(
-            user.userAddress == msg.sender || user.isAdmin,
-            "Only owner can change username"
-        );
+    function changeUserrole(address _userAddress, string memory _role)
+        external
+        onlyAdmin
+    {
+        User storage user = users[_userAddress];
 
         user.role = _role;
     }
 
-    function changeUserteam(uint256 _userId, string memory _team) external {
-        User storage user = users[_userId];
-
-        require(
-            user.userAddress == msg.sender || user.isAdmin,
-            "Only owner can change username"
-        );
+    function changeUserteam(address _userAddress, string memory _team)
+        external
+        onlyAdmin
+    {
+        User storage user = users[_userAddress];
 
         user.team = _team;
     }
 
-    function checkIn(uint256 _userId) external {
-        User storage user = users[_userId];
+    function checkIn(address _userAddress) external {
+        User storage user = users[_userAddress];
         user.checkIn.push(block.timestamp);
     }
 
-    function checkOut(uint256 _userId) external {
-        User storage user = users[_userId];
+    function checkOut(address _userAddress) external {
+        User storage user = users[_userAddress];
         user.checkOut.push(block.timestamp);
     }
 
     function assignTask(
-        uint256 userId,
+        address _userAddress,
         string memory _taskName,
         string memory _taskDescription
     ) external onlyAdmin {
@@ -235,12 +236,15 @@ contract CRM {
         task.taskCreatedDate = block.timestamp;
         _taskCount.increment();
 
-        User storage user = users[userId];
+        User storage user = users[_userAddress];
         user.tasks.push(task);
     }
 
-    function comleteTask(uint256 _userId, uint256 _taskId) external onlyAdmin {
-        User storage user = users[_userId];
+    function comleteTask(address _userAddress, uint256 _taskId)
+        external
+        onlyAdmin
+    {
+        User storage user = users[_userAddress];
         user.tasks[_taskId].taskStatus = "completed";
     }
 }

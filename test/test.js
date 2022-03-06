@@ -20,52 +20,47 @@ describe("CRM", function () {
     await crm.changeAdminavatar("admin.png");
     const admin = await crm.admin();
 
-    // console.log(admin);
-
-    // await crm.addUser("guru", "guru@gmail.com", false, "Blockchain Developer");
-    // await crm.addUser("Guru", "guru@gmail.com", false, "Blockchain Developer");
-
-    // await crm.checkIn(1);
-    // await crm.checkOut(1);
-    // await crm.checkIn(1);
-    // await crm.checkOut(1);
-    // await crm.checkIn(1);
-    // await crm.checkOut(1);
-
-    // let users = await crm.fetchUsers();
-
-    // const searchUser = await crm.searchUser(1);
-    // console.log(users);
-
-    // await crm.removeUser(2);
-    // console.log("Deleted");
-
-    // users = await crm.fetchUsers();
-
-    // for (let i = 0; i < users.length; i++) {
-    //   if (
-    //     users[i].userAddress !== "0x0000000000000000000000000000000000000000"
-    //   ) {
-    //     console.log(users[i].name);
-    //   }
-    // }
-
     await crm.addUser(
+      "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c",
       "Gaurav Meena",
       "garauvmeena@gmail.com",
       false,
       "Developer",
       "Commerce-Cloud"
     );
+    await crm.addUser(
+      "0xdd2fd4581271e230360230f9337d5c0430bf44c0",
+      "Guru Meena",
+      "guru@gmail.com",
+      false,
+      "Developer",
+      "Commerce-Cloud"
+    );
+    await crm.addUser(
+      "0x8626f6940e2eb28930efb4cef49b2d1f2c9c1199",
+      "Guru Meena",
+      "guru@gmail.com",
+      false,
+      "Developer",
+      "Commerce-Cloud"
+    );
 
-    // await crm.changeUserteam(1, "Commerce Cloud");
+    await crm.changeUsername(
+      "0x8626f6940e2eb28930efb4cef49b2d1f2c9c1199",
+      "Guru"
+    );
 
-    await crm.assignTask(1, "testing", "testing description");
-    let user = await crm.searchUser(1);
-    console.log(user.tasks);
-    await crm.comleteTask(1, 0);
+    await crm.changeUserrole(
+      "0x8626f6940e2eb28930efb4cef49b2d1f2c9c1199",
+      "Blockchain Developer"
+    );
 
-    user = await crm.searchUser(1);
-    console.log(user.tasks);
+    let users = await crm.fetchUsersAddress();
+
+    users.map(async (user) => {
+      let temp = await crm.searchUser(user);
+      console.log(temp.name);
+      console.log(temp.role);
+    });
   });
 });

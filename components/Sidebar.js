@@ -12,7 +12,7 @@ const Sidebar = () => {
   return (
     <div className="flex items-center h-[calc(100vh-53px)]">
       <div
-        className="bg-[#1B1A47] text-[#f1f1f1] w-[80px] text-center grid grid-rows-6 h-[550px]
+        className="bg-[#310055] text-[#f1f1f1] w-[80px] text-center grid grid-rows-6 h-[550px]
       rounded-tr rounded-br"
       >
         <div className="sidebar-item">
