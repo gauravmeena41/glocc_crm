@@ -26,9 +26,10 @@ export const getContract = async () => {
     const connection = await web3modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
+    let account = await provider.listAccounts();
 
     const contract = new ethers.Contract(contractAddress, CRM.abi, signer);
-    return contract;
+    return { contract, account };
   } catch (error) {
     console.log(error);
   }
@@ -50,13 +51,18 @@ export const addUser = async (
   }
 };
 
-export const searchUser = async (_userId) => {
+export const searchUser = async () => {
   try {
     const contract = await getContract();
-    const user = await contract.searchUser(_userId);
-    return user;
+
+    let user = await contract.contract.admin();
+
+    if (user.userAddress === contract.account[0]) {
+      return user;
+    } else {
+      return await contract.contract.searchUser(contract.account);
+    }
   } catch (error) {
     console.log(error);
   }
 };
-export const login = async () => {};

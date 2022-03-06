@@ -4,10 +4,10 @@ const fs = require("fs");
 const main = async () => {
   const CRM = await hre.ethers.getContractFactory("CRM");
   const crm = await CRM.deploy(
-    "Guru",
+    "Gaurav Meena",
     "gurumeena41.gm@gmail.com",
     8769973256,
-    "guru.png"
+    "https://avatars.dicebear.com/api/adventurer-neutral/gaurav_meena:seed.svg"
   );
   await crm.deployed();
   console.log("Social deployed: ", crm.address);

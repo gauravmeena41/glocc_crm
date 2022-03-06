@@ -1,8 +1,27 @@
 import Link from "next/link";
 import { SearchIcon } from "@heroicons/react/solid";
 import Image from "next/image";
+import { searchUser } from "../helper";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../redux/index";
 
 const Navbar = () => {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const { addUser, removeUser } = bindActionCreators(actionCreators, dispatch);
+
+  const fetchUser = async () => {
+    try {
+      let user = await searchUser();
+      addUser(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <nav className="flex items-center justify-between p-1 md:p-2 px-5 border-b bg-gray-50 dark:border-gray-500 dark:bg-background">
       <div>
@@ -27,20 +46,32 @@ const Navbar = () => {
         </form>
       </div>
       <div className="flex items-center">
-        <Link href="/profile">
-          {/* <button className="shadow active:shadow-md font-semibold px-3 py-[2px] rounded transition-all duration-200">
+        {user ? (
+          <Link href="/profile">
+            <div className="rounded-full cursor-pointer flex items-center border-2 dark:border-gray-500 p-[1px]">
+              <Image
+                src={
+                  user
+                    ? user.avatar
+                    : "https://images.unsplash.com/photo-1598529262041-a9cce4be9fca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=776&q=80"
+                }
+                className="rounded-full object-cover"
+                width={30}
+                height={30}
+                alt=""
+              />
+            </div>
+          </Link>
+        ) : (
+          <button
+            onClick={fetchUser}
+            className="shadow active:shadow-md font-semibold px-3 py-[2px] rounded transition-all duration-200
+            dark:bg-secondary-text
+            "
+          >
             Log in
-          </button> */}
-          <div className="rounded-full cursor-pointer flex items-center border-2 dark:border-gray-500 p-[1px]">
-            <Image
-              src="https://images.unsplash.com/photo-1598529262041-a9cce4be9fca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=776&q=80"
-              className="rounded-full object-cover"
-              width={30}
-              height={30}
-              alt=""
-            />
-          </div>
-        </Link>
+          </button>
+        )}
       </div>
     </nav>
   );
