@@ -1,4 +1,4 @@
-import React from "react";
+import Link from "next/link";
 import {
   FolderIcon,
   HomeIcon,
@@ -19,10 +19,12 @@ const Sidebar = () => {
           <HomeIcon className="sidebar-item-icon" />
           <h1 className="sidebar-item-text ">Home</h1>
         </div>
-        <div className="sidebar-item">
-          <UserIcon className="sidebar-item-icon" />
-          <h1 className="sidebar-item-text ">Self-Service</h1>
-        </div>
+        <Link href="/profile">
+          <div className="sidebar-item">
+            <UserIcon className="sidebar-item-icon" />
+            <h1 className="sidebar-item-text ">Self-Service</h1>
+          </div>
+        </Link>
         <div className="sidebar-item">
           <UserGroupIcon className="sidebar-item-icon" />
           <h1 className="sidebar-item-text ">Employees</h1>
@@ -31,10 +33,12 @@ const Sidebar = () => {
           <FolderIcon className="sidebar-item-icon" />
           <h1 className="sidebar-item-text ">Files</h1>
         </div>
-        <div className="sidebar-item">
-          <OfficeBuildingIcon className="sidebar-item-icon" />
-          <h1 className="sidebar-item-text ">Organization</h1>
-        </div>
+        <Link href="oraganisation">
+          <div className="sidebar-item">
+            <OfficeBuildingIcon className="sidebar-item-icon" />
+            <h1 className="sidebar-item-text ">Organization</h1>
+          </div>
+        </Link>
         <div className="sidebar-item border-none">
           <InboxIcon className="sidebar-item-icon" />
           <h1 className="sidebar-item-text ">Complaints</h1>

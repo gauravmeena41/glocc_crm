@@ -10,15 +10,18 @@ contract CRM {
 
     // Structs
     struct Oraganisation {
+        address orgId;
         string name;
         string website;
         string description;
         string logo;
         string[] departments;
+        User[] users;
     }
 
     struct User {
         uint256 userId;
+        address orgId;
         address userAddress;
         string name;
         string email;
@@ -27,7 +30,6 @@ contract CRM {
         string role;
         string team;
         string skills;
-        // address reportingTo;
         uint256[] checkIn;
         uint256[] checkOut;
         Task[] tasks;
@@ -53,9 +55,9 @@ contract CRM {
     // Higher Authorities
 
     // Mapppings
+    mapping(address => Oraganisation) public organizations;
     mapping(address => User) public users;
     string[] departments;
-    mapping(address => Oraganisation) public organizations;
     // Mapppings
 
     address[] private usersAddresses;
@@ -86,12 +88,36 @@ contract CRM {
         _;
     }
 
-    function addDepartment(string memory _department) external onlyCEO {
-        departments.push(_department);
+    function addOrganisation(
+        address _orgId,
+        string memory _name,
+        string memory _website,
+        string memory _description,
+        string memory _logo
+    ) external onlyCEO {
+        Oraganisation storage org = organizations[_orgId];
+        org.orgId = _orgId;
+        org.name = _name;
+        org.description = _description;
+        org.website = _website;
+        org.logo = _logo;
+        organizations[_orgId] = org;
     }
 
-    function fetchDepartments() external view returns (string[] memory) {
-        return departments;
+    function fetchOrganization(address _orgId)
+        external
+        view
+        returns (Oraganisation memory)
+    {
+        return organizations[_orgId];
+    }
+
+    function addDepartment(address _orgId, string memory _department)
+        external
+        onlyCEO
+    {
+        Oraganisation storage org = organizations[_orgId];
+        org.departments.push(_department);
     }
 
     function changeCEO(
@@ -119,6 +145,7 @@ contract CRM {
 
     function addUser(
         address _userAddress,
+        address _orgId,
         string memory _name,
         string memory _email,
         string memory _avatar,
@@ -128,20 +155,18 @@ contract CRM {
         User storage user = users[_userAddress];
         user.userId = block.timestamp;
         user.userAddress = _userAddress;
+        user.orgId = _orgId;
         user.name = _name;
         user.email = _email;
         user.avatar = _avatar;
         user.role = _role;
         user.team = _team;
         usersAddresses.push(_userAddress);
+        Oraganisation storage org = organizations[_orgId];
+        org.users.push(user);
     }
 
-    function fetchUsersAddress()
-        external
-        view
-        onlyCEO
-        returns (address[] memory)
-    {
+    function fetchUsersAddress() external view returns (address[] memory) {
         return usersAddresses;
     }
 
@@ -267,6 +292,7 @@ contract CRM {
 
     function assignTask(
         address _userAddress,
+        address _orgId,
         string memory _taskName,
         string memory _taskDescription
     ) external onlyCEO {

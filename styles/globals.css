@@ -29,7 +29,7 @@ body {
     @apply text-xs text-[#B5BFC7] font-semibold cursor-pointer;
   }
 
-  .profile_sidebar-item {
+  .profile_sidebar_item {
     @apply border-b dark:border-gray-400 px-5 py-4 font-medium text-gray-700 dark:text-primary-text text-sm;
   }
 }

@@ -20,21 +20,43 @@ describe("CRM", function () {
 
     // console.log(admin);
 
-    await crm.addUser(
+    await crm.addOrganisation(
       "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c",
-      "Guru Meena",
-      "gurumeena41.gm@gmail.com",
-      "https://avatars.dicebear.com/api/adventurer-neutral/guru_meena:seed.svg",
-      "Training Manager",
-      "Management"
+      "GLLOC",
+      "www.website.com",
+      "description",
+      "logo"
     );
 
-    await crm.addDepartment("Management");
-    await crm.addDepartment("Hr Department");
+    await crm.addDepartment(
+      "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c",
+      "Management"
+    );
+    await crm.addDepartment(
+      "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c",
+      "Hr Department"
+    );
 
-    let departments = await crm.fetchDepartments();
+    await crm.addUser(
+      "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c",
+      "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c",
+      "Gaurav Meena",
+      "gurumeena41.gm@gmail.com",
+      "https://avatars.dicebear.com/api/adventurer-neutral/gaurav_meena:seed.svg",
+      "Web developer",
+      "Engineering"
+    );
 
-    console.log(departments);
+    let user = await crm.searchUser(
+      "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c"
+    );
+
+    // console.log(user);
+
+    let org = await crm.fetchOrganization(
+      "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c"
+    );
+    console.log(org.users);
 
     // console.log(
     //   await crm.searchUser("0xFa3103DEFDAA1203b0706525922a558c2d9cc94c")

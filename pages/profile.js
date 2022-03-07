@@ -60,12 +60,12 @@ const profile = () => {
 
       <div className="flex">
         <div className="w-[200px] h-[calc(100vh-238px)] shadow-equal-shadow dark:bg-card">
-          <h1 className="profile_sidebar-item">Profile</h1>
-          <h1 className="profile_sidebar-item">Calendar</h1>
-          <h1 className="profile_sidebar-item">Leave Tracker</h1>
-          <h1 className="profile_sidebar-item">Time Tracker</h1>
-          <h1 className="profile_sidebar-item">Attendance</h1>
-          <h1 className="profile_sidebar-item">Files</h1>
+          <h1 className="profile_sidebar_item">Profile</h1>
+          <h1 className="profile_sidebar_item">Calendar</h1>
+          <h1 className="profile_sidebar_item">Leave Tracker</h1>
+          <h1 className="profile_sidebar_item">Time Tracker</h1>
+          <h1 className="profile_sidebar_item">Attendance</h1>
+          <h1 className="profile_sidebar_item">Files</h1>
         </div>
         <div className="grid lg:grid-cols-2 gap-5 m-5 w-[calc(100vw-200px)]">
           <div className="space-y-5">
