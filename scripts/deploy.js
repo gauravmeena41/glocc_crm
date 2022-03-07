@@ -8,7 +8,7 @@ const main = async () => {
     "gurumeena41.gm@gmail.com",
     8769973256,
     "https://avatars.dicebear.com/api/adventurer-neutral/gaurav_meena:seed.svg",
-    "Manage Wifi,Manage Users"
+    "Web development"
   );
   await crm.deployed();
   console.log("GLLOC deployed: ", crm.address);
@@ -18,9 +18,8 @@ const main = async () => {
     "Guru Meena",
     "gurumeena41.gm@gmail.com",
     "https://avatars.dicebear.com/api/adventurer-neutral/guru_meena:seed.svg",
-    false,
-    "Developer",
-    "Engineering"
+    "Training Manager",
+    "Management"
   );
 
   await crm.changeUserskills(

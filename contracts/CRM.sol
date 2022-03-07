@@ -8,20 +8,14 @@ contract CRM {
     Counters.Counter private _userCount;
     Counters.Counter private _taskCount;
 
-    // string[] private teams = [
-    //     "Commerce-cloud",
-    //     "Marketing-cloud",
-    //     "Velocity-cloud",
-    //     "Health-cloud"
-    // ];
-
-    // struct Oraganisation {
-    //     string name;
-    //     string website;
-    //     string description;
-    //     string logo;
-    //     string[] departments;
-    // }
+    // Structs
+    struct Oraganisation {
+        string name;
+        string website;
+        string description;
+        string logo;
+        string[] departments;
+    }
 
     struct User {
         uint256 userId;
@@ -32,7 +26,6 @@ contract CRM {
         uint256 mobile;
         string role;
         string team;
-        bool isAdmin;
         string skills;
         // address reportingTo;
         uint256[] checkIn;
@@ -47,10 +40,23 @@ contract CRM {
         string taskStatus;
         uint256 taskCreatedDate;
     }
+    // Structs
 
-    User public admin;
+    User public CEO;
+    // Higher Authorities
+    // User public Administrator;
+    // User public HR_Manager;
+    // User public Training_Manager;
+    // User public Finance_Manager;
+    // User public Marketing_Manager;
+    // User public Business_Development_Manager;
+    // Higher Authorities
 
+    // Mapppings
     mapping(address => User) public users;
+    string[] departments;
+    mapping(address => Oraganisation) public organizations;
+    // Mapppings
 
     address[] private usersAddresses;
 
@@ -61,46 +67,54 @@ contract CRM {
         string memory _avatar,
         string memory _skills
     ) {
-        admin.userId = block.timestamp;
-        admin.userAddress = msg.sender;
-        admin.name = _name;
-        admin.email = _email;
-        admin.mobile = _mobile;
-        admin.avatar = _avatar;
-        admin.skills = _skills;
-        admin.role = "Admin";
-        admin.team = "Management";
-        admin.isAdmin = true;
+        CEO.userId = block.timestamp;
+        CEO.userAddress = msg.sender;
+        CEO.name = _name;
+        CEO.email = _email;
+        CEO.mobile = _mobile;
+        CEO.avatar = _avatar;
+        CEO.skills = _skills;
+        CEO.role = "CEO";
+        CEO.team = "Management";
     }
 
-    modifier onlyAdmin() {
+    modifier onlyCEO() {
         require(
-            msg.sender == admin.userAddress,
-            "Only admin can call this function"
+            msg.sender == CEO.userAddress,
+            "Only ceo have authority for this action."
         );
         _;
     }
 
-    function changeAdmin(
+    function addDepartment(string memory _department) external onlyCEO {
+        departments.push(_department);
+    }
+
+    function fetchDepartments() external view returns (string[] memory) {
+        return departments;
+    }
+
+    function changeCEO(
         string memory _name,
         string memory _email,
         uint256 _mobile
-    ) external onlyAdmin {
+    ) external onlyCEO {
         require(
-            msg.sender == admin.userAddress,
-            "Only current admin can set new admin"
+            msg.sender == CEO.userAddress,
+            "Only current ceo can set new ceo"
         );
-        admin.name = _name;
-        admin.email = _email;
-        admin.mobile = _mobile;
+        CEO.name = _name;
+        CEO.email = _email;
+        CEO.mobile = _mobile;
+        CEO.skills = "";
     }
 
-    function changeAdminavatar(string memory _avatar) external onlyAdmin {
+    function changeCEOavatar(string memory _avatar) external onlyCEO {
         require(
-            msg.sender == admin.userAddress,
-            "Only current admin can set new avatar"
+            msg.sender == CEO.userAddress,
+            "Only current ceo can set new avatar"
         );
-        admin.avatar = _avatar;
+        CEO.avatar = _avatar;
     }
 
     function addUser(
@@ -108,10 +122,9 @@ contract CRM {
         string memory _name,
         string memory _email,
         string memory _avatar,
-        bool _isAdmin,
         string memory _role,
         string memory _team
-    ) external onlyAdmin {
+    ) external onlyCEO {
         User storage user = users[_userAddress];
         user.userId = block.timestamp;
         user.userAddress = _userAddress;
@@ -120,14 +133,13 @@ contract CRM {
         user.avatar = _avatar;
         user.role = _role;
         user.team = _team;
-        user.isAdmin = _isAdmin;
         usersAddresses.push(_userAddress);
     }
 
     function fetchUsersAddress()
         external
         view
-        onlyAdmin
+        onlyCEO
         returns (address[] memory)
     {
         return usersAddresses;
@@ -142,7 +154,7 @@ contract CRM {
         return user;
     }
 
-    function removeUser(address _userAddress) external onlyAdmin {
+    function removeUser(address _userAddress) external onlyCEO {
         delete users[_userAddress];
     }
 
@@ -152,7 +164,7 @@ contract CRM {
         User storage user = users[_userAddress];
 
         require(
-            user.userAddress == msg.sender || msg.sender == admin.userAddress,
+            user.userAddress == msg.sender || msg.sender == CEO.userAddress,
             "Only owner and can change username"
         );
 
@@ -170,7 +182,7 @@ contract CRM {
         User storage user = users[_userAddress];
 
         require(
-            user.userAddress == msg.sender || msg.sender == admin.userAddress,
+            user.userAddress == msg.sender || msg.sender == CEO.userAddress,
             "Only owner can change username"
         );
 
@@ -188,7 +200,7 @@ contract CRM {
         User storage user = users[_userAddress];
 
         require(
-            user.userAddress == msg.sender || msg.sender == admin.userAddress,
+            user.userAddress == msg.sender || msg.sender == CEO.userAddress,
             "Only owner can change username"
         );
 
@@ -204,7 +216,7 @@ contract CRM {
         User storage user = users[_userAddress];
 
         require(
-            user.userAddress == msg.sender || msg.sender == admin.userAddress,
+            user.userAddress == msg.sender || msg.sender == CEO.userAddress,
             "Only owner can change username"
         );
         require(_mobile == 10, "Mobile number should be a valid mobile number");
@@ -214,7 +226,7 @@ contract CRM {
 
     function changeUserrole(address _userAddress, string memory _role)
         external
-        onlyAdmin
+        onlyCEO
     {
         User storage user = users[_userAddress];
 
@@ -223,7 +235,7 @@ contract CRM {
 
     function changeUserteam(address _userAddress, string memory _team)
         external
-        onlyAdmin
+        onlyCEO
     {
         User storage user = users[_userAddress];
 
@@ -234,8 +246,8 @@ contract CRM {
         external
     {
         require(
-            msg.sender == admin.userAddress || _userAddress == msg.sender,
-            "Only Owner and admin can change skills"
+            msg.sender == CEO.userAddress || _userAddress == msg.sender,
+            "Only Owner and ceo can change skills"
         );
         require(bytes(_skills).length > 0, "Minimum one skill required");
         User storage user = users[_userAddress];
@@ -257,7 +269,7 @@ contract CRM {
         address _userAddress,
         string memory _taskName,
         string memory _taskDescription
-    ) external onlyAdmin {
+    ) external onlyCEO {
         Task memory task;
         task.taskId = _taskCount.current();
         task.taskName = _taskName;
@@ -272,7 +284,7 @@ contract CRM {
 
     function comleteTask(address _userAddress, uint256 _taskId)
         external
-        onlyAdmin
+        onlyCEO
     {
         User storage user = users[_userAddress];
         user.tasks[_taskId].taskStatus = "completed";

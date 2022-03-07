@@ -55,7 +55,7 @@ export const searchUser = async () => {
   try {
     const contract = await getContract();
 
-    let user = await contract.contract.admin();
+    let user = await contract.contract.CEO();
 
     if (user.userAddress === contract.account[0]) {
       console.log(user);
