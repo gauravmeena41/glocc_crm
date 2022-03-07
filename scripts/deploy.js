@@ -7,7 +7,8 @@ const main = async () => {
     "Gaurav Meena",
     "gurumeena41.gm@gmail.com",
     8769973256,
-    "https://avatars.dicebear.com/api/adventurer-neutral/gaurav_meena:seed.svg"
+    "https://avatars.dicebear.com/api/adventurer-neutral/gaurav_meena:seed.svg",
+    "Manage Wifi,Manage Users"
   );
   await crm.deployed();
   console.log("GLLOC deployed: ", crm.address);
@@ -19,7 +20,12 @@ const main = async () => {
     "https://avatars.dicebear.com/api/adventurer-neutral/guru_meena:seed.svg",
     false,
     "Developer",
-    "Commerce_cloud"
+    "Engineering"
+  );
+
+  await crm.changeUserskills(
+    "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c",
+    "Blockchain Development,Web Development,UI/UX Design,Teaching"
   );
 
   fs.writeFileSync(

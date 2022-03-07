@@ -60,24 +60,12 @@ const profile = () => {
 
       <div className="flex">
         <div className="w-[200px] h-[calc(100vh-238px)] shadow-equal-shadow dark:bg-card">
-          <h1 className="border-b dark:border-gray-400 px-5 py-4 font-medium text-gray-700 dark:text-primary-text text-sm">
-            Profile
-          </h1>
-          <h1 className="border-b dark:border-gray-400 px-5 py-4 font-medium text-gray-700 dark:text-primary-text text-sm">
-            Calendar
-          </h1>
-          <h1 className="border-b dark:border-gray-400 px-5 py-4 font-medium text-gray-700 dark:text-primary-text text-sm">
-            Leave Tracker
-          </h1>
-          <h1 className="border-b dark:border-gray-400 px-5 py-4 font-medium text-gray-700 dark:text-primary-text text-sm">
-            Time Tracker
-          </h1>
-          <h1 className="border-b dark:border-gray-400 px-5 py-4 font-medium text-gray-700 dark:text-primary-text text-sm">
-            Attendance
-          </h1>
-          <h1 className="border-b dark:border-gray-400 px-5 py-4 font-medium text-gray-700 dark:text-primary-text text-sm">
-            Files
-          </h1>
+          <h1 className="profile_sidebar-item">Profile</h1>
+          <h1 className="profile_sidebar-item">Calendar</h1>
+          <h1 className="profile_sidebar-item">Leave Tracker</h1>
+          <h1 className="profile_sidebar-item">Time Tracker</h1>
+          <h1 className="profile_sidebar-item">Attendance</h1>
+          <h1 className="profile_sidebar-item">Files</h1>
         </div>
         <div className="grid lg:grid-cols-2 gap-5 m-5 w-[calc(100vw-200px)]">
           <div className="space-y-5">
@@ -92,13 +80,13 @@ const profile = () => {
                 <div className="flex items-center space-x-2">
                   <ServerIcon className="w-[16px] h-[16px] text-[#00b4d8]" />
                   <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                    Engineering
+                    {user.team ? user.team : ""}
                   </h1>
                 </div>
                 <div className="flex items-center space-x-2">
                   <UserGroupIcon className="w-[16px] h-[16px] text-[#00b4d8]" />
                   <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                    Developer Trainee
+                    {user.role ? user.role : ""}
                   </h1>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -126,18 +114,14 @@ const profile = () => {
                 Skill Set
               </h1>
               <div className="grid md:grid-cols-2 gap-10 m-12">
-                <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                  Blockchain Development
-                </h1>
-                <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                  Web Development
-                </h1>
-                <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                  UI/UX Design
-                </h1>
-                <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                  Teaching
-                </h1>
+                {user.skills.split(",").map((skill, idx) => (
+                  <h1
+                    key={idx}
+                    className="text-sm text-gray-700 dark:text-secondary-text"
+                  >
+                    {skill}
+                  </h1>
+                ))}
               </div>
             </div>
           </div>

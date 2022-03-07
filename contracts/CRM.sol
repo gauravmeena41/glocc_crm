@@ -8,12 +8,20 @@ contract CRM {
     Counters.Counter private _userCount;
     Counters.Counter private _taskCount;
 
-    string[] private teams = [
-        "Commerce-cloud",
-        "Marketing-cloud",
-        "Velocity-cloud",
-        "Health-cloud"
-    ];
+    // string[] private teams = [
+    //     "Commerce-cloud",
+    //     "Marketing-cloud",
+    //     "Velocity-cloud",
+    //     "Health-cloud"
+    // ];
+
+    // struct Oraganisation {
+    //     string name;
+    //     string website;
+    //     string description;
+    //     string logo;
+    //     string[] departments;
+    // }
 
     struct User {
         uint256 userId;
@@ -25,6 +33,8 @@ contract CRM {
         string role;
         string team;
         bool isAdmin;
+        string skills;
+        // address reportingTo;
         uint256[] checkIn;
         uint256[] checkOut;
         Task[] tasks;
@@ -48,7 +58,8 @@ contract CRM {
         string memory _name,
         string memory _email,
         uint256 _mobile,
-        string memory _avatar
+        string memory _avatar,
+        string memory _skills
     ) {
         admin.userId = block.timestamp;
         admin.userAddress = msg.sender;
@@ -56,6 +67,7 @@ contract CRM {
         admin.email = _email;
         admin.mobile = _mobile;
         admin.avatar = _avatar;
+        admin.skills = _skills;
         admin.role = "Admin";
         admin.team = "Management";
         admin.isAdmin = true;
@@ -216,6 +228,19 @@ contract CRM {
         User storage user = users[_userAddress];
 
         user.team = _team;
+    }
+
+    function changeUserskills(address _userAddress, string memory _skills)
+        external
+    {
+        require(
+            msg.sender == admin.userAddress || _userAddress == msg.sender,
+            "Only Owner and admin can change skills"
+        );
+        require(bytes(_skills).length > 0, "Minimum one skill required");
+        User storage user = users[_userAddress];
+
+        user.skills = _skills;
     }
 
     function checkIn(address _userAddress) external {

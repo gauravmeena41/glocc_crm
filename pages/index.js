@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>CRM</title>
+        <title>GLLOC</title>
       </Head>
       <div className="flex">
         <Sidebar />
