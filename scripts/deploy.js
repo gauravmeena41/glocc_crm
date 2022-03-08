@@ -2,16 +2,16 @@ const hre = require("hardhat");
 const fs = require("fs");
 
 const main = async () => {
-  const CRM = await hre.ethers.getContractFactory("CRM");
-  const crm = await CRM.deploy();
-  await crm.deployed();
-  console.log("GLLOC deployed: ", crm.address);
+  const GLLOC = await hre.ethers.getContractFactory("GLLOC");
+  const glloc = await GLLOC.deploy();
+  await glloc.deployed();
+  console.log("GLLOC deployed: ", glloc.address);
 
   fs.writeFileSync(
     "./config.js",
     `
-    export const gllocAddress = "${crm.address}";
-    export const ownerAddress = "${crm.signer.address}"
+    export const gllocAddress = "${glloc.address}";
+    export const ownerAddress = "${glloc.signer.address}"
     `
   );
 };

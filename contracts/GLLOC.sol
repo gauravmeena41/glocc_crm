@@ -3,7 +3,7 @@ pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract CRM {
+contract GLLOC {
     using Counters for Counters.Counter;
     Counters.Counter private _userCount;
     Counters.Counter private _taskCount;
@@ -73,7 +73,7 @@ contract CRM {
         string memory _website,
         string memory _description,
         string memory _logo
-    ) external onlyOwner {
+    ) external {
         Oraganisation storage org = organizations[_orgId];
         org.orgId = _orgId;
         org.orgOwner = _orgId;
@@ -84,8 +84,7 @@ contract CRM {
     }
 
     function addOrgOwner(
-        address orgOwnerId,
-        address orgId,
+        address _orgId,
         string memory _orgOwnerName,
         string memory _orgOwnerEmail,
         string memory _orgOwnerAvatar,
@@ -93,11 +92,13 @@ contract CRM {
         string memory _orgOwnerRole,
         string memory _orgOwnerTeam,
         string memory _orgOwnerSkills
-    ) external onlyOwner {
-        User storage user = users[orgOwnerId];
+    ) external {
+        Oraganisation storage org = organizations[_orgId];
+        require(org.orgOwner == msg.sender, "Only org owner can add org owner");
+        User storage user = users[msg.sender];
         user.userId = block.timestamp;
-        user.orgId = orgId;
-        user.userAddress = orgOwnerId;
+        user.orgId = _orgId;
+        user.userAddress = msg.sender;
         user.name = _orgOwnerName;
         user.email = _orgOwnerEmail;
         user.avatar = _orgOwnerAvatar;

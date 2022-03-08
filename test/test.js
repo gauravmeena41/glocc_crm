@@ -2,17 +2,17 @@ const { expect } = require("chai");
 const { ethers } = require("hardhat");
 const moment = require("moment");
 
-describe("CRM", function () {
+describe("GLLOC", function () {
   it("Should create the GLLOC", async function () {
-    const Crm = await ethers.getContractFactory("CRM");
-    const crm = await Crm.deploy();
-    await crm.deployed();
+    const GLLOC = await ethers.getContractFactory("GLLOC");
+    const glloc = await GLLOC.deploy();
+    await glloc.deployed();
 
-    console.log("CRM deployed to: ", crm.address);
+    console.log("GLLOC deployed to: ", glloc.address);
 
-    // console.log(await crm.owner());
+    // console.log(await glloc.owner());
 
-    await crm.addOrganisation(
+    await glloc.addOrganisation(
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       "GLLOC",
       "www.website.com",
@@ -20,8 +20,7 @@ describe("CRM", function () {
       "logo"
     );
 
-    await crm.addOrgOwner(
-      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    await glloc.addOrgOwner(
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       "Gaurav Meena",
       "gurumeena41.gm@gmail.com",
@@ -32,16 +31,16 @@ describe("CRM", function () {
       "Web Development,UI/UX design"
     );
 
-    await crm.addDepartment(
+    await glloc.addDepartment(
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       "Management"
     );
-    await crm.addDepartment(
+    await glloc.addDepartment(
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       "Engineering"
     );
 
-    await crm.addUser(
+    await glloc.addUser(
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c",
       "Guru Meena",
@@ -51,47 +50,46 @@ describe("CRM", function () {
       "Engineering"
     );
 
-    // await crm.removeUser(
+    // await glloc.removeUser(
     //   "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
     //   "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c"
     // );
 
-    // await crm.changeUsername("Utsav");
-    // await crm.changeUseremail("utsav@gmail.com");
-    // await crm.changeUseravatar("utsav avatar");
-    // await crm.changeUsermobile("1234567890");
-    // await crm.changeUserrole("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","ASD");
-    // await crm.changeUserteam("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","Marketing");
-    // await crm.changeUserskills("Python,JavaScript");
-    await crm.checkIn();
-    await crm.checkOut();
+    // await glloc.changeUsername("Utsav");
+    // await glloc.changeUseremail("utsav@gmail.com");
+    // await glloc.changeUseravatar("utsav avatar");
+    // await glloc.changeUsermobile("1234567890");
+    // await glloc.changeUserrole("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","ASD");
+    // await glloc.changeUserteam("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","Marketing");
+    // await glloc.changeUserskills("Python,JavaScript");
+    await glloc.checkIn();
+    await glloc.checkOut();
 
-    await crm.assignTask(
+    await glloc.assignTask(
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       "Task 1 Name",
       "Task 1 Description"
     );
-    await crm.assignTask(
+    await glloc.assignTask(
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       "Task 2 Name",
       "Task 2 Description"
     );
 
-    await crm.comleteTask(
+    await glloc.comleteTask(
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       0
     );
 
-    let org = await crm.fetchOrganization(
+    let org = await glloc.fetchOrganization(
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
     );
 
-    console.log(org);
-    // console.log(await crm.searchUser(org.orgOwner));
-    // console.log(await crm.searchUser(org.orgOwner).tasks);
     // console.log(org);
+    // console.log(await glloc.searchUser(org.orgOwner));
+    // console.log(await glloc.searchUser(org.orgOwner).tasks);
   });
 });
