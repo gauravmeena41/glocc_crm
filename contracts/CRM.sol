@@ -8,15 +8,18 @@ contract CRM {
     Counters.Counter private _userCount;
     Counters.Counter private _taskCount;
 
+    address public owner;
+
     // Structs
     struct Oraganisation {
         address orgId;
+        address orgOwner;
         string name;
         string website;
         string description;
         string logo;
         string[] departments;
-        User[] users;
+        address[] users;
     }
 
     struct User {
@@ -26,7 +29,7 @@ contract CRM {
         string name;
         string email;
         string avatar;
-        uint256 mobile;
+        string mobile;
         string role;
         string team;
         string skills;
@@ -44,16 +47,6 @@ contract CRM {
     }
     // Structs
 
-    User public CEO;
-    // Higher Authorities
-    // User public Administrator;
-    // User public HR_Manager;
-    // User public Training_Manager;
-    // User public Finance_Manager;
-    // User public Marketing_Manager;
-    // User public Business_Development_Manager;
-    // Higher Authorities
-
     // Mapppings
     mapping(address => Oraganisation) public organizations;
     mapping(address => User) public users;
@@ -62,28 +55,14 @@ contract CRM {
 
     address[] private usersAddresses;
 
-    constructor(
-        string memory _name,
-        string memory _email,
-        uint256 _mobile,
-        string memory _avatar,
-        string memory _skills
-    ) {
-        CEO.userId = block.timestamp;
-        CEO.userAddress = msg.sender;
-        CEO.name = _name;
-        CEO.email = _email;
-        CEO.mobile = _mobile;
-        CEO.avatar = _avatar;
-        CEO.skills = _skills;
-        CEO.role = "CEO";
-        CEO.team = "Management";
+    constructor() {
+        owner = msg.sender;
     }
 
-    modifier onlyCEO() {
+    modifier onlyOwner() {
         require(
-            msg.sender == CEO.userAddress,
-            "Only ceo have authority for this action."
+            msg.sender == owner,
+            "Only owner have authority for this action."
         );
         _;
     }
@@ -94,14 +73,38 @@ contract CRM {
         string memory _website,
         string memory _description,
         string memory _logo
-    ) external onlyCEO {
+    ) external onlyOwner {
         Oraganisation storage org = organizations[_orgId];
         org.orgId = _orgId;
+        org.orgOwner = _orgId;
         org.name = _name;
         org.description = _description;
         org.website = _website;
         org.logo = _logo;
-        organizations[_orgId] = org;
+    }
+
+    function addOrgOwner(
+        address orgOwnerId,
+        address orgId,
+        string memory _orgOwnerName,
+        string memory _orgOwnerEmail,
+        string memory _orgOwnerAvatar,
+        string memory _orgOwnerMobile,
+        string memory _orgOwnerRole,
+        string memory _orgOwnerTeam,
+        string memory _orgOwnerSkills
+    ) external onlyOwner {
+        User storage user = users[orgOwnerId];
+        user.userId = block.timestamp;
+        user.orgId = orgId;
+        user.userAddress = orgOwnerId;
+        user.name = _orgOwnerName;
+        user.email = _orgOwnerEmail;
+        user.avatar = _orgOwnerAvatar;
+        user.mobile = _orgOwnerMobile;
+        user.role = _orgOwnerRole;
+        user.team = _orgOwnerTeam;
+        user.skills = _orgOwnerSkills;
     }
 
     function fetchOrganization(address _orgId)
@@ -112,46 +115,38 @@ contract CRM {
         return organizations[_orgId];
     }
 
-    function addDepartment(address _orgId, string memory _department)
-        external
-        onlyCEO
-    {
+    function addDepartment(address _orgId, string memory _department) external {
         Oraganisation storage org = organizations[_orgId];
+        require(
+            msg.sender == org.orgOwner,
+            "Only orgOwner have access to this action"
+        );
         org.departments.push(_department);
     }
 
-    function changeCEO(
-        string memory _name,
-        string memory _email,
-        uint256 _mobile
-    ) external onlyCEO {
+    function changeOrgOwner(address _orgId, address _orgOwner) external {
+        Oraganisation storage org = organizations[_orgId];
         require(
-            msg.sender == CEO.userAddress,
-            "Only current ceo can set new ceo"
+            msg.sender == org.orgOwner,
+            "Only current orgOwner can set new orgOwner"
         );
-        CEO.name = _name;
-        CEO.email = _email;
-        CEO.mobile = _mobile;
-        CEO.skills = "";
-    }
-
-    function changeCEOavatar(string memory _avatar) external onlyCEO {
-        require(
-            msg.sender == CEO.userAddress,
-            "Only current ceo can set new avatar"
-        );
-        CEO.avatar = _avatar;
+        org.orgOwner = _orgOwner;
     }
 
     function addUser(
-        address _userAddress,
         address _orgId,
+        address _userAddress,
         string memory _name,
         string memory _email,
         string memory _avatar,
         string memory _role,
         string memory _team
-    ) external onlyCEO {
+    ) external {
+        Oraganisation storage org = organizations[_orgId];
+        require(
+            msg.sender == org.orgOwner,
+            "Only orgOwner have access to this action"
+        );
         User storage user = users[_userAddress];
         user.userId = block.timestamp;
         user.userAddress = _userAddress;
@@ -162,12 +157,7 @@ contract CRM {
         user.role = _role;
         user.team = _team;
         usersAddresses.push(_userAddress);
-        Oraganisation storage org = organizations[_orgId];
-        org.users.push(user);
-    }
-
-    function fetchUsersAddress() external view returns (address[] memory) {
-        return usersAddresses;
+        org.users.push(_userAddress);
     }
 
     function searchUser(address _userAddress)
@@ -179,18 +169,21 @@ contract CRM {
         return user;
     }
 
-    function removeUser(address _userAddress) external onlyCEO {
+    function removeUser(address _orgId, address _userAddress) external {
+        Oraganisation storage org = organizations[_orgId];
+        require(
+            msg.sender == org.orgOwner,
+            "Only orgOwner have access to this action"
+        );
         delete users[_userAddress];
     }
 
-    function changeUsername(address _userAddress, string memory _name)
-        external
-    {
-        User storage user = users[_userAddress];
+    function changeUsername(string memory _name) external {
+        User storage user = users[msg.sender];
 
         require(
-            user.userAddress == msg.sender || msg.sender == CEO.userAddress,
-            "Only owner and can change username"
+            user.userAddress == msg.sender,
+            "Only owner can change username"
         );
 
         require(
@@ -201,13 +194,11 @@ contract CRM {
         user.name = _name;
     }
 
-    function changeUseremail(address _userAddress, string memory _email)
-        external
-    {
-        User storage user = users[_userAddress];
+    function changeUseremail(string memory _email) external {
+        User storage user = users[msg.sender];
 
         require(
-            user.userAddress == msg.sender || msg.sender == CEO.userAddress,
+            user.userAddress == msg.sender,
             "Only owner can change username"
         );
 
@@ -219,13 +210,11 @@ contract CRM {
         user.email = _email;
     }
 
-    function changeUseravatar(address _userAddress, string memory _avatar)
-        external
-    {
-        User storage user = users[_userAddress];
+    function changeUseravatar(string memory _avatar) external {
+        User storage user = users[msg.sender];
 
         require(
-            user.userAddress == msg.sender || msg.sender == CEO.userAddress,
+            user.userAddress == msg.sender,
             "Only owner can change username"
         );
 
@@ -237,57 +226,70 @@ contract CRM {
         user.avatar = _avatar;
     }
 
-    function changeUsermobile(address _userAddress, uint256 _mobile) external {
-        User storage user = users[_userAddress];
+    function changeUsermobile(string memory _mobile) external {
+        User storage user = users[msg.sender];
 
         require(
-            user.userAddress == msg.sender || msg.sender == CEO.userAddress,
+            user.userAddress == msg.sender,
             "Only owner can change username"
         );
-        require(_mobile == 10, "Mobile number should be a valid mobile number");
+        require(
+            bytes(_mobile).length == 10,
+            "Mobile number should be a valid mobile number"
+        );
 
         user.mobile = _mobile;
     }
 
     function changeUserrole(address _userAddress, string memory _role)
         external
-        onlyCEO
     {
         User storage user = users[_userAddress];
+        Oraganisation storage org = organizations[user.orgId];
+
+        require(
+            msg.sender == org.orgOwner,
+            "Only orgOwner can have access to this action"
+        );
 
         user.role = _role;
     }
 
     function changeUserteam(address _userAddress, string memory _team)
         external
-        onlyCEO
     {
         User storage user = users[_userAddress];
+        Oraganisation storage org = organizations[user.orgId];
 
-        user.team = _team;
+        require(
+            msg.sender == org.orgOwner,
+            "Only orgOwner can have access to this action"
+        );
+
+        user.role = _team;
     }
 
-    function changeUserskills(address _userAddress, string memory _skills)
-        external
-    {
+    function changeUserskills(string memory _skills) external {
+        User storage user = users[msg.sender];
         require(
-            msg.sender == CEO.userAddress || _userAddress == msg.sender,
-            "Only Owner and ceo can change skills"
+            user.userAddress == msg.sender,
+            "Only owner can change username"
         );
         require(bytes(_skills).length > 0, "Minimum one skill required");
-        User storage user = users[_userAddress];
 
         user.skills = _skills;
     }
 
-    function checkIn(address _userAddress) external {
-        User storage user = users[_userAddress];
+    function checkIn() external {
+        User storage user = users[msg.sender];
+
         user.checkIn.push(block.timestamp);
     }
 
-    function checkOut(address _userAddress) external {
-        User storage user = users[_userAddress];
-        user.checkOut.push(block.timestamp);
+    function checkOut() external {
+        User storage user = users[msg.sender];
+
+        user.checkIn.push(block.timestamp);
     }
 
     function assignTask(
@@ -295,7 +297,9 @@ contract CRM {
         address _orgId,
         string memory _taskName,
         string memory _taskDescription
-    ) external onlyCEO {
+    ) external {
+        Oraganisation memory org = organizations[_orgId];
+        require(msg.sender == org.orgOwner, "Only orgOwner can assign task");
         Task memory task;
         task.taskId = _taskCount.current();
         task.taskName = _taskName;
@@ -308,10 +312,13 @@ contract CRM {
         user.tasks.push(task);
     }
 
-    function comleteTask(address _userAddress, uint256 _taskId)
-        external
-        onlyCEO
-    {
+    function comleteTask(
+        address _orgId,
+        address _userAddress,
+        uint256 _taskId
+    ) external {
+        Oraganisation memory org = organizations[_orgId];
+        require(msg.sender == org.orgOwner, "Only orgOwner can complete task");
         User storage user = users[_userAddress];
         user.tasks[_taskId].taskStatus = "completed";
     }

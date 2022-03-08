@@ -3,29 +3,9 @@ const fs = require("fs");
 
 const main = async () => {
   const CRM = await hre.ethers.getContractFactory("CRM");
-  const crm = await CRM.deploy(
-    "Gaurav Meena",
-    "gurumeena41.gm@gmail.com",
-    8769973256,
-    "https://avatars.dicebear.com/api/adventurer-neutral/gaurav_meena:seed.svg",
-    "Web development"
-  );
+  const crm = await CRM.deploy();
   await crm.deployed();
   console.log("GLLOC deployed: ", crm.address);
-
-  await crm.addUser(
-    "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c",
-    "Guru Meena",
-    "gurumeena41.gm@gmail.com",
-    "https://avatars.dicebear.com/api/adventurer-neutral/guru_meena:seed.svg",
-    "Training Manager",
-    "Management"
-  );
-
-  await crm.changeUserskills(
-    "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c",
-    "Blockchain Development,Web Development,UI/UX Design,Teaching"
-  );
 
   fs.writeFileSync(
     "./config.js",
