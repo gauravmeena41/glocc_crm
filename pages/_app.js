@@ -19,10 +19,10 @@ const MyApp = ({ Component, pageProps }) => {
   const [ownerSkills, setOwnerSkills] = useState("");
 
   return (
-    <div className="dark:bg-[#18191a]">
+    <div>
       <Provider store={store}>
         <Navbar />
-        {!store.getState().user ? (
+        {/* {!store.getState().user ? (
           <div className="flex items-center justify-center h-[calc(100vh-53px)] transition-all duration-1000">
             <div
               className={`shadow-equal-shadow md:w-[700px] dark:bg-card relative ${
@@ -120,7 +120,7 @@ const MyApp = ({ Component, pageProps }) => {
               </div>
               <button
                 className="bg-green-400 p-2 w-full text-lg text-white font-medium"
-                onClick={async () =>
+                onClick={async () => {
                   await addOrganization(
                     orgName,
                     orgWebsite,
@@ -130,23 +130,25 @@ const MyApp = ({ Component, pageProps }) => {
                     ownerEmail,
                     ownerMobile,
                     ownerSkills
-                  )
-                }
+                  );
+                }}
               >
                 Create Organization
               </button>
             </div>
             <button
-              className="shadow-equal-shadow px-2 py-1 w-[200px] rounded-sm font-medium
-              dark:bg-card dark:text-primary-text"
+              className={`${
+                isCreateOrg ? "hidden" : "inline-flex"
+              } shadow-equal-shadow px-2 py-1 w-[200px] rounded-sm font-medium
+              dark:bg-card dark:text-primary-text`}
               onClick={() => setIsCreateOrg(true)}
             >
               Create Organization
             </button>
           </div>
-        ) : (
-          <Component {...pageProps} />
-        )}
+        ) : ( */}
+        <Component {...pageProps} />
+        {/* )} */}
       </Provider>
     </div>
   );

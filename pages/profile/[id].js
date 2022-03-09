@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   CalendarIcon,
@@ -9,11 +9,21 @@ import {
   UserGroupIcon,
 } from "@heroicons/react/outline";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { searchUser } from "../../helper";
 
 const profile = () => {
   const user = useSelector((state) => state.user);
+  const [currentUser, setCurrentUser] = useState(null);
+  const router = useRouter();
+  const { id: currentUserId } = router.query;
 
-  if (!user)
+  useEffect(async () => {
+    console.log(await searchUser(currentUserId));
+    setCurrentUser(await searchUser(currentUserId));
+  }, [currentUserId]);
+
+  if (!currentUser)
     return (
       <div className="flex items-center justify-center h-[calc(100vh-53px)]">
         <h1 className="text-2xl dark:text-primary-text ">
@@ -31,27 +41,27 @@ const profile = () => {
           objectFit="cover"
           objectPosition="center"
         />
-        <div className="w-[100px] h-[100px] rounded-full relative top-[40px] m-auto border-2 z-[1]">
+        <div className="w-[100px] h-[100px] rounded-full relative top-[40px] m-auto border-2 z-[1] bg-yellow-400">
           <Image
-            src={user.avatar}
+            src={currentUser.avatar}
             layout="fill"
             objectFit="cover"
-            className="rounded-full"
+            className="rounded-full object-cover"
           />
         </div>
         <div className="absolute bottom-2 w-full flex justify-center items-center z-[1]">
           <div className="flex space-x-16">
             <h1 className="text-white font-semibold">
-              {user.userId ? user.userId.toNumber() : ""}
+              {currentUser.userId ? currentUser.userId.toNumber() : ""}
             </h1>
             <h1 className="text-white font-semibold">
-              {user.role ? user.role : ""}
+              {currentUser.role ? currentUser.role : ""}
             </h1>
             <h1 className="text-white font-semibold">
-              {user.team ? user.team : ""}
+              {currentUser.team ? currentUser.team : ""}
             </h1>
             <h1 className="text-white font-semibold">
-              {user.email ? user.email : ""}
+              {currentUser.email ? currentUser.email : ""}
             </h1>
           </div>
         </div>
@@ -80,19 +90,19 @@ const profile = () => {
                 <div className="flex items-center space-x-2">
                   <ServerIcon className="w-[16px] h-[16px] text-[#00b4d8]" />
                   <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                    {user.team ? user.team : ""}
+                    {currentUser.team ? currentUser.team : ""}
                   </h1>
                 </div>
                 <div className="flex items-center space-x-2">
                   <UserGroupIcon className="w-[16px] h-[16px] text-[#00b4d8]" />
                   <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                    {user.role ? user.role : ""}
+                    {currentUser.role ? currentUser.role : ""}
                   </h1>
                 </div>
                 <div className="flex items-center space-x-2">
                   <DeviceMobileIcon className="w-[16px] h-[16px] text-[#00b4d8]" />
                   <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                    8769973256
+                    {currentUser.mobile ? currentUser.mobile : ""}
                   </h1>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -114,7 +124,7 @@ const profile = () => {
                 Skill Set
               </h1>
               <div className="grid md:grid-cols-2 gap-10 m-12">
-                {user.skills.split(",").map((skill, idx) => (
+                {currentUser.skills.split(",").map((skill, idx) => (
                   <h1
                     key={idx}
                     className="text-sm text-gray-700 dark:text-secondary-text"

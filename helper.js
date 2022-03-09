@@ -86,8 +86,64 @@ export const loginUser = async () => {
   const GLLOC = await getContract();
   try {
     const user = await GLLOC.loginUser();
-    console.log(user);
     return user;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchOrganization = async (_orgId) => {
+  const GLLOC = await getContract();
+  try {
+    const org = await GLLOC.fetchOrganization(_orgId);
+    return org;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addDepartment = async (_departmentName) => {
+  const GLLOC = await getContract();
+  try {
+    await GLLOC.addDepartment(_departmentName);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addUser = async (_orgUser) => {
+  const GLLOC = await getContract();
+  try {
+    await GLLOC.addUser(
+      _orgUser.userAddress,
+      _orgUser.userName,
+      _orgUser.userEmail,
+      `https://avatars.dicebear.com/api/miniavs/${_orgUser.userName}:seed.svg`,
+      _orgUser.userRole,
+      _orgUser.userTeam
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const searchUser = async (_userAddress) => {
+  const GLLOC = await getContract();
+  try {
+    const user = await GLLOC.searchUser(_userAddress);
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchWeather = async (lat = 51.507351, long = -0.127758) => {
+  try {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=8001b63c99119314ac41c3a46f2bd563`
+    );
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.log(error);
   }

@@ -114,8 +114,8 @@ contract GLLOC {
         return organizations[_orgId];
     }
 
-    function addDepartment(address _orgId, string memory _department) external {
-        Oraganisation storage org = organizations[_orgId];
+    function addDepartment(string memory _department) external {
+        Oraganisation storage org = organizations[msg.sender];
         require(
             msg.sender == org.orgOwner,
             "Only orgOwner have access to this action"
@@ -133,7 +133,6 @@ contract GLLOC {
     }
 
     function addUser(
-        address _orgId,
         address _userAddress,
         string memory _name,
         string memory _email,
@@ -141,7 +140,7 @@ contract GLLOC {
         string memory _role,
         string memory _team
     ) external {
-        Oraganisation storage org = organizations[_orgId];
+        Oraganisation storage org = organizations[msg.sender];
         require(
             msg.sender == org.orgOwner,
             "Only orgOwner have access to this action"
@@ -149,7 +148,7 @@ contract GLLOC {
         User storage user = users[_userAddress];
         user.userId = block.timestamp;
         user.userAddress = _userAddress;
-        user.orgId = _orgId;
+        user.orgId = msg.sender;
         user.name = _name;
         user.email = _email;
         user.avatar = _avatar;

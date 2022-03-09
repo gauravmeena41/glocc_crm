@@ -18,6 +18,12 @@ body {
   display: none;
 }
 
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #18191a;
+  }
+}
+
 @layer components {
   .sidebar-item {
     @apply row-span-1 flex flex-col items-center justify-center space-y-1 border-b border-gray-500 transition-all duration-300;

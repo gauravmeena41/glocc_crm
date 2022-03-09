@@ -13,9 +13,16 @@ const Navbar = () => {
 
   const { addUser, removeUser } = bindActionCreators(actionCreators, dispatch);
 
-  // useEffect(() => {
-  //   fetchUser();
-  // }, []);
+  if (
+    user == null ||
+    user.userAddress === "0x0000000000000000000000000000000000000000"
+  ) {
+    addUser(null);
+  }
+
+  useEffect(async () => {
+    addUser(await loginUser());
+  }, []);
 
   return (
     <nav className="flex items-center justify-between p-1 md:p-2 px-5 border-b bg-gray-50 dark:border-gray-500 dark:bg-background">
@@ -42,11 +49,11 @@ const Navbar = () => {
       </div>
       <div className="flex items-center">
         {user ? (
-          <Link href="/profile">
+          <Link href={`/profile/${user.userAddress}`}>
             <div className="rounded-full cursor-pointer flex items-center border-2 dark:border-gray-500 p-[1px]">
               <Image
                 src={
-                  user
+                  user.avatar
                     ? user.avatar
                     : "https://images.unsplash.com/photo-1598529262041-a9cce4be9fca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=776&q=80"
                 }
