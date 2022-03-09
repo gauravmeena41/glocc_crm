@@ -2,7 +2,7 @@ import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers } from "ethers";
 import { gllocAddress } from "./config";
-import CRM from "./artifacts/contracts/CRM.sol/CRM.json";
+import GLLOC from "./artifacts/contracts/GLLOC.sol/GLLOC.json";
 
 export const getWeb3Modal = async () => {
   const web3Modal = new Web3Modal({
@@ -28,42 +28,66 @@ export const getContract = async () => {
     const signer = provider.getSigner();
     let account = await provider.listAccounts();
 
-    const contract = new ethers.Contract(gllocAddress, CRM.abi, signer);
-    return { contract, account };
+    return new ethers.Contract(gllocAddress, GLLOC.abi, signer);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const addUser = async (
-  _userAddress,
-  _name,
-  _email,
-  _isAdmin,
-  _role,
-  _team
+export const addOrgOwner = async (
+  _Owner,
+  _ownerEmail,
+  _ownerMobile,
+  _ownerSkills
 ) => {
   try {
-    const contract = await getContract();
-    await contract.addUser(_userAddress, _name, _email, _isAdmin, _role, _team);
+    const GLLOC = await getContract();
+    const tx = await GLLOC.addOrgOwner(
+      _Owner,
+      _ownerEmail,
+      `https://avatars.dicebear.com/api/adventurer-neutral/${_Owner}:seed.svg`,
+      _ownerMobile,
+      "Chief Executive Officer",
+      "Management",
+      _ownerSkills
+    );
+    await tx.wait();
   } catch (error) {
     console.log(error);
   }
 };
 
-export const searchUser = async () => {
+export const addOrganization = async (
+  _orgName,
+  _orgWebsite,
+  _orgDesc,
+  _orgLogo,
+  _Owner,
+  _ownerEmail,
+  _ownerMobile,
+  _ownerSkills
+) => {
+  const GLLOC = await getContract();
+
   try {
-    const contract = await getContract();
+    await GLLOC.addOrganisation(
+      _orgName,
+      _orgWebsite,
+      _orgDesc,
+      `https://avatars.dicebear.com/api/adventurer-neutral/${_orgName}:seed.svg`
+    );
+    addOrgOwner(_Owner, _ownerEmail, _ownerMobile, _ownerSkills);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-    let user = await contract.contract.CEO();
-
-    if (user.userAddress === contract.account[0]) {
-      console.log(user);
-      return user;
-    } else {
-      user = await contract.contract.searchUser(contract.account[0]);
-      return user;
-    }
+export const loginUser = async () => {
+  const GLLOC = await getContract();
+  try {
+    const user = await GLLOC.loginUser();
+    console.log(user);
+    return user;
   } catch (error) {
     console.log(error);
   }

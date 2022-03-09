@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { SearchIcon } from "@heroicons/react/solid";
 import Image from "next/image";
-import { searchUser } from "../helper";
+import { loginUser } from "../helper";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -13,18 +13,9 @@ const Navbar = () => {
 
   const { addUser, removeUser } = bindActionCreators(actionCreators, dispatch);
 
-  const fetchUser = async () => {
-    try {
-      let user = await searchUser();
-      addUser(user);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
+  // useEffect(() => {
+  //   fetchUser();
+  // }, []);
 
   return (
     <nav className="flex items-center justify-between p-1 md:p-2 px-5 border-b bg-gray-50 dark:border-gray-500 dark:bg-background">
@@ -68,10 +59,9 @@ const Navbar = () => {
           </Link>
         ) : (
           <button
-            onClick={fetchUser}
+            onClick={async () => addUser(await loginUser())}
             className="shadow active:shadow-md font-semibold px-3 py-[2px] rounded transition-all duration-200
-            dark:bg-secondary-text
-            "
+            dark:bg-secondary-text"
           >
             Log in
           </button>

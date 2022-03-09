@@ -68,15 +68,14 @@ contract GLLOC {
     }
 
     function addOrganisation(
-        address _orgId,
         string memory _name,
         string memory _website,
         string memory _description,
         string memory _logo
     ) external {
-        Oraganisation storage org = organizations[_orgId];
-        org.orgId = _orgId;
-        org.orgOwner = _orgId;
+        Oraganisation storage org = organizations[msg.sender];
+        org.orgId = msg.sender;
+        org.orgOwner = msg.sender;
         org.name = _name;
         org.description = _description;
         org.website = _website;
@@ -84,7 +83,6 @@ contract GLLOC {
     }
 
     function addOrgOwner(
-        address _orgId,
         string memory _orgOwnerName,
         string memory _orgOwnerEmail,
         string memory _orgOwnerAvatar,
@@ -93,11 +91,11 @@ contract GLLOC {
         string memory _orgOwnerTeam,
         string memory _orgOwnerSkills
     ) external {
-        Oraganisation storage org = organizations[_orgId];
+        Oraganisation storage org = organizations[msg.sender];
         require(org.orgOwner == msg.sender, "Only org owner can add org owner");
         User storage user = users[msg.sender];
         user.userId = block.timestamp;
-        user.orgId = _orgId;
+        user.orgId = msg.sender;
         user.userAddress = msg.sender;
         user.name = _orgOwnerName;
         user.email = _orgOwnerEmail;
@@ -159,6 +157,11 @@ contract GLLOC {
         user.team = _team;
         usersAddresses.push(_userAddress);
         org.users.push(_userAddress);
+    }
+
+    function loginUser() external view returns (User memory) {
+        User storage user = users[msg.sender];
+        return user;
     }
 
     function searchUser(address _userAddress)
