@@ -50,7 +50,7 @@ const Navbar = () => {
       <div className="flex items-center">
         {user ? (
           <Link href={`/profile/${user.userAddress}`}>
-            <div className="rounded-full cursor-pointer flex items-center border-2 dark:border-gray-500 p-[1px]">
+            <div className="rounded-full cursor-pointer flex items-center border-2 dark:border-gray-500 p-[1px] bg-yellow-500">
               <Image
                 src={
                   user.avatar

@@ -7,28 +7,28 @@ import {
   UserGroupIcon,
   UserIcon,
 } from "@heroicons/react/outline";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
+  const user = useSelector((state) => state.user);
   return (
     <div className="flex items-center h-[calc(100vh-53px)]">
       <div
-        className="bg-[#310055] text-[#f1f1f1] w-[80px] text-center grid grid-rows-6 h-[550px]
+        className="bg-[#8471ec] dark:bg-[#160d57] text-[#f1f1f1] w-[90px] text-center grid grid-rows-5 h-[550px]
       rounded-tr rounded-br"
       >
-        <div className="sidebar-item">
-          <HomeIcon className="sidebar-item-icon" />
-          <h1 className="sidebar-item-text ">Home</h1>
-        </div>
-        <Link href="/profile">
+        <Link href={`/profile/${user.userAddress}`}>
           <div className="sidebar-item">
             <UserIcon className="sidebar-item-icon" />
             <h1 className="sidebar-item-text ">Self-Service</h1>
           </div>
         </Link>
-        <div className="sidebar-item">
-          <UserGroupIcon className="sidebar-item-icon" />
-          <h1 className="sidebar-item-text ">Employees</h1>
-        </div>
+        <Link href="/employees">
+          <div className="sidebar-item">
+            <UserGroupIcon className="sidebar-item-icon" />
+            <h1 className="sidebar-item-text ">Employees</h1>
+          </div>
+        </Link>
         <div className="sidebar-item">
           <FolderIcon className="sidebar-item-icon" />
           <h1 className="sidebar-item-text ">Files</h1>

@@ -2,7 +2,7 @@ export const addUser = (user) => {
   return (dispatch) => {
     dispatch({
       type: "ADD_USER",
-      payload: user,
+      payload: user ? user : null,
     });
   };
 };

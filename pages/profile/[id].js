@@ -106,12 +106,6 @@ const profile = () => {
                   </h1>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <CalendarIcon className="w-[16px] h-[16px] text-[#00b4d8]" />
-                  <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                    Trainee
-                  </h1>
-                </div>
-                <div className="flex items-center space-x-2">
                   <ClockIcon className="w-[16px] h-[16px] text-[#00b4d8]" />
                   <h1 className="text-sm text-gray-700 dark:text-secondary-text">
                     (GMT+5:30)

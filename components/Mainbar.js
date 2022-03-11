@@ -25,8 +25,6 @@ const Mainbar = () => {
     getWeather();
   }, []);
 
-  console.log(weather);
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 w-full">
       <div
@@ -42,13 +40,14 @@ const Mainbar = () => {
           Weather
         </h1>
         <div className="">
-          {/* <CloudIcon className="w-full h-[100px] dark:text-primary-text" /> */}
-          <div className="relative w-full h-[200px]">
-            <Image
-              src="https://64.media.tumblr.com/8b2bc17500a6efc8b1f89f58ac237b6d/tumblr_n0noh8dELa1r9mp00o2_500.gifv"
-              layout="fill"
-              className="object-cover"
-            />
+          <div className="flex items-center justify-center">
+            <div className="relative w-[180px] h-[180px]">
+              <Image
+                src="/images/weather/cloudy.svg"
+                layout="fill"
+                className="object-cover"
+              />
+            </div>
           </div>
           <div className="flex justify-around mt-5">
             <div className="space-y-2">
