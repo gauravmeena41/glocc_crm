@@ -148,3 +148,18 @@ export const fetchWeather = async (lat = 51.507351, long = -0.127758) => {
     console.log(error);
   }
 };
+
+export const assignTask = async (
+  _userAddress,
+  _orgId,
+  _taskName,
+  _taskDescription
+) => {
+  const GLLOC = await getContract();
+
+  try {
+    await GLLOC.assignTask(_userAddress, _orgId, _taskName, _taskDescription);
+  } catch (error) {
+    console.log(error);
+  }
+};

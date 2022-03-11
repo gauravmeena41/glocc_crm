@@ -7,6 +7,7 @@ const nextConfig = {
       "images.unsplash.com",
       "64.media.tumblr.com",
       "cdn.pixabay.com",
+      "openweathermap.org",
     ],
   },
 };

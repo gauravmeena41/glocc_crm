@@ -24,6 +24,7 @@ const Navbar = () => {
     addUser(await loginUser());
   }, []);
 
+  console.log(user);
   return (
     <nav className="flex items-center justify-between p-1 md:p-2 px-5 border-b bg-gray-50 dark:border-gray-500 dark:bg-background">
       <div>

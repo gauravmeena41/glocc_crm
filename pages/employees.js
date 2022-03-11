@@ -22,11 +22,11 @@ const employees = () => {
 
   return (
     <div className="grid sm:grid-cols-2 m-10 gap-10 rounded-sm">
-      <div className=" gap-5 dark:bg-card">
+      <div className=" gap-5 bg-white dark:bg-card shadow-equal-shadow">
         <div className="border-b border-secondary-text p-2 text-lg font-medium text-center">
           <h1>Employees</h1>
         </div>
-        <div className="m-5 space-y-3 overflow-scroll">
+        <div className="m-5 p-2 space-y-3 overflow-scroll">
           {Object.entries(employees)?.map(([idx, value]) => (
             <div
               key={idx}
@@ -52,9 +52,12 @@ const employees = () => {
         </div>
       </div>
       {currentUser.length > 0 && (
-        <div className="hidden sm:flex flex-col bg-card relative">
+        <div className="hidden sm:flex flex-col dark:bg-card relative shadow-equal-shadow">
           <Link href={`profile/${currentUser.userAddress}`}>
-            <button className="absolute top-2 right-2 bg-[#333333] px-2 py-1 hover:scale-105 transition-all duration-300">
+            <button
+              className="absolute top-2 right-2 dark:bg-[#333333] shadow-equal-shadow
+            px-2 py-1 hover:scale-105 transition-all duration-300"
+            >
               View Profile
             </button>
           </Link>

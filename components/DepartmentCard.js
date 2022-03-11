@@ -7,19 +7,17 @@ import { searchUser } from "../helper";
 const DepartmentCard = ({ users, department }) => {
   const [departmentUsers, setDepartmentUser] = useState({});
 
-  useEffect(() => {
+  useEffect(async () => {
     setDepartmentUser({});
-    users?.map(async (user) => {
-      let data = await searchUser(user);
-      console.log(department, data.team);
-      data.team === department &&
+    Object.entries(users)?.map((user) => {
+      user[1]?.team === department &&
         setDepartmentUser((prevState) => {
-          return { ...prevState, [user]: data };
+          return { ...prevState, [user]: user[1] };
         });
     });
   }, [users]);
 
-  console.log(departmentUsers);
+  // console.log(departmentUsers);
 
   return (
     <div className="shadow-equal-shadow dark:bg-card ">
