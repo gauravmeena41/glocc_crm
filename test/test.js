@@ -78,11 +78,16 @@ describe("GLLOC", function () {
       "Task 2 Description"
     );
 
-    await glloc.comleteTask(
-      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-      0
-    );
+    // await glloc.comleteTask(
+    //   "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    //   "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    //   1
+    // );
+    // await glloc.comleteTask(
+    //   "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    //   "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    //   0
+    // );
 
     let org = await glloc.fetchOrganization(
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
@@ -90,6 +95,6 @@ describe("GLLOC", function () {
 
     // console.log(org);
     // console.log(await glloc.searchUser(org.orgOwner));
-    // console.log(await glloc.searchUser(org.orgOwner).tasks);
+    console.log(await glloc.searchUser(org.orgOwner).tasks);
   });
 });

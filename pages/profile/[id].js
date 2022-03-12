@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import {
-  CalendarIcon,
-  ClockIcon,
-  DeviceMobileIcon,
-  InformationCircleIcon,
-  ServerIcon,
-  UserGroupIcon,
-} from "@heroicons/react/outline";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { searchUser } from "../../helper";
+import MarkAttendanceCard from "../../components/MarkAttendanceCard";
+import AboutCard from "../../components/AboutCard";
 
 const profile = () => {
   const user = useSelector((state) => state.user);
@@ -49,7 +43,7 @@ const profile = () => {
             className="rounded-full object-cover"
           />
         </div>
-        <div className="absolute bottom-2 w-full flex justify-center items-center z-[1]">
+        <div className="absolute bottom-2 w-full hidden lg:flex justify-center items-center z-[1] ">
           <div className="flex space-x-16">
             <h1 className="text-white font-semibold">
               {currentUser.userId ? currentUser.userId.toNumber() : ""}
@@ -68,85 +62,41 @@ const profile = () => {
         <div className="w-full h-[150px] shadow-inner-shadow absolute bottom-0"></div>
       </div>
 
-      <div className="flex">
-        <div className="w-[200px] h-[calc(100vh-238px)] shadow-equal-shadow dark:bg-card">
-          <h1 className="profile_sidebar_item">Profile</h1>
-          <h1 className="profile_sidebar_item">Calendar</h1>
-          <h1 className="profile_sidebar_item">Leave Tracker</h1>
-          <h1 className="profile_sidebar_item">Time Tracker</h1>
-          <h1 className="profile_sidebar_item">Attendance</h1>
-          <h1 className="profile_sidebar_item">Files</h1>
-        </div>
-        <div className="grid lg:grid-cols-2 gap-5 m-5 w-[calc(100vw-200px)]">
+      <div>
+        <div className="grid lg:grid-cols-3 gap-5 m-2 lg:m-5 w-full">
+          <AboutCard currentUser={currentUser} />
+          {currentUser.userAddress === user.userAddress && (
+            <MarkAttendanceCard />
+          )}
+
           <div className="space-y-5">
-            <div className="shadow-equal-shadow p-5 space-y-8 rounded-sm dark:bg-card hover:scale-[1.02] transition-all duration-300">
-              <div className="flex items-center space-x-1">
-                <h1 className="font-semibold dark:text-primary-text">
-                  About me
-                </h1>
-                <InformationCircleIcon className="w-[16px] h-[16px] text-gray-700 dark:text-primary-text" />
-              </div>
-              <div className="grid md:grid-cols-2 gap-10 m-12">
-                <div className="flex items-center space-x-2">
-                  <ServerIcon className="w-[16px] h-[16px] text-[#00b4d8]" />
-                  <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                    {currentUser.team ? currentUser.team : ""}
-                  </h1>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <UserGroupIcon className="w-[16px] h-[16px] text-[#00b4d8]" />
-                  <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                    {currentUser.role ? currentUser.role : ""}
-                  </h1>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <DeviceMobileIcon className="w-[16px] h-[16px] text-[#00b4d8]" />
-                  <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                    {currentUser.mobile ? currentUser.mobile : ""}
-                  </h1>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <ClockIcon className="w-[16px] h-[16px] text-[#00b4d8]" />
-                  <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                    (GMT+5:30)
-                  </h1>
-                </div>
-              </div>
-            </div>
-            <div className="shadow-equal-shadow p-5 space-y-8 rounded-sm dark:bg-card hover:scale-[1.02] transition-all duration-300">
+            <div className="shadow-equal-shadow lg:px-5 py-5 space-y-8 font-semibold w-full rounded-sm dark:bg-card lg:hover:scale-[1.02] transition-all duration-300">
               <h1 className="font-semibold dark:text-primary-text">
                 Skill Set
               </h1>
-              <div className="grid md:grid-cols-2 gap-10 m-12">
-                {currentUser.skills.split(",").map((skill, idx) => (
-                  <h1
-                    key={idx}
-                    className="text-sm text-gray-700 dark:text-secondary-text"
-                  >
-                    {skill}
-                  </h1>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="">
-            <div className="shadow-equal-shadow p-5 space-y-8 rounded-sm dark:bg-card hover:scale-[1.02] transition-all duration-300">
-              <h1 className="font-semibold dark:text-primary-text">
-                Reporting To
-              </h1>
-              <div className="grid md:grid-cols-2 gap-10 m-12">
-                <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                  Blockchain Development
-                </h1>
-                <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                  Web Development
-                </h1>
-                <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                  UI/UX Design
-                </h1>
-                <h1 className="text-sm text-gray-700 dark:text-secondary-text">
-                  Teaching
-                </h1>
+              <div
+                className={`grid ${
+                  currentUser.skills && "md:grid-cols-2"
+                } gap-10 m-12`}
+              >
+                {currentUser.skills ? (
+                  currentUser.skills.split(",").map((skill, idx) => (
+                    <h1
+                      key={idx}
+                      className="text-sm text-gray-700 dark:text-secondary-text"
+                    >
+                      {skill}
+                    </h1>
+                  ))
+                ) : (
+                  <div className="flex items-center justify-center w-full h-full">
+                    <img
+                      src="../images/skills.svg"
+                      alt=""
+                      className="w-[100%] max-w-[200px] dark:opacity-[0.85]"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>

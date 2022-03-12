@@ -37,6 +37,6 @@ body {
   }
 
   .profile_sidebar_item {
-    @apply border-b dark:border-gray-400 px-5 py-4 font-medium text-gray-700 dark:text-primary-text text-sm;
+    @apply border-b dark:border-gray-500 px-5 py-4 font-medium text-gray-700 dark:text-primary-text text-sm hover:scale-[1.05] transition-all duration-300;
   }
 }

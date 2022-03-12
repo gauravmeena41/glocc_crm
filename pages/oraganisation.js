@@ -4,6 +4,7 @@ import AddDepartmentCard from "../components/AddDepartmentCard";
 import AddUserCard from "../components/AddUserCard";
 import AssignTask from "../components/AssignTask";
 import DepartmentCard from "../components/DepartmentCard";
+import UpdateTaskCard from "../components/UpdateTaskCard";
 import { fetchOrganization, searchUser } from "../helper";
 
 const oraganisation = () => {
@@ -42,6 +43,9 @@ const oraganisation = () => {
       )}
       {user && user.role === "Chief Executive Officer" && (
         <AssignTask employees={employees} />
+      )}
+      {user && user.role === "Chief Executive Officer" && (
+        <UpdateTaskCard employees={employees} />
       )}
     </div>
   );

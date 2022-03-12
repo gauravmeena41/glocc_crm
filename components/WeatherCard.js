@@ -27,20 +27,13 @@ const WeatherCard = () => {
 
   return (
     <div
-      className="shadow-equal-shadow dark:bg-card col-span-1 m-8 hover:scale-[1.02] rounded-sm
-      h-[350px] transform transition-transform duration-300 ease-in-out
+      className="shadow-equal-shadow dark:bg-card col-span-1 m-4 lg:m-8 hover:scale-[1.02] rounded-sm
+      h-[250px] lg:h-[350px] transform transition-transform duration-300 ease-in-out
       "
     >
-      <h1
-        className="font-medium text-center text-xl dark:text-[#e4e6eb] shadow p-1
-        dark:bg-[#333333]
-        "
-      >
-        Weather
-      </h1>
       <div className="">
         <div className="flex items-center justify-center">
-          <div className="relative w-[180px] h-[180px]">
+          <div className="relative w-[140px] h-[140px] lg:w-[180px] lg:h-[180px]">
             <Image
               src={`http://openweathermap.org/img/wn/${
                 weather

@@ -24,9 +24,8 @@ const Navbar = () => {
     addUser(await loginUser());
   }, []);
 
-  console.log(user);
   return (
-    <nav className="flex items-center justify-between p-1 md:p-2 px-5 border-b bg-gray-50 dark:border-gray-500 dark:bg-background">
+    <nav className="flex items-center justify-between p-1 md:p-2 md:px-5 border-b bg-gray-50 dark:border-gray-500 dark:bg-background">
       <div>
         <Link href="/">
           <h1 className="font-bold text-xl md:text-2xl text-gray-600 dark:text-primary-text cursor-pointer">
@@ -34,7 +33,7 @@ const Navbar = () => {
           </h1>
         </Link>
       </div>
-      <div className=" flex items-center justify-center">
+      <div className="hidden lg:flex items-center justify-center">
         <form
           onSubmit={(e) => e.preventDefault()}
           className="relative flex items-center"

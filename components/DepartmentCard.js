@@ -31,7 +31,7 @@ const DepartmentCard = ({ users, department }) => {
               className="shadow-equal-shadow  p-1 px-2 rounded-full flex items-center space-x-4
           cursor-pointer transition-all duration-300 mx-5 hover:m-3 dark:bg-[#333333]"
             >
-              <div className="relative w-[32px] h-[32px]">
+              <div className="relative w-[32px] h-[32px] bg-yellow-500 rounded-full">
                 <Image
                   src={user.avatar}
                   layout="fill"

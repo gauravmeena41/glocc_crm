@@ -80,10 +80,24 @@ const employees = () => {
               <h1 className="text-xl text-center font-semibold border-b border-secondary-text">
                 Skills
               </h1>
-              <div className="grid sm:grid-cols-2 gap-5">
-                {currentUser.skills.split(",")?.map((skill) => (
-                  <div>{skill}</div>
-                ))}
+              <div
+                className={`grid ${
+                  currentUser.skills && "sm:grid-cols-2"
+                } gap-5`}
+              >
+                {currentUser.skills ? (
+                  currentUser.skills
+                    .split(",")
+                    ?.map((skill) => <div>{skill}</div>)
+                ) : (
+                  <div className="flex items-center justify-center w-full h-full">
+                    <img
+                      src="images/skills.svg"
+                      alt=""
+                      className="w-[100%] max-w-[200px] dark:opacity-[0.85]"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>

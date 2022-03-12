@@ -163,3 +163,30 @@ export const assignTask = async (
     console.log(error);
   }
 };
+
+export const updateTask = async (_orgId, _userAddress, _taskId) => {
+  console.log(_orgId, _userAddress, _taskId);
+  const GLLOC = await getContract();
+  try {
+    await GLLOC.comleteTask(_orgId, _userAddress, _taskId);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const checkIn = async () => {
+  const GLLOC = await getContract();
+  try {
+    await GLLOC.checkIn();
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const checkOut = async () => {
+  const GLLOC = await getContract();
+  try {
+    await GLLOC.checkOut();
+  } catch (error) {
+    console.log(error);
+  }
+};

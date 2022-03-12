@@ -292,7 +292,7 @@ contract GLLOC {
     function checkOut() external {
         User storage user = users[msg.sender];
 
-        user.checkIn.push(block.timestamp);
+        user.checkOut.push(block.timestamp);
     }
 
     function assignTask(
