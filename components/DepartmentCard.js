@@ -20,7 +20,7 @@ const DepartmentCard = ({ users, department }) => {
   // console.log(departmentUsers);
 
   return (
-    <div className="!dark:shadow-base dark:bg-card rounded-xl">
+    <div className="shadow-base dark:bg-card rounded-xl">
       <h1 className="border-b-2 border-secondary-text-light dark:border-secondary-text-dark p-2 text-center text-lg font-medium text-base-text-light dark:text-primary-text-dark">
         {department}
       </h1>
@@ -28,7 +28,7 @@ const DepartmentCard = ({ users, department }) => {
         {Object.entries(departmentUsers)?.map(([idx, user]) => (
           <Link href={`/profile/${user.userAddress}`} key={idx}>
             <div
-              className="!dark:shadow-base lg:!dark:hover:shadow-medium p-1 px-2 rounded-xl flex items-center space-x-4
+              className="shadow-base lg:hover:shadow-medium dark:shadow-none dark:hover:shadow-none p-1 px-2 rounded-xl flex items-center space-x-4
           cursor-pointer transition-all duration-300 mx-5  dark:bg-[#333333]"
             >
               <div className="relative w-[32px] h-[32px] bg-bg-danger rounded-full">

@@ -3,7 +3,7 @@ import React from "react";
 const SkillCard = ({ currentUser }) => {
   return (
     <div className="space-y-5">
-      <div className="!dark:shadow-base lg:!dark:hover:shadow-medium lg:px-5 py-5 space-y-8 font-semibold w-full h-full rounded-xl dark:bg-card transition-all duration-300">
+      <div className="shadow-base lg:hover:shadow-medium dark:shadow-none dark:hover:shadow-none lg:px-5 py-5 space-y-8 font-semibold w-full h-full rounded-xl dark:bg-card transition-all duration-300">
         <h1 className="font-bold text-base-text-light dark:text-primary-text-dark">
           Skill Set
         </h1>

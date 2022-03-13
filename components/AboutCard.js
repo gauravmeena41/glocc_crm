@@ -9,7 +9,7 @@ import {
 
 const AboutCard = ({ currentUser }) => {
   return (
-    <div className="!dark:shadow-base lg:!dark:hover:shadow-medium lg:px-5 py-5 space-y-8 rounded-xl dark:bg-card transition-all duration-300">
+    <div className="shadow-base lg:hover:shadow-medium dark:shadow-none dark:hover:shadow-none lg:px-5 py-5 space-y-8 rounded-xl dark:bg-card transition-all duration-300">
       <div className="flex items-center space-x-1">
         <h1 className="font-bold text-base-text-light dark:text-base-text-dark">
           About

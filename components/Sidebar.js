@@ -14,7 +14,7 @@ const Sidebar = () => {
   return (
     <div className="flex items-center h-[calc(100vh-53px)]">
       <div
-        className="bg-[#8471ec] dark:bg-[#160d57] text-[#f1f1f1] w-[90px] text-center grid grid-rows-5 h-[550px]
+        className="bg-[#7f5af0] dark:bg-[#3d17ad] w-[90px] text-center grid grid-rows-5 h-[550px]
       rounded-tr rounded-br"
       >
         <Link href={`/profile/${user.userAddress}`}>

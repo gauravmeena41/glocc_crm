@@ -27,7 +27,7 @@ const WeatherCard = () => {
 
   return (
     <div
-      className="!dark:shadow-base !dark:hover:shadow-medium dark:bg-card col-span-1 m-4 lg:m-8  rounded-xl
+      className="shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none dark:bg-card col-span-1 m-4 lg:m-8  rounded-xl
       h-[250px] lg:h-[350px] transition-all duration-300 ease-in-out
       "
     >

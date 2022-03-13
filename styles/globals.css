@@ -27,13 +27,13 @@ body {
 
 @layer components {
   .sidebar-item {
-    @apply row-span-1 flex flex-col items-center justify-center space-y-1 border-b-2 border-gray-500 transition-all duration-300;
+    @apply row-span-1 flex flex-col items-center justify-center space-y-1 border-b-2 border-base-text-dark transition-all duration-300;
   }
   .sidebar-item-icon {
-    @apply w-[20px] h-[20px] cursor-pointer text-white;
+    @apply w-[20px] h-[20px] cursor-pointer text-base-text-dark;
   }
   .sidebar-item-text {
-    @apply text-xs  font-semibold cursor-pointer text-primary-text-dark;
+    @apply text-xs  font-semibold cursor-pointer text-base-text-dark;
   }
 
   .profile_sidebar_item {

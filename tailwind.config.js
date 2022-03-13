@@ -8,6 +8,7 @@ module.exports = {
       boxShadow: {
         base: "0px 16px 40px rgba(112,144,176, 0.2)",
         medium: "0px 16px 40px rgba(112, 144, 176, 0.32)",
+        "inner-shadow": "rgba(0, 0, 0, 0.6) 0px -90px 36px -28px inset",
       },
       colors: {
         background: "#18191a",

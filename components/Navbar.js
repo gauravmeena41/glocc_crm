@@ -25,7 +25,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="flex items-center justify-between p-1 md:p-2 md:px-5 border-b-2 !dark:shadow-base dark:border-gray-500 dark:bg-card">
+    <nav className="flex items-center justify-between p-1 md:p-2 md:px-5 border-b-2 shadow-base dark:border-gray-500 dark:bg-card">
       <div>
         <Link href="/">
           <h1 className="font-bold text-xl md:text-2xl text-base-text-light dark:text-base-text-dark cursor-pointer">
@@ -41,7 +41,7 @@ const Navbar = () => {
           <input
             type="text"
             className="border-2 border-primary-text-light text-md text-primary-text-light  bg-transparent font-semibold md:w-[400px]
-            px-1 py-[1px] md:py-1 !dark:shadow-base dark:border-primary-text-dark outline-none cursor-text placeholder:text-secondary-text-light dark:text-primary-text-dark dark:placeholder:text-secondary-text-dark rounded-xl"
+            px-1 py-[1px] md:py-1 shadow-base dark:border-primary-text-dark outline-none cursor-text placeholder:text-secondary-text-light dark:text-primary-text-dark dark:placeholder:text-secondary-text-dark rounded-xl"
             placeholder="Search Employee"
           />
           <SearchIcon className="w-[24px] h-[24px] absolute right-1 text-secondary-text-light  dark:text-primary-text-dark" />

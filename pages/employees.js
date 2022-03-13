@@ -22,7 +22,7 @@ const employees = () => {
 
   return (
     <div className="grid sm:grid-cols-2 m-10 gap-10">
-      <div className="gap-5 dark:bg-card !dark:shadow-base rounded-xl">
+      <div className="gap-5 dark:bg-card shadow-base rounded-xl">
         <div className="border-b-2 border-primary-text-light dark:border-secondary-text-dark p-2 text-xl text-base-text-light dark:text-primary-text-dark font-semibold text-center">
           <h1>Employees</h1>
         </div>
@@ -35,7 +35,7 @@ const employees = () => {
             Object.entries(employees)?.map(([idx, value]) => (
               <div
                 key={idx}
-                className="!dark:shadow-base lg:!dark:hover:shadow-medium p-1 px-2 rounded-xl flex items-center space-x-4
+                className="shadow-base lg:hover:shadow-medium dark:shadow-none dark:hover:shadow-none p-1 px-2 rounded-xl flex items-center space-x-4
               cursor-pointer transition-all duration-300 mx-5 dark:bg-[#333333]"
                 onClick={() => setCurrentUser(value)}
               >
@@ -47,7 +47,9 @@ const employees = () => {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <h1 className="text-primary-text-dark">{value.name}</h1>
+                  <h1 className="text-primary-text-light font-medium dark:text-primary-text-dark">
+                    {value.name}
+                  </h1>
                   <h1 className="text-xs dark:text-secondary-text-dark">
                     {value.role}
                   </h1>
@@ -58,11 +60,11 @@ const employees = () => {
         </div>
       </div>
       {currentUser.length > 0 && (
-        <div className="hidden sm:flex flex-col dark:bg-card relative !dark:shadow-base rounded-xl animate-slide-down transition-all duration-300 ">
+        <div className="hidden sm:flex flex-col dark:bg-card relative shadow-base rounded-xl animate-slide-down transition-all duration-300 ">
           <Link href={`profile/${currentUser.userAddress}`}>
             <button
-              className="absolute top-2 right-2 text-base-text-light dark:text-base-text-dark rounded-xl font-medium dark:bg-[#333333] !dark:shadow-base
-            px-2 py-1 lg:!dark:hover:shadow-medium transition-all duration-300"
+              className="absolute top-2 right-2 text-base-text-light dark:text-base-text-dark rounded-xl font-medium dark:bg-[#333333] shadow-base
+            px-2 py-1 lg:hover:shadow-medium dark:shadow-none dark:hover:shadow-none transition-all duration-300"
             >
               View Profile
             </button>

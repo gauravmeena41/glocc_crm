@@ -18,7 +18,7 @@ const CreateOrg = () => {
     <div>
       <div className="flex items-center justify-center h-[calc(100vh-53px)]">
         <div
-          className={`!dark:shadow-base rounded-xl md:w-[700px] dark:bg-card relative animate-slide-down transition-all duration-300 ${
+          className={`shadow-base rounded-xl md:w-[700px] dark:bg-card relative animate-slide-down transition-all duration-300 ${
             !isCreateOrg ? "hidden" : ""
           }`}
         >
@@ -58,7 +58,7 @@ const CreateOrg = () => {
               />
               <label
                 htmlFor="orgLogo"
-                className="flex items-center justify-center rounded-full font-medium !dark:shadow-base p-2 w-[100%]
+                className="flex items-center justify-center rounded-full font-medium shadow-base p-2 w-[100%]
                 dark:bg-gray-700 dark:text-primary-text-dark"
               >
                 Choose your logo
@@ -127,7 +127,7 @@ const CreateOrg = () => {
         <button
           className={`${
             isCreateOrg ? "hidden" : "inline-block"
-          }  !dark:shadow-base !dark:hover:shadow-medium px-10 py-4 animate-slide-down rounded-xl text-base-text-light dark:text-base-text-dark text-2xl font-semibold
+          }  shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none px-10 py-4 animate-slide-down rounded-xl text-base-text-light dark:text-base-text-dark text-2xl font-semibold
           dark:bg-card dark:text-primary-text-dark transition-all duration-300`}
           onClick={() => setIsCreateOrg(true)}
         >
