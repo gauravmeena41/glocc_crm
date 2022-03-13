@@ -33,7 +33,7 @@ const oraganisation = () => {
   }, [orgData]);
 
   return (
-    <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 gap-5 ">
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 gap-10 ">
       {orgData.departments?.map((department, idx) => (
         <DepartmentCard key={idx} users={employees} department={department} />
       ))}

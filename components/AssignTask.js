@@ -22,8 +22,8 @@ const AssignTask = ({ employees }) => {
   };
 
   return (
-    <div className="shadow-equal-shadow dark:bg-card">
-      <h1 className="border-b border-gray-400 p-2 text-center text-lg font-medium text-gray-700 dark:text-primary-text rounded-sm">
+    <div className="!dark:shadow-base dark:bg-card rounded-xl">
+      <h1 className="border-b-2 border-secondary-text-light p-2 text-center text-lg font-medium text-base-text-light dark:text-primary-text-dark">
         Assign Task
       </h1>
       <div className="flex flex-col m-5 py-2 space-y-3 overflow-scroll h-[350px]">
@@ -31,15 +31,17 @@ const AssignTask = ({ employees }) => {
           onChange={(e) => setTaskName(e.target.value)}
           type="text"
           placeholder="task name"
-          className="border-2 bg-transparent px-2 py-1 text-gray-500
-        dark:text-secondary-text rounded-full outline-none"
+          className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
+          text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
+           dark:text-primary-text-dark px-2 py-1"
         />
         <input
           onChange={(e) => setTaskDesc(e.target.value)}
           type="text"
           placeholder="task description"
-          className="border-2 bg-transparent px-2 py-1 text-gray-500
-        dark:text-secondary-text rounded-full outline-none"
+          className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
+          text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
+           dark:text-primary-text-dark px-2 py-1"
         />
         <div>
           <input
@@ -47,22 +49,22 @@ const AssignTask = ({ employees }) => {
             value={assigneeName}
             type="text"
             placeholder="search user..."
-            className="border-2 bg-transparent w-full my-2 px-2 py-1 text-gray-500
-          dark:text-secondary-text rounded-full outline-none"
+            className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent w-[100%] rounded-xl outline-none
+            text-primary-text-light font-semibold placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark dark:text-primary-text-dark px-2 py-1"
           />
           {Object.entries(searchingEmployees).length > 0 && (
-            <div className="space-y-2 bg-[#333333] rounded-sm p-2">
+            <div className="space-y-2  rounded-xl p-2 animate-fade-in-out transition-all duration-300">
               {Object.entries(searchingEmployees).map(([key, value]) => (
                 <div key={key}>
                   <div
-                    className="flex items-center space-x-2 bg-[#464545] rounded-full px-2 py-1 cursor-pointer hover:scale-[1.02] transition-all duration-300"
+                    className="flex items-center space-x-2 px-2 py-1 cursor-pointer hover:scale-[1.02] transition-all duration-300"
                     onClick={() => {
                       setAssignee(value);
                       setAssigneeName(value?.name);
                       setSearchingEmployees({});
                     }}
                   >
-                    <div className="relative w-[32px] h-[32px] rounded-full bg-yellow-500">
+                    <div className="relative w-[32px] h-[32px] rounded-full bg-bg-danger">
                       <Image
                         src={value.avatar}
                         layout="fill"
@@ -80,7 +82,7 @@ const AssignTask = ({ employees }) => {
           onClick={() =>
             assignTask(assignee.userAddress, assignee.orgId, taskName, taskDesc)
           }
-          className="bg-green-400 p-1 rounded-sm w-full text-lg text-white font-medium"
+          className="bg-bg-btn p-1 rounded-xl w-full text-lg text-secondary-text-light  dark:text-base-text-dark font-medium"
         >
           Assign Task
         </button>

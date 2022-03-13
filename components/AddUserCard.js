@@ -11,8 +11,8 @@ const AddUserCard = ({ orgData }) => {
   });
 
   return (
-    <div className="shadow-equal-shadow dark:bg-card">
-      <h1 className="border-b border-gray-400 p-2 text-center text-lg font-medium text-gray-700 dark:text-primary-text rounded-sm">
+    <div className="!dark:shadow-base dark:bg-card rounded-xl">
+      <h1 className="border-b-2 border-secondary-text-light dark:border-secondary-text-dark p-2 text-center text-lg font-medium text-base-text-light dark:text-primary-text-dark">
         Add User
       </h1>
       <div className="flex flex-col m-5 py-2 space-y-3 overflow-scroll h-[350px]">
@@ -22,15 +22,17 @@ const AddUserCard = ({ orgData }) => {
           }
           type="text"
           placeholder="user address"
-          className="border-2 bg-transparent px-2 py-1 text-gray-500
-            dark:text-secondary-text rounded-full outline-none"
+          className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
+          text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
+           dark:text-primary-text-dark px-2 py-1"
         />
         <input
           onChange={(e) => setOrgUser({ ...orgUser, userName: e.target.value })}
           type="text"
           placeholder="user name"
-          className="border-2 bg-transparent px-2 py-1 text-gray-500
-            dark:text-secondary-text rounded-full outline-none"
+          className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
+          text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
+           dark:text-primary-text-dark px-2 py-1"
         />
         <input
           onChange={(e) =>
@@ -38,11 +40,12 @@ const AddUserCard = ({ orgData }) => {
           }
           type="text"
           placeholder="user email"
-          className="border-2 bg-transparent px-2 py-1 text-gray-500
-            dark:text-secondary-text rounded-full outline-none"
+          className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
+          text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
+           dark:text-primary-text-dark px-2 py-1"
         />
         <select
-          className="outline-none dark:bg-[#333333] rounded-lg dark:text-primary-text p-1"
+          className="outline-none dark:bg-[#333333] rounded-lg dark:text-primary-text-dark p-1"
           defaultValue=""
           onChange={(e) => setOrgUser({ ...orgUser, userRole: e.target.value })}
         >
@@ -58,7 +61,7 @@ const AddUserCard = ({ orgData }) => {
           <option value="Developer">Developer</option>
         </select>
         <select
-          className="outline-none dark:bg-[#333333] rounded-lg dark:text-primary-text p-1"
+          className="outline-none dark:bg-[#333333] rounded-lg dark:text-primary-text-dark p-1"
           defaultValue=""
           onChange={(e) => setOrgUser({ ...orgUser, userTeam: e.target.value })}
         >
@@ -80,7 +83,7 @@ const AddUserCard = ({ orgData }) => {
             orgUser.userTeam &&
             addUser(orgUser)
           }
-          className="bg-green-400 p-1 rounded-sm w-full text-lg text-white font-medium"
+          className="bg-bg-btn p-1 rounded-xl w-full text-lg text-primary-text-light dark:text-base-text-dark font-medium"
         >
           Create User
         </button>

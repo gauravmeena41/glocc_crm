@@ -17,8 +17,8 @@ const TasksCard = () => {
 
   return (
     <div
-      className="col-span-1 row-span-1  shadow-shadow-base 
-  m-4 lg:m-8 hover:scale-[1.02]  rounded-md  transition-all duration-300  h-[250px] lg:h-[350px] dark:bg-card"
+      className="col-span-1 row-span-1  !dark:shadow-base !dark:hover:shadow-medium 
+  m-4 lg:m-8   rounded-xl  transition-all duration-300  h-[250px] lg:h-[350px] dark:bg-card"
     >
       <div className="overflow-x-scroll overflow-y-scroll h-full w-full scrollbar-hide space-y-1 p-5">
         {Object.entries(tasks).length > 0 ? (

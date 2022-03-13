@@ -12,6 +12,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  background-color: #fffffe;
 }
 
 ::-webkit-scrollbar {
@@ -20,23 +21,22 @@ body {
 
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: #18191a;
-    color: #e3e6eb;
+    background-color: #16161a;
   }
 }
 
 @layer components {
   .sidebar-item {
-    @apply row-span-1 flex flex-col items-center justify-center space-y-1 border-b border-gray-500 transition-all duration-300;
+    @apply row-span-1 flex flex-col items-center justify-center space-y-1 border-b-2 border-gray-500 transition-all duration-300;
   }
   .sidebar-item-icon {
     @apply w-[20px] h-[20px] cursor-pointer text-white;
   }
   .sidebar-item-text {
-    @apply text-xs text-[#B5BFC7] font-semibold cursor-pointer text-primary-text;
+    @apply text-xs  font-semibold cursor-pointer text-primary-text-dark;
   }
 
   .profile_sidebar_item {
-    @apply border-b dark:border-gray-500 px-5 py-4 font-medium text-gray-700 dark:text-primary-text text-sm hover:scale-[1.05] transition-all duration-300;
+    @apply border-b-2 dark:border-gray-500 px-5 py-4 font-medium text-base-text-light dark:text-primary-text-dark text-sm hover:scale-[1.05] transition-all duration-300;
   }
 }

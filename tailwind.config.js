@@ -6,16 +6,43 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        "shadow-base": "rgba(0, 0, 0, 0.16) 0px 1px 4px",
-        "shadow-medium": "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-        "inner-shadow": "rgba(0, 0, 0, 0.6) 0px -90px 36px -28px inset",
-        "equal-shadow": "0px 0px 4px 1px rgba(0, 0, 0, 0.18)",
+        base: "0px 16px 40px rgba(112,144,176, 0.2)",
+        medium: "0px 16px 40px rgba(112, 144, 176, 0.32)",
       },
       colors: {
         background: "#18191a",
-        card: "#242526",
-        "primary-text": "#e3e6eb",
-        "secondary-text": "#b0b3b8",
+        card: "#242629",
+        "base-text-light": "#00214d",
+        "primary-text-light": "#1b2d45",
+        "secondary-text-light": "#1b2d45",
+        "base-text-dark": "#fffffe",
+        "primary-text-dark": "#94a1b2",
+        "secondary-text-dark": "#72757e",
+        "bg-btn": "#00ebc7",
+        "bg-danger": "#ff5470",
+        "bg-profile": "#fde24f",
+      },
+      keyframes: {
+        "slide-down": {
+          "0%": {
+            transform: "translateY(-100%)",
+          },
+          "100%": {
+            transform: "translateY(0%)",
+          },
+        },
+        "fade-in-out": {
+          "0%": {
+            opacity: 0,
+          },
+          "100%": {
+            opacity: 1,
+          },
+        },
+      },
+      animation: {
+        "slide-down": "slide-down 0.3s ease-in-out",
+        "fade-in-out": "fade-in-out 0.3s ease-in-out",
       },
     },
   },

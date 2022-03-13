@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { searchUser } from "../../helper";
 import MarkAttendanceCard from "../../components/MarkAttendanceCard";
 import AboutCard from "../../components/AboutCard";
+import SkillCard from "../../components/SkillCard";
 
 const profile = () => {
   const user = useSelector((state) => state.user);
@@ -20,7 +21,7 @@ const profile = () => {
   if (!currentUser)
     return (
       <div className="flex items-center justify-center h-[calc(100vh-53px)]">
-        <h1 className="text-2xl dark:text-primary-text ">
+        <h1 className="text-2xl dark:text-primary-text-dark ">
           You are not a part of this. Please contact your administrator
         </h1>
       </div>
@@ -35,7 +36,7 @@ const profile = () => {
           objectFit="cover"
           objectPosition="center"
         />
-        <div className="w-[100px] h-[100px] rounded-full relative top-[40px] m-auto border-2 z-[1] bg-yellow-400">
+        <div className="w-[100px] h-[100px] rounded-full relative top-[40px] m-auto border-2 z-[1] bg-bg-danger">
           <Image
             src={currentUser.avatar}
             layout="fill"
@@ -68,38 +69,7 @@ const profile = () => {
           {currentUser.userAddress === user.userAddress && (
             <MarkAttendanceCard />
           )}
-
-          <div className="space-y-5">
-            <div className="shadow-equal-shadow lg:px-5 py-5 space-y-8 font-semibold w-full rounded-sm dark:bg-card lg:hover:scale-[1.02] transition-all duration-300">
-              <h1 className="font-semibold dark:text-primary-text">
-                Skill Set
-              </h1>
-              <div
-                className={`grid ${
-                  currentUser.skills && "md:grid-cols-2"
-                } gap-10 m-12`}
-              >
-                {currentUser.skills ? (
-                  currentUser.skills.split(",").map((skill, idx) => (
-                    <h1
-                      key={idx}
-                      className="text-sm text-gray-700 dark:text-secondary-text"
-                    >
-                      {skill}
-                    </h1>
-                  ))
-                ) : (
-                  <div className="flex items-center justify-center w-full h-full">
-                    <img
-                      src="../images/skills.svg"
-                      alt=""
-                      className="w-[100%] max-w-[200px] dark:opacity-[0.85]"
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+          <SkillCard currentUser={currentUser} />
         </div>
       </div>
     </div>

@@ -45,7 +45,7 @@ export const addOrgOwner = async (
     const tx = await GLLOC.addOrgOwner(
       _Owner,
       _ownerEmail,
-      `https://avatars.dicebear.com/api/adventurer-neutral/${_Owner}:seed.svg`,
+      `https://avatars.dicebear.com/api/miniavs/${_Owner}:seed.svg`,
       _ownerMobile,
       "Chief Executive Officer",
       "Management",
@@ -74,9 +74,10 @@ export const addOrganization = async (
       _orgName,
       _orgWebsite,
       _orgDesc,
-      `https://avatars.dicebear.com/api/adventurer-neutral/${_orgName}:seed.svg`
+      `https://avatars.dicebear.com/api/miniavs/${_orgName}:seed.svg`
     );
-    addOrgOwner(_Owner, _ownerEmail, _ownerMobile, _ownerSkills);
+    await addOrgOwner(_Owner, _ownerEmail, _ownerMobile, _ownerSkills);
+    window.location.reload();
   } catch (error) {
     console.log(error);
   }
@@ -158,17 +159,26 @@ export const assignTask = async (
   const GLLOC = await getContract();
 
   try {
-    await GLLOC.assignTask(_userAddress, _orgId, _taskName, _taskDescription);
+    await GLLOC.assignTask(_userAddress, _taskName, _taskDescription);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const updateTask = async (_orgId, _userAddress, _taskId) => {
-  console.log(_orgId, _userAddress, _taskId);
+export const searchTask = async (_taskId) => {
   const GLLOC = await getContract();
   try {
-    await GLLOC.comleteTask(_orgId, _userAddress, _taskId);
+    const task = await GLLOC.searchTask(_taskId);
+    return task;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateTask = async (_taskId) => {
+  const GLLOC = await getContract();
+  try {
+    await GLLOC.comleteTask(_taskId);
   } catch (error) {
     console.log(error);
   }

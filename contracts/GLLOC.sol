@@ -35,7 +35,7 @@ contract GLLOC {
         string skills;
         uint256[] checkIn;
         uint256[] checkOut;
-        Task[] tasks;
+        uint256[] tasks;
     }
 
     struct Task {
@@ -48,8 +48,9 @@ contract GLLOC {
     // Structs
 
     // Mapppings
-    mapping(address => Oraganisation) public organizations;
-    mapping(address => User) public users;
+    mapping(address => Oraganisation) private organizations;
+    mapping(address => User) private users;
+    mapping(uint256 => Task) private tasks;
     string[] departments;
     // Mapppings
 
@@ -297,13 +298,12 @@ contract GLLOC {
 
     function assignTask(
         address _userAddress,
-        address _orgId,
         string memory _taskName,
         string memory _taskDescription
     ) external {
-        Oraganisation memory org = organizations[_orgId];
+        Oraganisation memory org = organizations[msg.sender];
         require(msg.sender == org.orgOwner, "Only orgOwner can assign task");
-        Task memory task;
+        Task storage task = tasks[_taskCount.current()];
         task.taskId = _taskCount.current();
         task.taskName = _taskName;
         task.taskDescription = _taskDescription;
@@ -312,17 +312,18 @@ contract GLLOC {
         _taskCount.increment();
 
         User storage user = users[_userAddress];
-        user.tasks.push(task);
+        user.tasks.push(task.taskId);
     }
 
-    function comleteTask(
-        address _orgId,
-        address _userAddress,
-        uint256 _taskId
-    ) external {
-        Oraganisation memory org = organizations[_orgId];
+    function searchTask(uint256 _taskId) external view returns (Task memory) {
+        Task storage task = tasks[_taskId];
+        return task;
+    }
+
+    function comleteTask(uint256 _taskId) external {
+        Oraganisation memory org = organizations[msg.sender];
         require(msg.sender == org.orgOwner, "Only orgOwner can complete task");
-        User storage user = users[_userAddress];
-        user.tasks[_taskId].taskStatus = "completed";
+        Task storage task = tasks[_taskId];
+        task.taskStatus = "completed";
     }
 }

@@ -25,10 +25,10 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="flex items-center justify-between p-1 md:p-2 md:px-5 border-b bg-gray-50 dark:border-gray-500 dark:bg-background">
+    <nav className="flex items-center justify-between p-1 md:p-2 md:px-5 border-b-2 !dark:shadow-base dark:border-gray-500 dark:bg-card">
       <div>
         <Link href="/">
-          <h1 className="font-bold text-xl md:text-2xl text-gray-600 dark:text-primary-text cursor-pointer">
+          <h1 className="font-bold text-xl md:text-2xl text-base-text-light dark:text-base-text-dark cursor-pointer">
             GLLOC
           </h1>
         </Link>
@@ -40,17 +40,17 @@ const Navbar = () => {
         >
           <input
             type="text"
-            className="rounded text-md text-gray-600 dark:text-white bg-transparent font-semibold md:w-[400px]
-            px-1 py-[1px] md:py-1 shadow border dark:border-gray-500 outline-none cursor-text placeholder:text-secondary-text"
+            className="border-2 border-primary-text-light text-md text-primary-text-light  bg-transparent font-semibold md:w-[400px]
+            px-1 py-[1px] md:py-1 !dark:shadow-base dark:border-primary-text-dark outline-none cursor-text placeholder:text-secondary-text-light dark:text-primary-text-dark dark:placeholder:text-secondary-text-dark rounded-xl"
             placeholder="Search Employee"
           />
-          <SearchIcon className="w-[18px] h-[18px] absolute right-1 text-gray-400 dark:text-primary-text" />
+          <SearchIcon className="w-[24px] h-[24px] absolute right-1 text-secondary-text-light  dark:text-primary-text-dark" />
         </form>
       </div>
       <div className="flex items-center">
         {user ? (
           <Link href={`/profile/${user.userAddress}`}>
-            <div className="rounded-full cursor-pointer flex items-center border-2 dark:border-gray-500 p-[1px] bg-yellow-500">
+            <div className="rounded-full cursor-pointer flex items-center border-2 dark:border-gray-500 p-[1px] bg-bg-danger">
               <Image
                 src={
                   user.avatar

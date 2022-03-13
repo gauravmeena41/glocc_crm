@@ -20,18 +20,18 @@ const DepartmentCard = ({ users, department }) => {
   // console.log(departmentUsers);
 
   return (
-    <div className="shadow-equal-shadow dark:bg-card ">
-      <h1 className="border-b border-gray-400 p-2 text-center text-lg font-medium text-gray-700 dark:text-primary-text rounded-sm">
+    <div className="!dark:shadow-base dark:bg-card rounded-xl">
+      <h1 className="border-b-2 border-secondary-text-light dark:border-secondary-text-dark p-2 text-center text-lg font-medium text-base-text-light dark:text-primary-text-dark">
         {department}
       </h1>
       <div className=" my-5 py-2 space-y-3 overflow-scroll h-[350px]">
         {Object.entries(departmentUsers)?.map(([idx, user]) => (
           <Link href={`/profile/${user.userAddress}`} key={idx}>
             <div
-              className="shadow-equal-shadow  p-1 px-2 rounded-full flex items-center space-x-4
-          cursor-pointer transition-all duration-300 mx-5 hover:m-3 dark:bg-[#333333]"
+              className="!dark:shadow-base lg:!dark:hover:shadow-medium p-1 px-2 rounded-xl flex items-center space-x-4
+          cursor-pointer transition-all duration-300 mx-5  dark:bg-[#333333]"
             >
-              <div className="relative w-[32px] h-[32px] bg-yellow-500 rounded-full">
+              <div className="relative w-[32px] h-[32px] bg-bg-danger rounded-full">
                 <Image
                   src={user.avatar}
                   layout="fill"
@@ -39,8 +39,10 @@ const DepartmentCard = ({ users, department }) => {
                 />
               </div>
               <div>
-                <h1 className="dark:text-primary-text">{user.name}</h1>
-                <h1 className="text-xs text-gray-400 dark:text-secondary-text">
+                <h1 className="text-base-text-light dark:text-base-text-dark font-medium dark:text-primary-text-dark">
+                  {user.name}
+                </h1>
+                <h1 className="text-xs text-secondary-text-light dark:text-primary-text-dark dark:text-secondary-text">
                   {user.role}
                 </h1>
               </div>

@@ -4,8 +4,8 @@ const BirthdayCard = () => {
   const [birthdays, setBirthdays] = useState([]);
   return (
     <div
-      className="col-span-1 row-span-1  shadow-shadow-base hover:shadow-shadow-medium 
-      m-4 lg:m-8 hover:scale-[1.02]  rounded-md  transition-all duration-300  h-[250px] lg:h-[350px] dark:bg-card"
+      className="col-span-1 row-span-1  !dark:shadow-base !dark:hover:shadow-medium 
+      m-4 lg:m-8   rounded-xl  transition-all duration-300  h-[250px] lg:h-[350px] dark:bg-card"
     >
       <div className="h-[10%]"></div>
       <div className="overflow-x-scroll overflow-y-scroll h-[90%] scrollbar-hide space-y-1 p-5">
