@@ -3,21 +3,37 @@ import {
   ClockIcon,
   DeviceMobileIcon,
   InformationCircleIcon,
+  PencilAltIcon,
   ServerIcon,
   UserGroupIcon,
 } from "@heroicons/react/outline";
+import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const AboutCard = ({ currentUser }) => {
+  const user = useSelector((state) => state.user);
   return (
     <div
       className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none px-5 py-5 space-y-8 rounded-xl
     dark:bg-card transition-all duration-300 lg:hover:scale-[1.03]"
     >
-      <div className="flex items-center space-x-1">
-        <h1 className="font-bold text-base-text-light dark:text-base-text-dark">
-          About
-        </h1>
-        <InformationCircleIcon className="w-[16px] h-[16px] text-primary-text-light font-medium dark:text-primary-text-dark" />
+      <div className="flex justify-between">
+        <div className="flex items-center space-x-1">
+          <h1 className="font-bold text-base-text-light dark:text-base-text-dark">
+            About
+          </h1>
+          <InformationCircleIcon className="w-[16px] h-[16px] text-primary-text-light font-medium dark:text-primary-text-dark" />
+        </div>
+        {currentUser.userAddress === user.userAddress && (
+          <Link href={`/edit_user/${currentUser.userAddress}`}>
+            <div className="flex items-center space-x-2 bg-[#333333] px-2 py-[1px] rounded-lg cursor-pointer">
+              <h1 className="text-base-text-light dark:text-base-text-dark">
+                Edit
+              </h1>
+              <PencilAltIcon className="w-[16px] h-[16px] text-primary-text-light font-medium dark:text-base-text-dark" />
+            </div>
+          </Link>
+        )}
       </div>
       <div className="grid md:grid-cols-2 gap-10">
         <div className="flex items-center space-x-2">

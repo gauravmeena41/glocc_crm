@@ -1,4 +1,4 @@
-import React from "react";
+import Image from "next/image";
 
 const SkillCard = ({ currentUser }) => {
   return (
@@ -22,11 +22,14 @@ const SkillCard = ({ currentUser }) => {
             ))
           ) : (
             <div className="flex items-center justify-center w-full h-full">
-              <img
-                src="../images/skills.svg"
-                alt=""
-                className="w-[100%] max-w-[200px] dark:opacity-[0.85]"
-              />
+              <div className="relative w-[100px] h-[100px]">
+                <Image
+                  src="/images/skills.svg"
+                  alt=""
+                  className="dark:opacity-[0.85]"
+                  layout="fill"
+                />
+              </div>
             </div>
           )}
         </div>
