@@ -8,8 +8,8 @@ const AttendanceCard = () => {
 
   return (
     <div
-      className="hidden lg:inline-block col-span-2 row-span-1 shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none
-    m-8 rounded-xl transition-all duration-300 h-[350px] dark:bg-card"
+      className="hidden lg:inline-block col-span-2 shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none
+    rounded-xl transition-all duration-300 dark:bg-card pb-10 lg:hover:scale-[1.02]"
     >
       <div className="grid grid-cols-2 h-full">
         <div className="h-full scrollbar-hide space-y-1 p-5 overflow-scroll">

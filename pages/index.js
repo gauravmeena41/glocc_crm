@@ -1,4 +1,6 @@
+import { MenuIcon } from "@heroicons/react/outline";
 import Head from "next/head";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import CreateOrg from "../components/CreateOrg";
 import Mainbar from "../components/Mainbar";
@@ -17,10 +19,9 @@ export default function Home() {
         <title>GLLOC</title>
       </Head>
       <div className="flex">
-        <div className="hidden md:inline-flex">
-          <Sidebar />
+        <div>
+          <Mainbar />
         </div>
-        <Mainbar />
       </div>
     </div>
   );

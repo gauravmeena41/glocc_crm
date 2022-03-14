@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { searchTask } from "../helper";
 
 const TasksCard = () => {
   const user = useSelector((state) => state.user);
   const [tasks, setTasks] = useState({});
 
   useEffect(() => {
-    user?.tasks?.map(
-      (task, idx) =>
-        task.taskStatus === "pending" &&
+    user?.tasks?.map(async (task) => {
+      let data = await searchTask(task);
+      data.taskStatus === "pending" &&
         setTasks((prevState) => {
-          return { ...prevState, [task.taskId]: task };
-        })
-    );
+          return { ...prevState, [task]: data };
+        });
+    });
   }, []);
 
   return (
     <div
-      className="col-span-1 row-span-1  shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none 
-  m-4 lg:m-8   rounded-xl  transition-all duration-300  h-[250px] lg:h-[350px] dark:bg-card"
+      className="shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none 
+   rounded-xl  transition-all duration-300   dark:bg-card min-h-[250px] pb-10 lg:hover:scale-[1.03]"
     >
       <div className="overflow-x-scroll overflow-y-scroll h-full w-full scrollbar-hide space-y-1 p-5">
         {Object.entries(tasks).length > 0 ? (
           Object.entries(tasks)?.map(([key, task]) => (
-            <li className="font-light text-lg text-gray-600 dark:text-secondary-text">
+            <li className="font-light text-lg text-secondary-text-light dark:text-primary-text-dark">
               {task.taskName}
             </li>
           ))

@@ -64,7 +64,7 @@ const profile = () => {
       </div>
 
       <div>
-        <div className="grid lg:grid-cols-3 gap-5 m-2 lg:m-5 w-full">
+        <div className="grid lg:grid-cols-3 gap-5 m-2 lg:m-5">
           <AboutCard currentUser={currentUser} />
           {currentUser.userAddress === user.userAddress && (
             <MarkAttendanceCard />

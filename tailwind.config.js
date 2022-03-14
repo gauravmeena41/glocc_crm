@@ -19,17 +19,37 @@ module.exports = {
         "base-text-dark": "#fffffe",
         "primary-text-dark": "#94a1b2",
         "secondary-text-dark": "#72757e",
-        "bg-btn": "#00ebc7",
+        "bg-btn": "#00ccad",
         "bg-danger": "#ff5470",
         "bg-profile": "#fde24f",
       },
       keyframes: {
         "slide-down": {
           "0%": {
-            transform: "translateY(-100%)",
+            opacity: 0,
+            transform: "translateY(-10%)",
           },
           "100%": {
+            opacity: 1,
             transform: "translateY(0%)",
+          },
+        },
+        "slide-up": {
+          "0%": {
+            opacity: 1,
+            transform: "translateY(0%)",
+          },
+          "1000%": {
+            opacity: 0,
+            transform: "translateY(-10%)",
+          },
+        },
+        "slide-right": {
+          "0%": {
+            transform: "translateX(-100%)",
+          },
+          "100%": {
+            transform: "translateX(0%)",
           },
         },
         "fade-in-out": {
@@ -43,6 +63,8 @@ module.exports = {
       },
       animation: {
         "slide-down": "slide-down 0.3s ease-in-out",
+        "slide-up": "slide-up 0.3s ease-in-out",
+        "slide-right": "slide-right 0.3s ease-in-out",
         "fade-in-out": "fade-in-out 0.3s ease-in-out",
       },
     },

@@ -11,7 +11,7 @@ const AddUserCard = ({ orgData }) => {
   });
 
   return (
-    <div className="shadow-base dark:bg-card rounded-xl">
+    <div className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none dark:bg-card rounded-xl">
       <h1 className="border-b-2 border-secondary-text-light dark:border-secondary-text-dark p-2 text-center text-lg font-medium text-base-text-light dark:text-primary-text-dark">
         Add User
       </h1>
