@@ -1,28 +1,29 @@
-import { MenuIcon } from "@heroicons/react/outline";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import CreateOrg from "../components/CreateOrg";
 import Mainbar from "../components/Mainbar";
-import Sidebar from "../components/Sidebar";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const user = useSelector((state) => state.user);
+  const router = useRouter();
 
-  if (!user) {
-    return <CreateOrg />;
-  }
+  useEffect(() => {
+    !user && router.push("/create_org");
+  });
 
   return (
     <div>
       <Head>
         <title>GLLOC</title>
       </Head>
-      <div className="flex">
-        <div>
-          <Mainbar />
+      {user && (
+        <div className="flex">
+          <div>
+            <Mainbar />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

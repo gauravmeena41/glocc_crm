@@ -77,7 +77,6 @@ export const addOrganization = async (
       `https://avatars.dicebear.com/api/miniavs/${_orgName}:seed.svg`
     );
     await addOrgOwner(_Owner, _ownerEmail, _ownerMobile, _ownerSkills);
-    window.location.reload();
   } catch (error) {
     console.log(error);
   }
@@ -133,6 +132,51 @@ export const searchUser = async (_userAddress) => {
   try {
     const user = await GLLOC.searchUser(_userAddress);
     return user;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const changeUsername = async (_name) => {
+  const GLLOC = await getContract();
+  try {
+    await GLLOC.changeUsername(_name);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const changeUseremail = async (_email) => {
+  const GLLOC = await getContract();
+  try {
+    await GLLOC.changeUseremail(_email);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const changeUseravatar = async (_avatar) => {
+  const GLLOC = await getContract();
+  try {
+    await GLLOC.changeUseravatar(_avatar);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const changeUsermobile = async (_mobile) => {
+  const GLLOC = await getContract();
+  try {
+    await GLLOC.changeUsermobile(_mobile);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const changeUserskills = async (_skills) => {
+  const GLLOC = await getContract();
+  try {
+    await GLLOC.changeUserskills(_skills);
   } catch (error) {
     console.log(error);
   }

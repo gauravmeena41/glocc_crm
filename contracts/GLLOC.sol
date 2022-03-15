@@ -30,6 +30,8 @@ contract GLLOC {
         string email;
         string avatar;
         string mobile;
+        uint256 dob;
+        string maritalStatus;
         string role;
         string team;
         string skills;
@@ -53,6 +55,10 @@ contract GLLOC {
     mapping(uint256 => Task) private tasks;
     string[] departments;
     // Mapppings
+
+    // Events
+    event LogOrgCreated(address orgId);
+    // Events
 
     address[] private usersAddresses;
 
@@ -105,6 +111,7 @@ contract GLLOC {
         user.role = _orgOwnerRole;
         user.team = _orgOwnerTeam;
         user.skills = _orgOwnerSkills;
+        emit LogOrgCreated(msg.sender);
     }
 
     function fetchOrganization(address _orgId)
@@ -245,6 +252,17 @@ contract GLLOC {
         user.mobile = _mobile;
     }
 
+    function changeUserskills(string memory _skills) external {
+        User storage user = users[msg.sender];
+        require(
+            user.userAddress == msg.sender,
+            "Only owner can change username"
+        );
+        require(bytes(_skills).length > 0, "Minimum one skill required");
+
+        user.skills = _skills;
+    }
+
     function changeUserrole(address _userAddress, string memory _role)
         external
     {
@@ -271,17 +289,6 @@ contract GLLOC {
         );
 
         user.role = _team;
-    }
-
-    function changeUserskills(string memory _skills) external {
-        User storage user = users[msg.sender];
-        require(
-            user.userAddress == msg.sender,
-            "Only owner can change username"
-        );
-        require(bytes(_skills).length > 0, "Minimum one skill required");
-
-        user.skills = _skills;
     }
 
     function checkIn() external {

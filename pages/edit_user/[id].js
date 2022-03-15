@@ -1,5 +1,6 @@
 import React from "react";
 import UpdateEmailCard from "../../components/UpdateEmailCard";
+import UpdateMaritalStatusCard from "../../components/UpdateMaritalStatusCard";
 import UpdateMobileCard from "../../components/UpdateMobileCard";
 import UpdateNameCard from "../../components/UpdateNameCard";
 import UpdateSkillsCard from "../../components/UpdateSkillsCard";
@@ -11,6 +12,7 @@ const edit_user = () => {
       <UpdateEmailCard />
       <UpdateMobileCard />
       <UpdateSkillsCard />
+      <UpdateMaritalStatusCard />
     </div>
   );
 };
