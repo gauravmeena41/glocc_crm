@@ -8,7 +8,7 @@ contract GLLOC {
     Counters.Counter private _userCount;
     Counters.Counter private _taskCount;
 
-    address public owner;
+    address private owner;
 
     // Structs
     struct Oraganisation {
@@ -53,7 +53,6 @@ contract GLLOC {
     mapping(address => Oraganisation) private organizations;
     mapping(address => User) private users;
     mapping(uint256 => Task) private tasks;
-    string[] departments;
     // Mapppings
 
     // Events
@@ -66,6 +65,7 @@ contract GLLOC {
         owner = msg.sender;
     }
 
+    // Modifires
     modifier onlyOwner() {
         require(
             msg.sender == owner,
@@ -74,6 +74,9 @@ contract GLLOC {
         _;
     }
 
+    // Modifires
+
+    // Org specific functions
     function addOrganisation(
         string memory _name,
         string memory _website,
@@ -141,6 +144,9 @@ contract GLLOC {
         org.orgOwner = _orgOwner;
     }
 
+    // Org specific functions
+
+    // CEO specific functions
     function addUser(
         address _userAddress,
         string memory _name,
@@ -166,6 +172,69 @@ contract GLLOC {
         usersAddresses.push(_userAddress);
         org.users.push(_userAddress);
     }
+
+    function assignTask(
+        address _userAddress,
+        string memory _taskName,
+        string memory _taskDescription
+    ) external {
+        Oraganisation memory org = organizations[msg.sender];
+        require(msg.sender == org.orgOwner, "Only orgOwner can assign task");
+        Task storage task = tasks[_taskCount.current()];
+        task.taskId = _taskCount.current();
+        task.taskName = _taskName;
+        task.taskDescription = _taskDescription;
+        task.taskStatus = "pending";
+        task.taskCreatedDate = block.timestamp;
+        _taskCount.increment();
+
+        User storage user = users[_userAddress];
+        user.tasks.push(task.taskId);
+    }
+
+    function searchTask(uint256 _taskId) external view returns (Task memory) {
+        Task storage task = tasks[_taskId];
+        return task;
+    }
+
+    function comleteTask(uint256 _taskId) external {
+        Oraganisation memory org = organizations[msg.sender];
+        require(msg.sender == org.orgOwner, "Only orgOwner can complete task");
+        Task storage task = tasks[_taskId];
+        task.taskStatus = "completed";
+    }
+
+    function changeUserrole(address _userAddress, string memory _role)
+        external
+    {
+        User storage user = users[_userAddress];
+        Oraganisation storage org = organizations[user.orgId];
+
+        require(
+            msg.sender == org.orgOwner,
+            "Only orgOwner can have access to this action"
+        );
+
+        user.role = _role;
+    }
+
+    function changeUserteam(address _userAddress, string memory _team)
+        external
+    {
+        User storage user = users[_userAddress];
+        Oraganisation storage org = organizations[user.orgId];
+
+        require(
+            msg.sender == org.orgOwner,
+            "Only orgOwner can have access to this action"
+        );
+
+        user.team = _team;
+    }
+
+    // CEO specific functions
+
+    // User specific functions
 
     function loginUser() external view returns (User memory) {
         User storage user = users[msg.sender];
@@ -210,34 +279,6 @@ contract GLLOC {
         if (_dob > 0) user.dob = _dob;
     }
 
-    function changeUserrole(address _userAddress, string memory _role)
-        external
-    {
-        User storage user = users[_userAddress];
-        Oraganisation storage org = organizations[user.orgId];
-
-        require(
-            msg.sender == org.orgOwner,
-            "Only orgOwner can have access to this action"
-        );
-
-        user.role = _role;
-    }
-
-    function changeUserteam(address _userAddress, string memory _team)
-        external
-    {
-        User storage user = users[_userAddress];
-        Oraganisation storage org = organizations[user.orgId];
-
-        require(
-            msg.sender == org.orgOwner,
-            "Only orgOwner can have access to this action"
-        );
-
-        user.team = _team;
-    }
-
     function checkIn() external {
         User storage user = users[msg.sender];
 
@@ -249,35 +290,5 @@ contract GLLOC {
 
         user.checkOut.push(block.timestamp);
     }
-
-    function assignTask(
-        address _userAddress,
-        string memory _taskName,
-        string memory _taskDescription
-    ) external {
-        Oraganisation memory org = organizations[msg.sender];
-        require(msg.sender == org.orgOwner, "Only orgOwner can assign task");
-        Task storage task = tasks[_taskCount.current()];
-        task.taskId = _taskCount.current();
-        task.taskName = _taskName;
-        task.taskDescription = _taskDescription;
-        task.taskStatus = "pending";
-        task.taskCreatedDate = block.timestamp;
-        _taskCount.increment();
-
-        User storage user = users[_userAddress];
-        user.tasks.push(task.taskId);
-    }
-
-    function searchTask(uint256 _taskId) external view returns (Task memory) {
-        Task storage task = tasks[_taskId];
-        return task;
-    }
-
-    function comleteTask(uint256 _taskId) external {
-        Oraganisation memory org = organizations[msg.sender];
-        require(msg.sender == org.orgOwner, "Only orgOwner can complete task");
-        Task storage task = tasks[_taskId];
-        task.taskStatus = "completed";
-    }
+    // User specific functions
 }
