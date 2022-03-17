@@ -87,6 +87,7 @@ contract GLLOC {
         org.description = _description;
         org.website = _website;
         org.logo = _logo;
+        org.departments.push("Management");
     }
 
     function addOrgOwner(
@@ -189,78 +190,24 @@ contract GLLOC {
         delete users[_userAddress];
     }
 
-    function changeUsername(string memory _name) external {
+    function updateUser(
+        string memory _name,
+        string memory _email,
+        string memory _mobile,
+        string memory _avatar,
+        string memory _userSkills,
+        string memory _maritalStatus,
+        uint256 _dob
+    ) external {
         User storage user = users[msg.sender];
-
-        require(
-            user.userAddress == msg.sender,
-            "Only owner can change username"
-        );
-
-        require(
-            bytes(_name).length <= 32 && bytes(_name).length > 0,
-            "Username should have minimum 1 and maximum 32 charactor"
-        );
-
-        user.name = _name;
-    }
-
-    function changeUseremail(string memory _email) external {
-        User storage user = users[msg.sender];
-
-        require(
-            user.userAddress == msg.sender,
-            "Only owner can change username"
-        );
-
-        require(
-            bytes(_email).length <= 32 && bytes(_email).length > 0,
-            "Email should be a valid email address"
-        );
-
-        user.email = _email;
-    }
-
-    function changeUseravatar(string memory _avatar) external {
-        User storage user = users[msg.sender];
-
-        require(
-            user.userAddress == msg.sender,
-            "Only owner can change username"
-        );
-
-        require(
-            bytes(_avatar).length <= 32 && bytes(_avatar).length > 0,
-            "Your avatar isn't in a valid format"
-        );
-
-        user.avatar = _avatar;
-    }
-
-    function changeUsermobile(string memory _mobile) external {
-        User storage user = users[msg.sender];
-
-        require(
-            user.userAddress == msg.sender,
-            "Only owner can change username"
-        );
-        require(
-            bytes(_mobile).length == 10,
-            "Mobile number should be a valid mobile number"
-        );
-
-        user.mobile = _mobile;
-    }
-
-    function changeUserskills(string memory _skills) external {
-        User storage user = users[msg.sender];
-        require(
-            user.userAddress == msg.sender,
-            "Only owner can change username"
-        );
-        require(bytes(_skills).length > 0, "Minimum one skill required");
-
-        user.skills = _skills;
+        if (bytes(_name).length > 0) user.name = _name;
+        if (bytes(_email).length > 0) user.email = _email;
+        if (bytes(_mobile).length > 0) user.mobile = _mobile;
+        if (bytes(_avatar).length > 0) user.avatar = _avatar;
+        if (bytes(_userSkills).length > 0) user.skills = _userSkills;
+        if (bytes(_maritalStatus).length > 0)
+            user.maritalStatus = _maritalStatus;
+        if (_dob > 0) user.dob = _dob;
     }
 
     function changeUserrole(address _userAddress, string memory _role)
@@ -288,7 +235,7 @@ contract GLLOC {
             "Only orgOwner can have access to this action"
         );
 
-        user.role = _team;
+        user.team = _team;
     }
 
     function checkIn() external {

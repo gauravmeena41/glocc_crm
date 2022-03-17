@@ -31,7 +31,8 @@ const create_org = () => {
     <div>
       <div className="flex items-center justify-center h-[calc(100vh-53px)]">
         <div
-          className={`shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none rounded-xl md:w-[700px] dark:bg-card relative animate-slide-down transition-all duration-300 ${
+          className={`shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none rounded-xl w-full max-w-[700px] mx-5 mt-10
+          dark:bg-card relative animate-slide-down transition-all duration-300 ${
             !isCreateOrg ? "hidden" : ""
           }`}
         >

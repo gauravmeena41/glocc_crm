@@ -18,7 +18,7 @@ export default function Home() {
         <title>GLLOC</title>
       </Head>
       {user && (
-        <div className="flex">
+        <div>
           <div>
             <Mainbar />
           </div>

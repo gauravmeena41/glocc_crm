@@ -13,7 +13,7 @@ const Sidebar = ({ isSidebarShow, setIsSidebarShow }) => {
   const user = useSelector((state) => state.user);
   return (
     <div className="flex items-center w-full">
-      <div className="bg-[#fffffe] dark:bg-card h-[100px] w-[100vw] grid grid-cols-5 rounded-b-xl">
+      <div className="bg-[#fffffe] dark:bg-[#333333] h-[100px] w-[100vw] grid grid-cols-5 rounded-b-xl">
         <Link href={`/profile/${user.userAddress}`}>
           <div
             className="sidebar-item"
@@ -36,7 +36,7 @@ const Sidebar = ({ isSidebarShow, setIsSidebarShow }) => {
           <FolderIcon className="sidebar-item-icon" />
           <h1 className="sidebar-item-text ">Files</h1>
         </div>
-        <Link href="oraganisation">
+        <Link href="/oraganisation">
           <div
             className="sidebar-item"
             onClick={() => setIsSidebarShow(!isSidebarShow)}

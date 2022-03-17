@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { assignTask } from "../helper";
+import React, { useState } from "react";
 import Image from "next/image";
+import { changeUserrole, changeUserteam } from "../helper";
 
-const AssignTask = ({ employees }) => {
-  const [taskName, setTaskName] = useState("");
-  const [taskDesc, setTaskDesc] = useState("");
+const ChangeUserRoleCard = ({ employees, roles }) => {
   const [assignee, setAssignee] = useState("");
   const [assigneeName, setAssigneeName] = useState("");
   const [searchingEmployees, setSearchingEmployees] = useState({});
+  const [newRole, setNewRole] = useState("");
 
   const searchUser = (user) => {
     setSearchingEmployees({});
@@ -24,24 +23,21 @@ const AssignTask = ({ employees }) => {
   return (
     <div className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none dark:bg-card rounded-xl">
       <div className="flex flex-col m-5 py-2 space-y-3 overflow-scroll h-[350px]">
-        <input
-          onChange={(e) => setTaskName(e.target.value)}
-          value={taskName}
-          type="text"
-          placeholder="task name"
-          className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
-          text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
-           dark:text-primary-text-dark px-2 py-1"
-        />
-        <input
-          onChange={(e) => setTaskDesc(e.target.value)}
-          value={taskDesc}
-          type="text"
-          placeholder="task description"
-          className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
-          text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
-           dark:text-primary-text-dark px-2 py-1"
-        />
+        <select
+          onChange={(e) => setNewRole(e.target.value)}
+          defaultValue=""
+          className="w-full outline-none border-none bg-transparent text-base-text-light dark:text-primary-text-dark p-1 font-medium
+        text-lg rounded-xl cursor-pointer dark:bg-[#333333]"
+        >
+          <option disabled className="dark:bg-[#333333]" value="">
+            Select Role
+          </option>
+          {roles?.map((role, idx) => (
+            <option key={idx} className="dark:bg-[#333333]" value={role}>
+              {role}
+            </option>
+          ))}
+        </select>
         <div>
           <input
             onChange={(e) => searchUser(e.target.value)}
@@ -49,7 +45,7 @@ const AssignTask = ({ employees }) => {
             type="text"
             placeholder="search user..."
             className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent w-[100%] rounded-xl outline-none
-            text-primary-text-light font-semibold placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark dark:text-primary-text-dark px-2 py-1"
+          text-primary-text-dark-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark dark:text-primary-text-dark px-2 py-1"
           />
           {Object.entries(searchingEmployees).length > 0 && (
             <div className="space-y-2  rounded-xl p-2 animate-fade-in-out transition-all duration-300">
@@ -70,7 +66,7 @@ const AssignTask = ({ employees }) => {
                         className="rounded-full object-cover"
                       />
                     </div>
-                    <h1 className="text-base-text-light dark:text-primary-text-dark font-medium">
+                    <h1 className="text-base-text-light dark:text-primary-text-dark">
                       {value.name}
                     </h1>
                   </div>
@@ -80,26 +76,16 @@ const AssignTask = ({ employees }) => {
           )}
         </div>
         <button
-          onClick={async () => {
-            await assignTask(
-              assignee.userAddress,
-              assignee.orgId,
-              taskName,
-              taskDesc
-            );
-            setTaskName("");
-            setTaskDesc("");
-            setAssignee("");
-            setAssigneeName("");
-            setSearchingEmployees({});
-          }}
-          className="bg-bg-btn p-1 rounded-xl w-full text-lg text-secondary-text-light  dark:text-base-text-dark font-medium"
+          onClick={() =>
+            newRole && assignee && changeUserrole(assignee.userAddress, newRole)
+          }
+          className="bg-bg-btn p-1 rounded-xl w-full text-lg text-primary-text-light dark:text-base-text-dark font-medium"
         >
-          Assign Task
+          Change Team
         </button>
       </div>
     </div>
   );
 };
 
-export default AssignTask;
+export default ChangeUserRoleCard;

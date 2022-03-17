@@ -30,7 +30,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`flex items-center justify-between p-1 md:p-2 md:px-5 border-b rounded-b-xl dark:border-gray-500 dark:bg-card`}
+        className={`flex items-center justify-between p-1 md:p-2 md:px-5 border-b rounded-b-xl dark:border-gray-500 dark:bg-[#333333]`}
       >
         <div>
           <Link href="/">
@@ -55,8 +55,10 @@ const Navbar = () => {
         </div>
         <div className="flex items-center">
           {user ? (
-            // <Link href={`/profile/${user.userAddress}`}>
-            <div className="rounded-full cursor-pointer flex items-center border-2 dark:border-gray-500 p-[1px] bg-bg-danger">
+            <div
+              className="rounded-full cursor-pointer flex items-center border-2 dark:border-gray-500 p-[1px] bg-bg-danger"
+              onClick={() => setIsSidebarShow(!isSidebarShow)}
+            >
               <Image
                 src={
                   user.avatar
@@ -67,11 +69,9 @@ const Navbar = () => {
                 width={30}
                 height={30}
                 alt=""
-                onClick={() => setIsSidebarShow(!isSidebarShow)}
               />
             </div>
           ) : (
-            // </Link>
             <button
               onClick={async () => addUser(await loginUser())}
               className="shadow active:shadow-md font-semibold px-3 py-[2px] rounded transition-all duration-200

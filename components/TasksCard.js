@@ -6,7 +6,7 @@ const TasksCard = () => {
   const user = useSelector((state) => state.user);
   const [tasks, setTasks] = useState({});
 
-  useEffect(() => {
+  const userTasks = () => {
     user?.tasks?.map(async (task) => {
       let data = await searchTask(task);
       data.taskStatus === "pending" &&
@@ -14,17 +14,21 @@ const TasksCard = () => {
           return { ...prevState, [task]: data };
         });
     });
-  }, []);
+  };
+
+  useEffect(() => {
+    userTasks();
+  }, [user]);
 
   return (
     <div
       className="shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none 
-   rounded-xl  transition-all duration-300   dark:bg-card min-h-[250px] pb-10 lg:hover:scale-[1.03]"
+   rounded-xl  transition-all duration-300  dark:bg-card min-h-[250px] pb-10 lg:hover:scale-[1.03]"
     >
       <div className="overflow-x-scroll overflow-y-scroll h-full w-full scrollbar-hide space-y-1 p-5">
         {Object.entries(tasks).length > 0 ? (
           Object.entries(tasks)?.map(([key, task]) => (
-            <li className="font-light text-lg text-secondary-text-light dark:text-primary-text-dark">
+            <li className="font-light text-xl text-secondary-text-light dark:text-primary-text-dark">
               {task.taskName}
             </li>
           ))

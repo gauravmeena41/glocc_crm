@@ -1,7 +1,6 @@
-import React from "react";
 import { useSelector } from "react-redux";
-import moment from "moment";
 import { checkIn, checkOut } from "../helper";
+import { CheckCircleIcon } from "@heroicons/react/outline";
 
 const MarkAttendanceCard = ({ currentUser }) => {
   const user = useSelector((state) => state.user);
@@ -10,8 +9,9 @@ const MarkAttendanceCard = ({ currentUser }) => {
       className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none px-5 py-5 space-y-8 font-semibold w-full rounded-xl
     dark:bg-card transition-all duration-300 lg:hover:scale-[1.03]"
     >
-      <h1 className="font-bold text-base-text-light dark:text-primary-text-dark">
+      <h1 className="font-bold text-base-text-light dark:text-primary-text-dark flex items-center">
         Attendance
+        <CheckCircleIcon className="w-[16px] h-[16px] text-primary-text-light font-medium dark:text-primary-text-dark ml-1" />
       </h1>
       <div className="flex justify-around">
         <button

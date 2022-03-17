@@ -111,6 +111,29 @@ export const addDepartment = async (_departmentName) => {
   }
 };
 
+export const userRoles = () => {
+  const roles = [
+    "HR Manager",
+    "Training Manager",
+    "Chief Technical Officer",
+    " Business Development Manager",
+    "Technical Lead",
+    "Human Resources Manager",
+    "Trainee",
+    "Intern",
+    "Front-end Developer",
+    "Back-end Developer",
+    "Full-stack Developer",
+    "Web Developer",
+    "Blockchain Developer",
+    "Quality Assurance",
+    "Data Admin",
+    "IT Support",
+    "Network Manager",
+  ];
+  return roles;
+};
+
 export const addUser = async (_orgUser) => {
   const GLLOC = await getContract();
   try {
@@ -127,6 +150,15 @@ export const addUser = async (_orgUser) => {
   }
 };
 
+export const removeUser = async (_orgId, _userAddress) => {
+  const GLLOC = await getContract();
+  try {
+    await GLLOC.removeUser(_orgId, _userAddress);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const searchUser = async (_userAddress) => {
   const GLLOC = await getContract();
   try {
@@ -137,46 +169,26 @@ export const searchUser = async (_userAddress) => {
   }
 };
 
-export const changeUsername = async (_name) => {
+export const updateUser = async (
+  _userName = "",
+  _userEmail = "",
+  _userMobile = "",
+  _userSkills = "",
+  _avatar = "",
+  userMaritalStatus = "",
+  _userDob = 0
+) => {
   const GLLOC = await getContract();
   try {
-    await GLLOC.changeUsername(_name);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const changeUseremail = async (_email) => {
-  const GLLOC = await getContract();
-  try {
-    await GLLOC.changeUseremail(_email);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const changeUseravatar = async (_avatar) => {
-  const GLLOC = await getContract();
-  try {
-    await GLLOC.changeUseravatar(_avatar);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const changeUsermobile = async (_mobile) => {
-  const GLLOC = await getContract();
-  try {
-    await GLLOC.changeUsermobile(_mobile);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const changeUserskills = async (_skills) => {
-  const GLLOC = await getContract();
-  try {
-    await GLLOC.changeUserskills(_skills);
+    await GLLOC.updateUser(
+      _userName,
+      _userEmail,
+      _userMobile,
+      _avatar,
+      _userSkills,
+      userMaritalStatus,
+      _userDob
+    );
   } catch (error) {
     console.log(error);
   }
@@ -240,6 +252,41 @@ export const checkOut = async () => {
   const GLLOC = await getContract();
   try {
     await GLLOC.checkOut();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getAllUser = async (orgUsers, ceo = "") => {
+  try {
+    const users = [];
+
+    ceo && users.push(await searchUser(ceo));
+
+    for (let i = 0; i < orgUsers.length; i++) {
+      let user = await searchUser(orgUsers[i]);
+      user.userAddress !== "0x0000000000000000000000000000000000000000" &&
+        users.push(user);
+    }
+    return users;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const changeUserteam = async (_userAddress, _teamName) => {
+  const GLLOC = await getContract();
+  try {
+    await GLLOC.changeUserteam(_userAddress, _teamName);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const changeUserrole = async (_userAddress, _teamName) => {
+  const GLLOC = await getContract();
+  try {
+    await GLLOC.changeUserrole(_userAddress, _teamName);
   } catch (error) {
     console.log(error);
   }

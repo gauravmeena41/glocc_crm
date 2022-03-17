@@ -6,6 +6,7 @@ import { searchUser } from "../../helper";
 import MarkAttendanceCard from "../../components/MarkAttendanceCard";
 import AboutCard from "../../components/AboutCard";
 import SkillCard from "../../components/SkillCard";
+import BasicinfoCard from "../../components/BasicinfoCard";
 
 const profile = () => {
   const user = useSelector((state) => state.user);
@@ -14,7 +15,6 @@ const profile = () => {
   const { id: currentUserId } = router.query;
 
   useEffect(async () => {
-    console.log(await searchUser(currentUserId));
     setCurrentUser(await searchUser(currentUserId));
   }, [currentUserId]);
 
@@ -31,10 +31,9 @@ const profile = () => {
     <div>
       <div className="relative w-full h-[187px]">
         <Image
-          src="https://images.unsplash.com/photo-1646546487804-85320b3b2540?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1110&q=80"
+          src="https://images.unsplash.com/photo-1626465894806-ba29bfbee59a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80"
           layout="fill"
-          objectFit="cover"
-          objectPosition="center"
+          className="object-cover"
         />
         <div className="w-[100px] h-[100px] rounded-full relative top-[40px] m-auto border-2 z-[1] bg-bg-danger">
           <Image
@@ -66,10 +65,11 @@ const profile = () => {
       <div>
         <div className="grid lg:grid-cols-3 gap-5 m-2 lg:m-5">
           <AboutCard currentUser={currentUser} />
-          {currentUser.userAddress === user.userAddress && (
+          {currentUser?.userAddress === user?.userAddress && (
             <MarkAttendanceCard />
           )}
           <SkillCard currentUser={currentUser} />
+          <BasicinfoCard currentUser={currentUser} />
         </div>
       </div>
     </div>

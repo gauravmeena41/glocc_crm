@@ -1,18 +1,18 @@
-import React from "react";
-import UpdateEmailCard from "../../components/UpdateEmailCard";
-import UpdateMaritalStatusCard from "../../components/UpdateMaritalStatusCard";
-import UpdateMobileCard from "../../components/UpdateMobileCard";
-import UpdateNameCard from "../../components/UpdateNameCard";
-import UpdateSkillsCard from "../../components/UpdateSkillsCard";
+import React, { useEffect } from "react";
+import UpdateUserCard from "../../components/UpdateUserCard";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 const edit_user = () => {
+  const user = useSelector((state) => state.user);
+  const router = useRouter();
+
+  useEffect(() => {
+    !user && router.push("/");
+  }, [user]);
   return (
-    <div className="grid grid-cols-4 gap-5 m-5">
-      <UpdateNameCard />
-      <UpdateEmailCard />
-      <UpdateMobileCard />
-      <UpdateSkillsCard />
-      <UpdateMaritalStatusCard />
+    <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-5 m-5">
+      <UpdateUserCard />
     </div>
   );
 };

@@ -1,52 +1,45 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import AddDepartmentCard from "../components/AddDepartmentCard";
 import AddUserCard from "../components/AddUserCard";
 import AssignTask from "../components/AssignTask";
+import CEOOnlyAction from "../components/CEOOnlyAction";
 import DepartmentCard from "../components/DepartmentCard";
+import RemoveUserCard from "../components/RemoveUserCard";
 import UpdateTaskCard from "../components/UpdateTaskCard";
-import { fetchOrganization, searchUser } from "../helper";
+import {
+  fetchOrganization,
+  getAllUser,
+  searchUser,
+  userRoles,
+} from "../helper";
 
 const oraganisation = () => {
   const user = useSelector((state) => state.user);
-  const [employees, setEmployees] = useState({});
-
+  const [employees, setEmployees] = useState([]);
+  const [roles, setRoles] = useState([]);
+  const router = useRouter();
   const [orgData, setOrgData] = useState([]);
 
   useEffect(async () => {
+    !user && router.push("/");
     user && setOrgData(await fetchOrganization(user.orgId));
-  }, [user]);
+  }, []);
 
   useEffect(async () => {
-    let temp = await searchUser(orgData?.orgId);
+    setRoles(userRoles());
 
-    setEmployees((prevState) => {
-      return { ...prevState, [user]: temp };
-    });
-
-    orgData?.users?.map(async (user) => {
-      let data = await searchUser(user);
-      setEmployees((prevState) => {
-        return { ...prevState, [user]: data };
-      });
-    });
+    let orgId = await fetchOrganization(user?.orgId);
+    let users = orgId?.users;
+    let ceo = orgData?.orgId;
+    setEmployees(await getAllUser(users, ceo));
   }, [orgData]);
 
   return (
-    <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 gap-10 ">
-      {orgData.departments?.map((department, idx) => (
-        <DepartmentCard key={idx} users={employees} department={department} />
-      ))}
-      {user && user.role === "Chief Executive Officer" && <AddDepartmentCard />}
-      {user && user.role === "Chief Executive Officer" && (
-        <AddUserCard orgData={orgData} />
-      )}
-      {user && user.role === "Chief Executive Officer" && (
-        <AssignTask employees={employees} />
-      )}
-      {user && user.role === "Chief Executive Officer" && (
-        <UpdateTaskCard employees={employees} />
-      )}
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 m-5 gap-10 ">
+      <DepartmentCard users={employees} departments={orgData?.departments} />
+      <CEOOnlyAction orgData={orgData} employees={employees} roles={roles} />
     </div>
   );
 };

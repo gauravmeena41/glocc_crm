@@ -1,42 +1,39 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { fetchOrganization, searchUser } from "../helper";
+import { fetchOrganization, getAllUser, searchUser } from "../helper";
 import Link from "next/link";
 
 const employees = () => {
   const user = useSelector((state) => state.user);
-  const [employees, setEmployees] = useState({});
+  const [employees, setEmployees] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
 
   useEffect(async () => {
     let res = await fetchOrganization(user?.orgId);
-    setEmployees({});
-    res?.users?.map(async (user) => {
-      let data = await searchUser(user);
-      setEmployees((prevState) => {
-        return { ...prevState, [user]: data };
-      });
-    });
+    setEmployees(await getAllUser(res?.users));
   }, [user]);
 
   return (
-    <div className="grid sm:grid-cols-2 m-10 gap-10">
+    <div className="grid sm:grid-cols-2 m-5 md:m-10 gap-10">
       <div className="gap-5 dark:bg-card shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none rounded-xl">
         <div className="border-b-2 border-primary-text-light dark:border-secondary-text-dark p-2 text-xl text-base-text-light dark:text-primary-text-dark font-semibold text-center">
           <h1>Employees</h1>
         </div>
-        <div className="m-5 p-2 space-y-3 overflow-scroll min-h-[350px]">
-          {Object.entries(employees).length <= 0 ? (
-            <h1 className="w-full text-center text-xs font-medium text-primary-text-light">
+        <div className="mt-2 p-2 space-y-3 overflow-scroll min-h-[350px]">
+          {employees <= 0 ? (
+            <h1 className="w-full text-center text-xs font-medium text-primary-text-light dark:text-primary-text-dark">
               No employees in your organization
             </h1>
           ) : (
-            Object.entries(employees)?.map(([idx, value]) => (
+            employees?.map((value, idx) => (
               <div
                 key={idx}
-                className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none p-1 px-2 rounded-xl flex items-center space-x-4
-              cursor-pointer transition-all duration-300 mx-5 dark:bg-[#333333] lg:hover:scale-[1.03]"
+                className={`shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none p-1 px-2 rounded-xl flex items-center space-x-4
+                cursor-pointer transition-all duration-300 md:mx-5 dark:bg-[#333333] ${
+                  currentUser.name === value.name &&
+                  "dark:bg-[#343a40] lg:scale-[1.03]"
+                } lg:hover:scale-[1.03]`}
                 onClick={() => setCurrentUser(value)}
               >
                 <div className="relative w-[38px] h-[38px] rounded-full bg-bg-danger">
@@ -60,7 +57,7 @@ const employees = () => {
         </div>
       </div>
       {currentUser.length > 0 && (
-        <div className="hidden sm:flex flex-col dark:bg-card relative shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none rounded-xl animate-slide-down transition-all duration-300 ">
+        <div className="sm:flex flex-col dark:bg-card relative shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none rounded-xl animate-slide-down transition-all duration-300 ">
           <Link href={`profile/${currentUser.userAddress}`}>
             <button
               className="absolute top-2 right-2 text-base-text-light dark:text-base-text-dark rounded-xl font-medium dark:bg-[#333333] shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none

@@ -4,26 +4,41 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { searchUser } from "../helper";
 
-const DepartmentCard = ({ users, department }) => {
+const DepartmentCard = ({ users, departments }) => {
   const [departmentUsers, setDepartmentUser] = useState({});
+  const [currentDepartment, setCurrentDepartment] = useState("");
 
   useEffect(async () => {
     setDepartmentUser({});
-    Object.entries(users)?.map((user) => {
-      user[1]?.team === department &&
+    users?.map((user) => {
+      user.team === currentDepartment &&
         setDepartmentUser((prevState) => {
-          return { ...prevState, [user]: user[1] };
+          return { ...prevState, [user.userAddress]: user };
         });
     });
+  }, [users, currentDepartment]);
+
+  useEffect(() => {
+    departments && setCurrentDepartment(departments[0]);
   }, [users]);
 
-  // console.log(departmentUsers);
+  console.log(users);
 
   return (
     <div className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none dark:bg-card rounded-xl">
-      <h1 className="border-b-2 border-secondary-text-light dark:border-secondary-text-dark p-2 text-center text-lg font-medium text-base-text-light dark:text-primary-text-dark">
-        {department}
-      </h1>
+      <div className="border-b-2 border-secondary-text-dark">
+        <select
+          onChange={(e) => setCurrentDepartment(e.target.value)}
+          className="w-full outline-none border-none bg-transparent text-base-text-light dark:text-primary-text-dark p-2 font-medium
+        text-lg rounded-t-xl text-center cursor-pointer"
+        >
+          {departments?.map((department, idx) => (
+            <option key={idx} className="dark:bg-[#333333]" value={department}>
+              {department}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className=" my-5 py-2 space-y-3 overflow-scroll h-[350px]">
         {Object.entries(departmentUsers)?.map(([idx, user]) => (
           <Link href={`/profile/${user.userAddress}`} key={idx}>

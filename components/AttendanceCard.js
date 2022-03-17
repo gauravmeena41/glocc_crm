@@ -13,7 +13,7 @@ const AttendanceCard = () => {
     >
       <div className="grid grid-cols-2 h-full">
         <div className="h-full scrollbar-hide space-y-1 p-5 overflow-scroll">
-          <h1 className="text-base-text-light dark:text-base-text-dark text-lg font-semibold">
+          <h1 className="text-base-text-light dark:text-primary-text-dark text-lg font-semibold">
             Check In
           </h1>
           {user.checkIn?.map((data, idx) => (
@@ -30,7 +30,7 @@ const AttendanceCard = () => {
           ))}
         </div>
         <div className="h-[90%] scrollbar-hide space-y-1 p-5 overflow-scroll">
-          <h1 className="text-base-text-light dark:text-base-text-dark text-lg font-semibold">
+          <h1 className="text-base-text-light dark:text-primary-text-dark text-lg font-semibold">
             Check Out
           </h1>
           {user.checkOut?.map((data, idx) => (

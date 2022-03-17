@@ -7,7 +7,6 @@ const UpdateTaskCard = ({ employees }) => {
   const [assignee, setAssignee] = useState("");
   const [assigneeName, setAssigneeName] = useState("");
   const [searchingEmployees, setSearchingEmployees] = useState({});
-  const [updatedTask, setUpdateTask] = useState("");
   const [userTasks, setUserTasks] = useState({});
 
   const searchUser = (user) => {
@@ -36,9 +35,6 @@ const UpdateTaskCard = ({ employees }) => {
 
   return (
     <div className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none dark:bg-card rounded-xl">
-      <h1 className="border-b-2 border-secondary-text-light dark:border-secondary-text-dark p-2 text-center text-lg font-medium text-base-text-light dark:text-primary-text-dark">
-        Update Task
-      </h1>
       <div className="flex flex-col m-5 py-2 space-y-3 overflow-scroll h-[350px]">
         <div>
           <input
@@ -68,7 +64,7 @@ const UpdateTaskCard = ({ employees }) => {
                         className="rounded-full object-cover"
                       />
                     </div>
-                    <h1 className="dark:text-primary-text-dark">
+                    <h1 className="text-base-text-light dark:text-primary-text-dark">
                       {value.name}
                     </h1>
                   </div>
@@ -89,9 +85,13 @@ const UpdateTaskCard = ({ employees }) => {
                       {task.taskName}
                     </h1>
                     <CheckCircleIcon
-                      onClick={async () =>
-                        await updateTask(task.taskId.toNumber())
-                      }
+                      onClick={async () => {
+                        await updateTask(task.taskId.toNumber());
+                        setAssignee({});
+                        setAssigneeName("");
+                        setUserTasks({});
+                        setSearchingEmployees({});
+                      }}
                       className="w-[24px] h-[24px] transition-all duration-300 dark:text-primary-text-dark hover:text-green-500"
                     />
                   </div>
