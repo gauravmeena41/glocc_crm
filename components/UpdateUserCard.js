@@ -15,7 +15,7 @@ const UpdateUserCard = () => {
   const [dob, setDob] = useState(new Date().getTime());
 
   useEffect(() => {
-    user.dob.toNumber() && setDob(user.dob);
+    user?.dob.toNumber() && setDob(user?.dob);
   }, []);
 
   return (
@@ -29,7 +29,7 @@ const UpdateUserCard = () => {
       <div className="flex flex-col items-center space-y-3 m-5">
         <input
           type="text"
-          placeholder={user.name}
+          placeholder={user?.name}
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
           className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
@@ -38,7 +38,7 @@ const UpdateUserCard = () => {
         />
         <input
           type="text"
-          placeholder={user.email}
+          placeholder={user?.email}
           value={userEmail}
           onChange={(e) => setUserEmail(e.target.value)}
           className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
@@ -47,7 +47,7 @@ const UpdateUserCard = () => {
         />
         <input
           type="text"
-          placeholder={user.mobile ? user.mobile : "your mobile"}
+          placeholder={user?.mobile ? user?.mobile : "your mobile"}
           value={userMobile}
           onChange={(e) => setUserMobile(e.target.value)}
           className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
@@ -72,7 +72,7 @@ const UpdateUserCard = () => {
         />
         <input
           type="text"
-          placeholder={user.skills ? user.skills : "your skills"}
+          placeholder={user?.skills ? user?.skills : "your skills"}
           value={userSkills}
           onChange={(e) => setUserSkills(e.target.value)}
           className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
