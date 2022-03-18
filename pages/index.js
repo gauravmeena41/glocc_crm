@@ -1,11 +1,13 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+
+import { useRecoilState } from "recoil";
+import { userState } from "../atoms/user";
 import Mainbar from "../components/Mainbar";
 import { useRouter } from "next/router";
 
 export default function Home() {
-  const user = useSelector((state) => state.user);
+  const [user, setUser] = useRecoilState(userState);
   const router = useRouter();
 
   useEffect(() => {

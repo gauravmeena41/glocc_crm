@@ -1,9 +1,7 @@
-import { useSelector } from "react-redux";
 import { checkIn, checkOut } from "../helper";
 import { CheckCircleIcon } from "@heroicons/react/outline";
 
 const MarkAttendanceCard = ({ currentUser }) => {
-  const user = useSelector((state) => state.user);
   return (
     <div
       className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none px-5 py-5 space-y-8 font-semibold w-full rounded-xl

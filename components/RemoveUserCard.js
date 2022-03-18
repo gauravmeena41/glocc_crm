@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { assignTask, removeUser, searchTask, updateTask } from "../helper";
+import { useState } from "react";
+import { removeUser } from "../helper";
 import Image from "next/image";
-import { CheckCircleIcon } from "@heroicons/react/outline";
 
 const RemoveUserCard = ({ employees }) => {
   const [assignee, setAssignee] = useState("");

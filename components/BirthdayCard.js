@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+
+import { useRecoilState } from "recoil";
+import { userState } from "../atoms/user";
 import Link from "next/link";
 import Image from "next/image";
 import { fetchOrganization, getAllUser } from "../helper";
 
 const BirthdayCard = () => {
-  const user = useSelector((state) => state.user);
+  const user = useRecoilState(userState);
   const [birthdays, setBirthdays] = useState({});
   const [employees, setEmployees] = useState([]);
   const currentDate = new Date().getDate();

@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+
+import { useRecoilState } from "recoil";
+import { userState } from "../atoms/user";
 import { searchTask } from "../helper";
 
 const TasksCard = () => {
-  const user = useSelector((state) => state.user);
+  const [user, setUser] = useRecoilState(userState);
   const [tasks, setTasks] = useState({});
 
   const userTasks = () => {

@@ -3,28 +3,24 @@ import { SearchIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 import { loginUser } from "../helper";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../redux/index";
-import { MenuIcon } from "@heroicons/react/outline";
 import Sidebar from "./Sidebar";
+import { useRecoilState } from "recoil";
+import { userState } from "../atoms/user";
 
 const Navbar = () => {
+  const [user, setUser] = useRecoilState(userState);
   const [isSidebarShow, setIsSidebarShow] = useState(false);
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-
-  const { addUser, removeUser } = bindActionCreators(actionCreators, dispatch);
 
   if (
     user == null ||
     user.userAddress === "0x0000000000000000000000000000000000000000"
   ) {
-    addUser(null);
+    setUser(null);
   }
 
   useEffect(async () => {
-    addUser(await loginUser());
+    setUser(await loginUser());
+    console.log(user);
   }, []);
 
   return (
@@ -73,7 +69,7 @@ const Navbar = () => {
             </div>
           ) : (
             <button
-              onClick={async () => addUser(await loginUser())}
+              onClick={async () => setUser(await loginUser())}
               className="shadow active:shadow-md font-semibold px-3 py-[2px] rounded transition-all duration-200
           dark:bg-secondary-text"
             >
