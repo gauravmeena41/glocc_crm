@@ -8,7 +8,7 @@ import { fetchOrganization, getAllUser, searchUser } from "../helper";
 import Link from "next/link";
 
 const employees = () => {
-  const user = useRecoilState(userState);
+  const [user] = useRecoilState(userState);
   // const [employees, setEmployees] = useRecoilState(employeesState);
   const [employees, setEmployees] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);

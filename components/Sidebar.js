@@ -6,12 +6,11 @@ import {
   UserGroupIcon,
   UserIcon,
 } from "@heroicons/react/outline";
-
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { userState } from "../atoms/user";
 
 const Sidebar = ({ isSidebarShow, setIsSidebarShow }) => {
-  const user = useRecoilState(userState);
+  const user = useRecoilValue(userState);
 
   return (
     <div className="flex items-center w-full">

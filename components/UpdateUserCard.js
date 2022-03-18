@@ -5,7 +5,7 @@ import { userState } from "../atoms/user";
 import { updateUser } from "../helper";
 
 const UpdateUserCard = () => {
-  const user = useRecoilState(userState);
+  const [user] = useRecoilState(userState);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userMobile, setUserMobile] = useState("");

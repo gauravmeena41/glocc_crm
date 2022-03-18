@@ -11,7 +11,7 @@ import { useRecoilState } from "recoil";
 import { userState } from "../atoms/user";
 
 const AboutCard = ({ currentUser }) => {
-  const user = useRecoilState(userState);
+  const [user] = useRecoilState(userState);
 
   return (
     <div
