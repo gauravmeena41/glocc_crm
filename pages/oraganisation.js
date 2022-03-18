@@ -8,7 +8,7 @@ import DepartmentCard from "../components/DepartmentCard";
 import { fetchOrganization, getAllUser, userRoles } from "../helper";
 
 const oraganisation = () => {
-  const [user, setUser] = useRecoilState(userState);
+  const [user] = useRecoilState(userState);
   const [employees, setEmployees] = useState([]);
   const [roles, setRoles] = useState([]);
   const router = useRouter();

@@ -25,7 +25,7 @@ const AboutCard = ({ currentUser }) => {
           </h1>
           <InformationCircleIcon className="w-[16px] h-[16px] text-primary-text-light font-medium dark:text-primary-text-dark" />
         </div>
-        {currentUser.userAddress === user.userAddress && (
+        {currentUser && user && currentUser.userAddress === user.userAddress && (
           <Link href={`/edit_user/${currentUser.userAddress}`}>
             <div className="flex items-center space-x-2 bg-[#333333] px-2 py-[1px] rounded-lg cursor-pointer">
               <h1 className="text-base-text-light dark:text-primary-text-dark">
@@ -37,7 +37,7 @@ const AboutCard = ({ currentUser }) => {
         )}
       </div>
       <div className="grid md:grid-cols-2 gap-10">
-        {currentUser.team && (
+        {currentUser && currentUser.team && (
           <div className="flex items-center space-x-2">
             <ServerIcon className="w-[16px] h-[16px] text-[#7f5af0]" />
             <h1 className="text-sm text-primary-text-light font-medium dark:text-secondary-text-dark">
@@ -45,7 +45,7 @@ const AboutCard = ({ currentUser }) => {
             </h1>
           </div>
         )}
-        {currentUser.role && (
+        {currentUser && currentUser.role && (
           <div className="flex items-center space-x-2">
             <UserGroupIcon className="w-[16px] h-[16px] text-[#7f5af0]" />
             <h1 className="text-sm text-primary-text-light font-medium dark:text-secondary-text-dark">
@@ -53,7 +53,7 @@ const AboutCard = ({ currentUser }) => {
             </h1>
           </div>
         )}
-        {currentUser.mobile && (
+        {currentUser && currentUser.mobile && (
           <div className="flex items-center space-x-2">
             <DeviceMobileIcon className="w-[16px] h-[16px] text-[#7f5af0]" />
             <h1 className="text-sm text-primary-text-light font-medium dark:text-secondary-text-dark">

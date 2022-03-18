@@ -11,7 +11,7 @@ import SkillCard from "../../components/SkillCard";
 import BasicinfoCard from "../../components/BasicinfoCard";
 
 const profile = () => {
-  const [user, setUser] = useRecoilState(userState);
+  const [user] = useRecoilState(userState);
   const [currentUser, setCurrentUser] = useState(null);
   const router = useRouter();
   const { id: currentUserId } = router.query;
@@ -39,7 +39,7 @@ const profile = () => {
         />
         <div className="w-[100px] h-[100px] rounded-full relative top-[40px] m-auto border-2 z-[1] bg-bg-danger">
           <Image
-            src={currentUser.avatar}
+            src={currentUser?.avatar}
             layout="fill"
             objectFit="cover"
             className="rounded-full object-cover"
@@ -48,16 +48,16 @@ const profile = () => {
         <div className="absolute bottom-2 w-full hidden lg:flex justify-center items-center z-[1] ">
           <div className="flex space-x-16">
             <h1 className="text-white font-semibold">
-              {currentUser.userId ? currentUser.userId.toNumber() : ""}
+              {currentUser?.userId ? currentUser?.userId.toNumber() : ""}
             </h1>
             <h1 className="text-white font-semibold">
-              {currentUser.role ? currentUser.role : ""}
+              {currentUser?.role ? currentUser?.role : ""}
             </h1>
             <h1 className="text-white font-semibold">
-              {currentUser.team ? currentUser.team : ""}
+              {currentUser?.team ? currentUser?.team : ""}
             </h1>
             <h1 className="text-white font-semibold">
-              {currentUser.email ? currentUser.email : ""}
+              {currentUser?.email ? currentUser?.email : ""}
             </h1>
           </div>
         </div>

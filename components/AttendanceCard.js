@@ -1,48 +1,45 @@
 import { useRecoilState } from "recoil";
-import moment from "moment";
+import { DateTime } from "luxon";
 import { userState } from "../atoms/user";
 
 const AttendanceCard = () => {
   const [user] = useRecoilState(userState);
-  const date = new Date();
 
   return (
     <div
-      className="hidden lg:inline-block col-span-2 shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none
-    rounded-xl transition-all duration-300 dark:bg-card pb-10 lg:hover:scale-[1.02]"
+      className="shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none
+    rounded-xl transition-all duration-300 dark:bg-card lg:hover:scale-[1.02] max-h-[320px] overflow-hidden"
     >
-      <div className="grid grid-cols-2 h-full">
-        <div className="h-full scrollbar-hide space-y-1 p-5 overflow-scroll">
-          <h1 className="text-base-text-light dark:text-primary-text-dark text-lg font-semibold mb-5">
-            Check In
-          </h1>
+      <div className="flex justify-around border-b border-base-text-light dark:border-secondary-text-dark">
+        <h1 className="text-base-text-light dark:text-primary-text-dark text-lg font-semibold my-2">
+          Check In
+        </h1>
+        <h1 className="text-base-text-light dark:text-primary-text-dark text-lg font-semibold my-2">
+          Check Out
+        </h1>
+      </div>
+      <div className=" mt-5 grid grid-cols-2 text-center">
+        <div className="space-y-1 h-[80%] overflow-scroll">
           {user.checkIn?.map((data, idx) => (
             <h1
               key={idx}
-              className="text-lg text-secondary-text-light dark:text-primary-text-dark dark:text-secondary-text"
+              className="text-lg text-secondary-text-light dark:text-secondary-text-dark"
             >
-              {moment(data.toNumber() * 1000).format("MMMM Do YYYY") ===
-                moment(date).format("MMMM Do YYYY") &&
-                moment(data.toNumber() * 1000).format(
-                  "MMMM Do YYYY, h:mm:ss a"
-                )}
+              {DateTime.fromJSDate(new Date()).toFormat("d") ===
+                DateTime.fromMillis(data.toNumber() * 1000).toFormat("d") &&
+                DateTime.fromMillis(data.toNumber() * 1000).toFormat("tt")}
             </h1>
           ))}
         </div>
-        <div className="h-[90%] scrollbar-hide space-y-1 p-5 overflow-scroll">
-          <h1 className="text-base-text-light dark:text-primary-text-dark text-lg font-semibold mb-5">
-            Check Out
-          </h1>
+        <div className="space-y-1 h-[80%] overflow-scroll">
           {user.checkOut?.map((data, idx) => (
             <h1
               key={idx}
-              className="text-lg text-secondary-text-light dark:text-primary-text-dark dark:text-secondary-text"
+              className="text-lg text-secondary-text-light dark:text-secondary-text-dark"
             >
-              {moment(data.toNumber() * 1000).format("MMMM Do YYYY") ===
-                moment(date).format("MMMM Do YYYY") &&
-                moment(data.toNumber() * 1000).format(
-                  "MMMM Do YYYY, h:mm:ss a"
-                )}
+              {DateTime.fromJSDate(new Date()).toFormat("d") ===
+                DateTime.fromMillis(data.toNumber() * 1000).toFormat("d") &&
+                DateTime.fromMillis(data.toNumber() * 1000).toFormat("tt")}
             </h1>
           ))}
         </div>

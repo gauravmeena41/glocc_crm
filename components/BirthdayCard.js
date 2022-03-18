@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { useRecoilState } from "recoil";
 import { userState } from "../atoms/user";
 import Link from "next/link";
@@ -7,7 +6,7 @@ import Image from "next/image";
 import { fetchOrganization, getAllUser } from "../helper";
 
 const BirthdayCard = () => {
-  const user = useRecoilState(userState);
+  const [user] = useRecoilState(userState);
   const [birthdays, setBirthdays] = useState({});
   const [employees, setEmployees] = useState([]);
   const currentDate = new Date().getDate();
@@ -30,14 +29,14 @@ const BirthdayCard = () => {
 
   useEffect(() => {
     orgEmployees();
-  }, [employees]);
+  }, []);
 
   return (
     <div
       className="shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none
       rounded-xl  transition-all duration-300 dark:bg-card min-h-[250px] pb-10 lg:hover:scale-[1.03]"
     >
-      <div className="overflow-x-scroll overflow-y-scroll h-full w-full scrollbar-hide space-y-3 p-5">
+      <div className="overflow-scroll h-full w-full scrollbar-hide space-y-3 p-5">
         {Object.entries(birthdays).length > 0 ? (
           Object.entries(birthdays)?.map(([idx, birthday]) => (
             <Link href={`/profile/${birthday.userAddress}`} key={idx}>

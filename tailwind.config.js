@@ -27,7 +27,7 @@ module.exports = {
         "slide-down": {
           "0%": {
             opacity: 0,
-            transform: "translateY(-10%)",
+            transform: "translateY(-5%)",
           },
           "100%": {
             opacity: 1,
@@ -35,13 +35,13 @@ module.exports = {
           },
         },
         "slide-up": {
-          "100%": {
+          "0%": {
             opacity: 1,
             transform: "translateY(0%)",
           },
-          "0%": {
+          "100%": {
             opacity: 0,
-            transform: "translateY(-10%)",
+            transform: "translateY(-50%)",
           },
         },
         "slide-right": {
@@ -62,8 +62,8 @@ module.exports = {
         },
       },
       animation: {
-        "slide-down": "slide-down 0.3s ease-in-out",
-        "slide-up": "slide-up 0.3s ease-in-out",
+        "slide-down": "slide-down 0.3s ease-in-out forwards",
+        "slide-up": "slide-up 0.3s ease-in-out forwards",
         "slide-right": "slide-right 0.3s ease-in-out",
         "fade-in-out": "fade-in-out 0.3s ease-in-out",
       },

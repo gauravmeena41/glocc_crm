@@ -1,5 +1,5 @@
 import { IdentificationIcon } from "@heroicons/react/outline";
-import moment from "moment";
+import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import { fetchOrganization } from "../helper";
 
@@ -57,7 +57,7 @@ const BasicinfoCard = ({ currentUser }) => {
               Birth Date
             </h1>
             <p className="col-span-2 text-base-text-light dark:text-secondary-text-dark font-normal mb-2">
-              {moment(currentUser.dob.toNumber()).format("LL")}
+              {DateTime.fromMillis(currentUser?.dob.toNumber()).toFormat("DDD")}
             </p>
           </div>
           <div className="grid grid-cols-3 border-b border-base-text-light dark:border-secondary-text-dark mt-5">

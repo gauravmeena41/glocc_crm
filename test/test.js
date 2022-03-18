@@ -1,6 +1,5 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
-const moment = require("moment");
 
 describe("GLLOC", function () {
   it("Should create the GLLOC", async function () {

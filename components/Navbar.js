@@ -28,7 +28,7 @@ const Navbar = () => {
       <nav
         className={`flex items-center justify-between p-1 md:p-2 md:px-5 border-b rounded-b-xl dark:border-gray-500 dark:bg-[#333333]`}
       >
-        <div>
+        <div onClick={() => setIsSidebarShow(false)}>
           <Link href="/">
             <h1 className="font-bold text-xl md:text-2xl text-base-text-light dark:text-base-text-dark cursor-pointer">
               GLLOC
@@ -82,8 +82,8 @@ const Navbar = () => {
         <div className="relative">
           <div
             className={`${
-              isSidebarShow ? "inline-block " : "hidden"
-            } animate-slide-down absolute -top-2 z-[2] transition-all duration-300 `}
+              isSidebarShow ? "inline-block animate-slide-down" : "hidden"
+            }  absolute -top-2 z-[2] transition-all duration-300 `}
           >
             <Sidebar
               isSidebarShow={isSidebarShow}
