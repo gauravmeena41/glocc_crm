@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+
+import { useRecoilState } from "recoil";
+import { userState } from "../../atoms/user";
 import { useRouter } from "next/router";
 import { searchUser } from "../../helper";
 import MarkAttendanceCard from "../../components/MarkAttendanceCard";
@@ -9,7 +11,7 @@ import SkillCard from "../../components/SkillCard";
 import BasicinfoCard from "../../components/BasicinfoCard";
 
 const profile = () => {
-  const user = useSelector((state) => state.user);
+  const [user, setUser] = useRecoilState(userState);
   const [currentUser, setCurrentUser] = useState(null);
   const router = useRouter();
   const { id: currentUserId } = router.query;

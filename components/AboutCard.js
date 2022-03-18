@@ -1,7 +1,4 @@
 import {
-  CakeIcon,
-  CalendarIcon,
-  ClockIcon,
   DeviceMobileIcon,
   InformationCircleIcon,
   PencilAltIcon,
@@ -9,11 +6,13 @@ import {
   UserGroupIcon,
 } from "@heroicons/react/outline";
 import Link from "next/link";
-import { useSelector } from "react-redux";
-import moment from "moment";
+
+import { useRecoilState } from "recoil";
+import { userState } from "../atoms/user";
 
 const AboutCard = ({ currentUser }) => {
-  const user = useSelector((state) => state.user);
+  const user = useRecoilState(userState);
+
   return (
     <div
       className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none px-5 py-5 space-y-8 rounded-xl

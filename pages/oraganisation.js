@@ -1,22 +1,14 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import AddDepartmentCard from "../components/AddDepartmentCard";
-import AddUserCard from "../components/AddUserCard";
-import AssignTask from "../components/AssignTask";
+
+import { useRecoilState } from "recoil";
+import { userState } from "../atoms/user";
 import CEOOnlyAction from "../components/CEOOnlyAction";
 import DepartmentCard from "../components/DepartmentCard";
-import RemoveUserCard from "../components/RemoveUserCard";
-import UpdateTaskCard from "../components/UpdateTaskCard";
-import {
-  fetchOrganization,
-  getAllUser,
-  searchUser,
-  userRoles,
-} from "../helper";
+import { fetchOrganization, getAllUser, userRoles } from "../helper";
 
 const oraganisation = () => {
-  const user = useSelector((state) => state.user);
+  const [user, setUser] = useRecoilState(userState);
   const [employees, setEmployees] = useState([]);
   const [roles, setRoles] = useState([]);
   const router = useRouter();

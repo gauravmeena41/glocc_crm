@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { assignTask } from "../helper";
 import Image from "next/image";
 

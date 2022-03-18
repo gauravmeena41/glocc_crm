@@ -3,14 +3,11 @@ import { XCircleIcon } from "@heroicons/react/outline";
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import { addOrganization, loginUser } from "../helper";
 import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../redux";
+import { userState } from "../atoms/user";
+import { useRecoilState } from "recoil";
 
 const create_org = () => {
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const { addUser } = bindActionCreators(actionCreators, dispatch);
+  const [user, setUser] = useRecoilState(userState);
   const [isCreateOrg, setIsCreateOrg] = useState(false);
   const [orgName, setOrgName] = useState("");
   const [orgWebsite, setOrgWebsite] = useState("");
@@ -20,7 +17,6 @@ const create_org = () => {
   const [ownerEmail, setOwnerEmail] = useState("");
   const [ownerMobile, setOwnerMobile] = useState("");
   const [ownerSkills, setOwnerSkills] = useState("");
-  const [orgId, setOrgId] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -146,7 +142,7 @@ const create_org = () => {
                 ownerMobile,
                 ownerSkills
               );
-              addUser(await loginUser());
+              setUser(await loginUser());
             }}
           >
             Create Organization

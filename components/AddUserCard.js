@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { addUser, userRoles } from "../helper";
+import React, { useState } from "react";
+import { addUser } from "../helper";
 
 const AddUserCard = ({ orgData, roles }) => {
   const [orgUser, setOrgUser] = useState({
@@ -19,8 +19,6 @@ const AddUserCard = ({ orgData, roles }) => {
       userTeam: "",
     });
   };
-
-  console.log(roles);
 
   return (
     <div className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none dark:bg-card rounded-xl">

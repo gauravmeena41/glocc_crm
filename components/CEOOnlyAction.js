@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+
+import { useRecoilState } from "recoil";
+import { userState } from "../atoms/user";
 import AddDepartmentCard from "./AddDepartmentCard";
 import AddUserCard from "./AddUserCard";
 import AssignTask from "./AssignTask";
@@ -9,8 +11,7 @@ import RemoveUserCard from "./RemoveUserCard";
 import UpdateTaskCard from "./UpdateTaskCard";
 
 const CEOOnlyAction = ({ orgData, employees, roles }) => {
-  const user = useSelector((state) => state.user);
-  const [department, setDepartment] = useState("");
+  const [user] = useRecoilState(userState);
   const [currentAction, setCurrentAction] = useState("");
 
   useEffect(() => {

@@ -1,16 +1,18 @@
 import Link from "next/link";
 import {
   FolderIcon,
-  HomeIcon,
   InboxIcon,
   OfficeBuildingIcon,
   UserGroupIcon,
   UserIcon,
 } from "@heroicons/react/outline";
-import { useSelector } from "react-redux";
+
+import { useRecoilState } from "recoil";
+import { userState } from "../atoms/user";
 
 const Sidebar = ({ isSidebarShow, setIsSidebarShow }) => {
-  const user = useSelector((state) => state.user);
+  const user = useRecoilState(userState);
+
   return (
     <div className="flex items-center w-full">
       <div className="bg-[#fffffe] dark:bg-[#333333] h-[100px] w-[100vw] grid grid-cols-5 rounded-b-xl">

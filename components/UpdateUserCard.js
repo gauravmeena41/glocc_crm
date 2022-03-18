@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+
+import { useRecoilState } from "recoil";
+import { userState } from "../atoms/user";
 import { updateUser } from "../helper";
 
 const UpdateUserCard = () => {
-  const user = useSelector((state) => state.user);
+  const user = useRecoilState(userState);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userMobile, setUserMobile] = useState("");

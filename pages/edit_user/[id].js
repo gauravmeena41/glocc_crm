@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import UpdateUserCard from "../../components/UpdateUserCard";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+
+import { useRecoilState } from "recoil";
+import { userState } from "../atoms/user";
 
 const edit_user = () => {
-  const user = useSelector((state) => state.user);
+  const [user, setUser] = useRecoilState(userState);
   const router = useRouter();
 
   useEffect(() => {

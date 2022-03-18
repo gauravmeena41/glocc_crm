@@ -90,7 +90,6 @@ contract GLLOC {
         org.description = _description;
         org.website = _website;
         org.logo = _logo;
-        org.departments.push("Management");
     }
 
     function addOrgOwner(
@@ -115,6 +114,7 @@ contract GLLOC {
         user.role = _orgOwnerRole;
         user.team = _orgOwnerTeam;
         user.skills = _orgOwnerSkills;
+        org.departments.push("Management");
         emit LogOrgCreated(msg.sender);
     }
 

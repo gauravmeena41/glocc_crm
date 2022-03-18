@@ -1,9 +1,9 @@
+import { useRecoilState } from "recoil";
 import moment from "moment";
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { userState } from "../atoms/user";
 
 const AttendanceCard = () => {
-  const user = useSelector((state) => state.user);
+  const user = useRecoilState(userState);
   const date = new Date();
 
   return (

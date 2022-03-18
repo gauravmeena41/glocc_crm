@@ -1,11 +1,15 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+
+import { useRecoilState } from "recoil";
+import { userState } from "../atoms/user";
+import { employeesState } from "../atoms/employees";
 import { fetchOrganization, getAllUser, searchUser } from "../helper";
 import Link from "next/link";
 
 const employees = () => {
-  const user = useSelector((state) => state.user);
+  const user = useRecoilState(userState);
+  // const [employees, setEmployees] = useRecoilState(employeesState);
   const [employees, setEmployees] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
 
