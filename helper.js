@@ -2,7 +2,7 @@ import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers } from "ethers";
 import { gllocAddress } from "./config";
-import GLLOC from "./artifacts/contracts/GLLOC.sol/GLLOC.json";
+import GLLOC from "./utils/GLLOC.json";
 
 export const getWeb3Modal = async () => {
   const web3Modal = new Web3Modal({
