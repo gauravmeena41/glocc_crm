@@ -4,11 +4,15 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract GLLOC {
+    // Counters
     using Counters for Counters.Counter;
     Counters.Counter private _userCount;
     Counters.Counter private _taskCount;
+    // Counters
 
+    // Owner
     address private owner;
+    // Owner
 
     // Structs
     struct Oraganisation {
@@ -57,9 +61,8 @@ contract GLLOC {
 
     // Events
     event LogOrgCreated(address orgId);
-    // Events
 
-    address[] private usersAddresses;
+    // Events
 
     constructor() {
         owner = msg.sender;
@@ -115,20 +118,30 @@ contract GLLOC {
         view
         returns (Oraganisation memory)
     {
+        Oraganisation storage org = organizations[_orgId];
+        require(
+            org.orgId != 0x0000000000000000000000000000000000000000,
+            "Organization not found."
+        );
         return organizations[_orgId];
     }
 
     function addDepartment(string memory _department) external {
         Oraganisation storage org = organizations[msg.sender];
         require(
-            msg.sender == org.orgOwner,
-            "Only orgOwner have access to this action"
+            org.orgId != 0x0000000000000000000000000000000000000000,
+            "Organization not found."
         );
         org.departments.push(_department);
     }
 
     function changeOrgOwner(address _newOrgOwner) external {
         Oraganisation storage org = organizations[msg.sender];
+
+        require(
+            org.orgId != 0x0000000000000000000000000000000000000000,
+            "Organization not found."
+        );
         require(
             msg.sender == org.orgOwner,
             "Only current orgOwner can set new orgOwner"
@@ -181,6 +194,10 @@ contract GLLOC {
     ) external {
         Oraganisation storage org = organizations[msg.sender];
         require(
+            org.orgId != 0x0000000000000000000000000000000000000000,
+            "Organization not found."
+        );
+        require(
             msg.sender == org.orgOwner,
             "Only orgOwner have access to this action"
         );
@@ -193,7 +210,6 @@ contract GLLOC {
         user.avatar = _avatar;
         user.role = _role;
         user.team = _team;
-        usersAddresses.push(_userAddress);
         org.users.push(_userAddress);
     }
 
@@ -203,7 +219,15 @@ contract GLLOC {
         string memory _taskDescription
     ) external {
         Oraganisation memory org = organizations[msg.sender];
-        require(msg.sender == org.orgOwner, "Only orgOwner can assign task");
+        require(
+            org.orgId != 0x0000000000000000000000000000000000000000,
+            "Organization not found."
+        );
+        require(
+            msg.sender == org.orgOwner,
+            "Only orgOwner have access to this action"
+        );
+
         Task storage task = tasks[_taskCount.current()];
         task.taskId = _taskCount.current();
         task.taskName = _taskName;
@@ -223,7 +247,15 @@ contract GLLOC {
 
     function comleteTask(uint256 _taskId) external {
         Oraganisation memory org = organizations[msg.sender];
-        require(msg.sender == org.orgOwner, "Only orgOwner can complete task");
+        require(
+            org.orgId != 0x0000000000000000000000000000000000000000,
+            "Organization not found."
+        );
+        require(
+            msg.sender == org.orgOwner,
+            "Only orgOwner have access to this action"
+        );
+
         Task storage task = tasks[_taskId];
         task.taskStatus = "completed";
     }
@@ -232,11 +264,14 @@ contract GLLOC {
         external
     {
         User storage user = users[_userAddress];
-        Oraganisation storage org = organizations[user.orgId];
-
+        Oraganisation storage org = organizations[msg.sender];
+        require(
+            org.orgId != 0x0000000000000000000000000000000000000000,
+            "Organization not found."
+        );
         require(
             msg.sender == org.orgOwner,
-            "Only orgOwner can have access to this action"
+            "Only orgOwner have access to this action"
         );
 
         user.role = _role;
@@ -246,11 +281,14 @@ contract GLLOC {
         external
     {
         User storage user = users[_userAddress];
-        Oraganisation storage org = organizations[user.orgId];
-
+        Oraganisation storage org = organizations[msg.sender];
+        require(
+            org.orgId != 0x0000000000000000000000000000000000000000,
+            "Organization not found."
+        );
         require(
             msg.sender == org.orgOwner,
-            "Only orgOwner can have access to this action"
+            "Only orgOwner have access to this action"
         );
 
         user.team = _team;
@@ -258,13 +296,35 @@ contract GLLOC {
 
     function removeUser(address _userAddress) external {
         Oraganisation storage org = organizations[msg.sender];
+        require(
+            org.orgId != 0x0000000000000000000000000000000000000000,
+            "Organization not found."
+        );
+
+        require(
+            msg.sender == org.orgOwner,
+            "Only orgOwner have access to this action"
+        );
+
+        uint256 userIndex = org.users.length + 1;
 
         for (uint256 i = 0; i < org.users.length; i++) {
             if (org.users[i] == _userAddress) {
-                delete org.users[i];
+                userIndex = i;
+                break;
             }
         }
 
+        require(
+            userIndex >= 0 && userIndex <= org.users.length,
+            "User not found"
+        );
+
+        for (uint256 i = userIndex; i < org.users.length - 1; i++) {
+            org.users[i] = org.users[i + 1];
+        }
+
+        org.users.pop();
         delete users[_userAddress];
     }
 

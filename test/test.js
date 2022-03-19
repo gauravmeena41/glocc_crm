@@ -15,19 +15,22 @@ describe("GLLOC", function () {
       "GLLOC",
       "www.website.com",
       "description",
-      "logo"
+      "logo",
+      "Gaurav",
+      "gaurav@gmail.com",
+      "https://avatars.dicebear.com/api/miniavs/Gaurav:seed.svg",
+      "1234567890",
+      "Java, Python, C++"
     );
 
-    await glloc.addOrgOwner(
-      "Gaurav Meena",
-      "gurumeena41.gm@gmail.com",
+    await glloc.addUser(
+      "0xbdA7F16Dc9c4bCa32D70Ad3f29804F2BE57A78B7",
+      "Gaurav",
+      "gurumeena@gmail.com",
       "avatar",
-      "8769973256",
-      "CEO",
-      "Management",
-      "Web Development,UI/UX design"
+      "Developer",
+      "Engineering"
     );
-
     await glloc.addUser(
       "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c",
       "Gaurav",
@@ -37,7 +40,7 @@ describe("GLLOC", function () {
       "Engineering"
     );
     await glloc.addUser(
-      "0xbdA7F16Dc9c4bCa32D70Ad3f29804F2BE57A78B7",
+      "0x90597947ca4cDccffa2A963cC428334C6E39eaeE",
       "Gaurav",
       "gurumeena@gmail.com",
       "avatar",
@@ -45,13 +48,14 @@ describe("GLLOC", function () {
       "Engineering"
     );
 
-    let user = await glloc.removeUser("0xbdA7F16Dc9c4bCa32D70Ad3f29804F2BE57A78B7");
+    let user = await glloc.removeUser(
+      "0xbdA7F16Dc9c4bCa32D70Ad3f29804F2BE57A78B7"
+    );
 
-    // console.log(user.toNumber());
+    let orgData = await glloc.fetchOrganization(
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    );
 
-    let orgData = await glloc.fetchOrganization("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
-
-    console.log(orgData)
-
+    console.log(orgData.users);
   });
 });
