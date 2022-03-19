@@ -28,16 +28,30 @@ describe("GLLOC", function () {
       "Web Development,UI/UX design"
     );
 
-    await glloc.updateUser(
+    await glloc.addUser(
+      "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c",
       "Gaurav",
       "gurumeena@gmail.com",
-      "",
-      "",
-      "Single",
-      0
+      "avatar",
+      "Developer",
+      "Engineering"
     );
-    let user = await glloc.loginUser();
+    await glloc.addUser(
+      "0xbdA7F16Dc9c4bCa32D70Ad3f29804F2BE57A78B7",
+      "Gaurav",
+      "gurumeena@gmail.com",
+      "avatar",
+      "Developer",
+      "Engineering"
+    );
 
-    console.log(user);
+    let user = await glloc.removeUser("0xbdA7F16Dc9c4bCa32D70Ad3f29804F2BE57A78B7");
+
+    // console.log(user.toNumber());
+
+    let orgData = await glloc.fetchOrganization("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
+
+    console.log(orgData)
+
   });
 });

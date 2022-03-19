@@ -5,6 +5,7 @@ import { userState } from "../atoms/user";
 import AddDepartmentCard from "./AddDepartmentCard";
 import AddUserCard from "./AddUserCard";
 import AssignTask from "./AssignTask";
+import ChangeOrgOwner from "./ChangeOrgOwner";
 import ChangeUserRoleCard from "./ChangeUserRoleCard";
 import ChangeUserTeamCard from "./ChangeUserTeamCard";
 import RemoveUserCard from "./RemoveUserCard";
@@ -47,30 +48,34 @@ const CEOOnlyAction = ({ orgData, employees, roles }) => {
           <option className="dark:bg-[#333333]" value="Change User Role">
             Change User Role
           </option>
+          <option
+            className="dark:bg-[#333333]"
+            value="Change Organization Owner"
+          >
+            Change Organization Owner
+          </option>
         </select>
       </div>
-      {user &&
-        user.role === "Chief Executive Officer" &&
-        (currentAction === "Add Department" ? (
-          <AddDepartmentCard />
-        ) : currentAction === "Add User" ? (
-          <AddUserCard orgData={orgData} roles={roles} />
-        ) : currentAction === "Assign Tasks" ? (
-          <AssignTask employees={employees} />
-        ) : currentAction === "Update Task" ? (
-          <UpdateTaskCard employees={employees} />
-        ) : currentAction === "Remove User" ? (
-          <RemoveUserCard employees={employees} />
-        ) : currentAction === "Change User Team" ? (
-          <ChangeUserTeamCard
-            employees={employees}
-            departments={orgData?.departments}
-          />
-        ) : (
-          currentAction === "Change User Role" && (
-            <ChangeUserRoleCard roles={roles} employees={employees} />
-          )
-        ))}
+      {currentAction === "Add Department" ? (
+        <AddDepartmentCard />
+      ) : currentAction === "Add User" ? (
+        <AddUserCard orgData={orgData} roles={roles} />
+      ) : currentAction === "Assign Tasks" ? (
+        <AssignTask employees={employees} />
+      ) : currentAction === "Update Task" ? (
+        <UpdateTaskCard employees={employees} />
+      ) : currentAction === "Remove User" ? (
+        <RemoveUserCard employees={employees} />
+      ) : currentAction === "Change User Team" ? (
+        <ChangeUserTeamCard
+          employees={employees}
+          departments={orgData?.departments}
+        />
+      ) : currentAction === "Change User Role" ? (
+        <ChangeUserRoleCard roles={roles} employees={employees} />
+      ) : (
+        currentAction === "Change Organization Owner" && <ChangeOrgOwner />
+      )}
     </div>
   );
 };

@@ -20,7 +20,6 @@ const Navbar = () => {
 
   useEffect(async () => {
     setUser(await loginUser());
-    console.log(user);
   }, []);
 
   return (

@@ -8,17 +8,17 @@ const RemoveUserCard = ({ employees }) => {
   const [searchingEmployees, setSearchingEmployees] = useState({});
 
   const searchUser = (user) => {
-    employees[0].role === "Chief Technical Office" && employees.shift();
     setSearchingEmployees({});
     setAssigneeName(user);
     Object?.entries(employees)?.map(([key, value]) => {
-      value?.name.includes(user) &&
+      value?.name.includes(user) && value?.role !== "Chief Executive Officer" &&
         setSearchingEmployees((prevState) => {
           return { ...prevState, [key]: value };
         });
     });
     !user && setSearchingEmployees({});
   };
+
 
   return (
     <div className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none dark:bg-card rounded-xl">
@@ -39,7 +39,7 @@ const RemoveUserCard = ({ employees }) => {
                   <div
                     className="flex items-center space-x-2 px-2 py-1 cursor-pointer hover:scale-[1.02] transition-all duration-300"
                     onClick={() => {
-                      setAssignee(value);
+                      setAssignee(value.userAddress);
                       setAssigneeName(value?.name);
                       setSearchingEmployees({});
                     }}
@@ -64,7 +64,7 @@ const RemoveUserCard = ({ employees }) => {
         {assignee && (
           <button
             onClick={async () => {
-              await removeUser(assignee.orgId, assignee.userAddress);
+              await removeUser(assignee);
               setAssigneeName("");
               setAssignee({});
               setSearchingEmployees({});

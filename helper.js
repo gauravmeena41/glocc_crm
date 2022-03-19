@@ -2,7 +2,7 @@ import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers } from "ethers";
 import { gllocAddress } from "./config";
-import GLLOC from "./utils/GLLOC.json";
+import GLLOC from "./artifacts/contracts/GLLOC.sol/GLLOC.json";
 
 export const getWeb3Modal = async () => {
   const web3Modal = new Web3Modal({
@@ -47,8 +47,6 @@ export const addOrgOwner = async (
       _ownerEmail,
       `https://avatars.dicebear.com/api/miniavs/${_Owner}:seed.svg`,
       _ownerMobile,
-      "Chief Executive Officer",
-      "Management",
       _ownerSkills
     );
     await tx.wait();
@@ -70,13 +68,27 @@ export const addOrganization = async (
   const GLLOC = await getContract();
 
   try {
-    await GLLOC.addOrganisation(
+    const tx = await GLLOC.addOrganisation(
       _orgName,
       _orgWebsite,
       _orgDesc,
-      `https://avatars.dicebear.com/api/miniavs/${_orgName}:seed.svg`
+      `https://avatars.dicebear.com/api/miniavs/${_orgName}:seed.svg`,
+      _Owner,
+      _ownerEmail,
+      `https://avatars.dicebear.com/api/miniavs/${_Owner}:seed.svg`,
+      _ownerMobile,
+      _ownerSkills
     );
-    await addOrgOwner(_Owner, _ownerEmail, _ownerMobile, _ownerSkills);
+    await tx.wait();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const changeOrgOwner = async (_newOrgOwner) => {
+  const GLLOC = await getContract();
+  try {
+    await GLLOC.changeOrgOwner(_newOrgOwner);
   } catch (error) {
     console.log(error);
   }
@@ -150,10 +162,11 @@ export const addUser = async (_orgUser) => {
   }
 };
 
-export const removeUser = async (_orgId, _userAddress) => {
+export const removeUser = async (_userAddress) => {
   const GLLOC = await getContract();
+  console.log(_userAddress);
   try {
-    await GLLOC.removeUser(_orgId, _userAddress);
+    await GLLOC.removeUser(_userAddress);
   } catch (error) {
     console.log(error);
   }

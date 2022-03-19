@@ -19,6 +19,8 @@ const oraganisation = () => {
     user && setOrgData(await fetchOrganization(user.orgId));
   }, []);
 
+  console.log(orgData);
+
   useEffect(async () => {
     setRoles(userRoles());
 
@@ -31,7 +33,9 @@ const oraganisation = () => {
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-3 m-5 gap-10 ">
       <DepartmentCard users={employees} departments={orgData?.departments} />
-      <CEOOnlyAction orgData={orgData} employees={employees} roles={roles} />
+      {user && user.role === "Chief Executive Officer" && (
+        <CEOOnlyAction orgData={orgData} employees={employees} roles={roles} />
+      )}
     </div>
   );
 };

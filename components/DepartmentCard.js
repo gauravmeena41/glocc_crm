@@ -22,8 +22,6 @@ const DepartmentCard = ({ users, departments }) => {
     departments && setCurrentDepartment(departments[0]);
   }, [users]);
 
-  console.log(users);
-
   return (
     <div className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none dark:bg-card rounded-xl">
       <div className="border-b-2 border-secondary-text-dark">

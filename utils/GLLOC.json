@@ -399,11 +399,6 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_orgId",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
           "name": "_userAddress",
           "type": "address"
         }

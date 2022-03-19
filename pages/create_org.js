@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { XCircleIcon } from "@heroicons/react/outline";
 import { PlusCircleIcon } from "@heroicons/react/solid";
-import { addOrganization, loginUser } from "../helper";
+import { addOrganization, addOrgOwner, loginUser } from "../helper";
 import { useRouter } from "next/router";
 import { userState } from "../atoms/user";
 import { useRecoilState } from "recoil";
@@ -142,6 +142,7 @@ const create_org = () => {
                 ownerMobile,
                 ownerSkills
               );
+              setIsCreateOrg(false);
               setUser(await loginUser());
             }}
           >

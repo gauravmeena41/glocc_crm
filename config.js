@@ -1,4 +1,4 @@
 
-    export const gllocAddress = "0x5fC611eAF10B80dD673271f6171c7381633e5348";
-    export const ownerAddress = "0xFa3103DEFDAA1203b0706525922a558c2d9cc94c"
+    export const gllocAddress = "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318";
+    export const ownerAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
     

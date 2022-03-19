@@ -81,7 +81,12 @@ contract GLLOC {
         string memory _name,
         string memory _website,
         string memory _description,
-        string memory _logo
+        string memory _logo,
+        string memory _Owner,
+        string memory _ownerEmail,
+        string memory _ownerAvatar,
+        string memory _ownerMobile,
+        string memory _ownerSkills
     ) external {
         Oraganisation storage org = organizations[msg.sender];
         org.orgId = msg.sender;
@@ -90,31 +95,18 @@ contract GLLOC {
         org.description = _description;
         org.website = _website;
         org.logo = _logo;
-    }
-
-    function addOrgOwner(
-        string memory _orgOwnerName,
-        string memory _orgOwnerEmail,
-        string memory _orgOwnerAvatar,
-        string memory _orgOwnerMobile,
-        string memory _orgOwnerRole,
-        string memory _orgOwnerTeam,
-        string memory _orgOwnerSkills
-    ) external {
-        Oraganisation storage org = organizations[msg.sender];
-        require(org.orgOwner == msg.sender, "Only org owner can add org owner");
+        org.departments.push("Management");
         User storage user = users[msg.sender];
         user.userId = block.timestamp;
         user.orgId = msg.sender;
         user.userAddress = msg.sender;
-        user.name = _orgOwnerName;
-        user.email = _orgOwnerEmail;
-        user.avatar = _orgOwnerAvatar;
-        user.mobile = _orgOwnerMobile;
-        user.role = _orgOwnerRole;
-        user.team = _orgOwnerTeam;
-        user.skills = _orgOwnerSkills;
-        org.departments.push("Management");
+        user.name = _Owner;
+        user.email = _ownerEmail;
+        user.avatar = _ownerAvatar;
+        user.mobile = _ownerMobile;
+        user.role = "Chief Executive Officer";
+        user.team = "Management";
+        user.skills = _ownerSkills;
         emit LogOrgCreated(msg.sender);
     }
 
@@ -135,13 +127,45 @@ contract GLLOC {
         org.departments.push(_department);
     }
 
-    function changeOrgOwner(address _orgId, address _orgOwner) external {
-        Oraganisation storage org = organizations[_orgId];
+    function changeOrgOwner(address _newOrgOwner) external {
+        Oraganisation storage org = organizations[msg.sender];
         require(
             msg.sender == org.orgOwner,
             "Only current orgOwner can set new orgOwner"
         );
-        org.orgOwner = _orgOwner;
+        User storage oldOwner = users[msg.sender];
+        User storage newOwner = users[_newOrgOwner];
+        require(
+            newOwner.userAddress == _newOrgOwner,
+            "New orgOwner must be registered user"
+        );
+        newOwner.role = "Chief Executive Officer";
+        newOwner.team = "Management";
+        newOwner.orgId = _newOrgOwner;
+        oldOwner.role = "Human Resources Manager";
+        oldOwner.orgId = _newOrgOwner;
+        Oraganisation storage newOrg = organizations[_newOrgOwner];
+        newOrg.orgOwner = _newOrgOwner;
+        newOrg.orgId = _newOrgOwner;
+        newOrg.name = org.name;
+        newOrg.description = org.description;
+        newOrg.website = org.website;
+        newOrg.logo = org.logo;
+        newOrg.departments = org.departments;
+        newOrg.users = org.users;
+
+        for (uint256 i = 0; i < org.users.length; i++) {
+            if (newOrg.users[i] == _newOrgOwner) {
+                newOrg.users[i] = msg.sender;
+            }
+        }
+
+        for (uint256 i = 0; i < org.users.length; i++) {
+            User storage user = users[org.users[i]];
+            user.orgId = _newOrgOwner;
+        }
+
+        delete organizations[msg.sender];
     }
 
     // Org specific functions
@@ -232,6 +256,18 @@ contract GLLOC {
         user.team = _team;
     }
 
+    function removeUser(address _userAddress) external {
+        Oraganisation storage org = organizations[msg.sender];
+
+        for (uint256 i = 0; i < org.users.length; i++) {
+            if (org.users[i] == _userAddress) {
+                delete org.users[i];
+            }
+        }
+
+        delete users[_userAddress];
+    }
+
     // CEO specific functions
 
     // User specific functions
@@ -248,15 +284,6 @@ contract GLLOC {
     {
         User storage user = users[_userAddress];
         return user;
-    }
-
-    function removeUser(address _orgId, address _userAddress) external {
-        Oraganisation storage org = organizations[_orgId];
-        require(
-            msg.sender == org.orgOwner,
-            "Only orgOwner have access to this action"
-        );
-        delete users[_userAddress];
     }
 
     function updateUser(
