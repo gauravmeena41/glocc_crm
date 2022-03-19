@@ -37,11 +37,10 @@ const profile = () => {
           layout="fill"
           className="object-cover"
         />
-        <div className="w-[100px] h-[100px] rounded-full relative top-[40px] m-auto border-2 z-[1] bg-bg-danger">
+        <div className="relative w-[100px] h-[100px] rounded-full  top-[40px] m-auto border-2 z-[1] bg-bg-danger">
           <Image
             src={currentUser?.avatar}
             layout="fill"
-            objectFit="cover"
             className="rounded-full object-cover"
           />
         </div>
@@ -65,7 +64,7 @@ const profile = () => {
       </div>
 
       <div>
-        <div className="grid lg:grid-cols-3 gap-5 m-2 lg:m-5">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 m-2 lg:m-5">
           <AboutCard currentUser={currentUser} />
           {currentUser?.userAddress === user?.userAddress && (
             <MarkAttendanceCard />

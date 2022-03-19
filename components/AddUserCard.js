@@ -20,6 +20,8 @@ const AddUserCard = ({ orgData, roles }) => {
     });
   };
 
+  console.log(orgData);
+
   return (
     <div className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none dark:bg-card rounded-xl">
       <div className="flex flex-col m-5 py-2 space-y-3 overflow-scroll h-[350px]">

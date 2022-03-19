@@ -3,6 +3,14 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers } from "ethers";
 import { gllocAddress } from "./config";
 import GLLOC from "./utils/GLLOC.json";
+import { storage } from "./firebase";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+  uploadString,
+} from "firebase/storage";
+import { async } from "@firebase/util";
 
 export const getWeb3Modal = async () => {
   const web3Modal = new Web3Modal({
@@ -180,11 +188,16 @@ export const updateUser = async (
 ) => {
   const GLLOC = await getContract();
   try {
+    let imageUrl;
+    const imageRef = ref(storage, `profile/${_avatar.name}`);
+    await uploadBytesResumable(imageRef, _avatar).then(async (snapshot) => {
+      imageUrl = await getDownloadURL(snapshot.ref);
+    });
     await GLLOC.updateUser(
       _userName,
       _userEmail,
       _userMobile,
-      _avatar,
+      imageUrl,
       _userSkills,
       userMaritalStatus,
       _userDob
@@ -268,6 +281,7 @@ export const getAllUser = async (orgUsers, ceo = "") => {
       user.userAddress !== "0x0000000000000000000000000000000000000000" &&
         users.push(user);
     }
+    console.log(orgUsers);
     return users;
   } catch (error) {
     console.log(error);

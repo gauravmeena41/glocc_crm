@@ -54,6 +54,13 @@ const UpdateUserCard = () => {
     text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
      dark:text-primary-text-dark px-2 py-1"
         />
+        <input
+          type="file"
+          onChange={(e) => setUserAvatar(e.target.files[0])}
+          className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
+    text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
+     dark:text-primary-text-dark px-2 py-1"
+        />
         <select
           defaultValue=""
           onChange={(e) => setMaritalStatus(e.target.value)}
@@ -88,6 +95,7 @@ const UpdateUserCard = () => {
           userMobile ||
           userSkills ||
           maritalStatus ||
+          userAvatar ||
           dob) && (
           <button
             className="bg-bg-btn p-1 px-4 rounded-xl w-fit text-lg text-primary-text-light dark:text-base-text-dark font-medium animate-slide-down"
@@ -105,7 +113,7 @@ const UpdateUserCard = () => {
               setUserEmail("");
               setUserMobile("");
               setUserSkills("");
-              setUserAvatar("");
+              setUserAvatar(null);
               setMaritalStatus("");
               setDob("");
             }}

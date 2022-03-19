@@ -173,6 +173,15 @@ contract GLLOC {
         org.users.push(_userAddress);
     }
 
+    function removeUser(address _orgId, address _userAddress) external {
+        Oraganisation storage org = organizations[_orgId];
+        require(
+            msg.sender == org.orgOwner,
+            "Only orgOwner have access to this action"
+        );
+        delete users[_userAddress];
+    }
+
     function assignTask(
         address _userAddress,
         string memory _taskName,
@@ -248,15 +257,6 @@ contract GLLOC {
     {
         User storage user = users[_userAddress];
         return user;
-    }
-
-    function removeUser(address _orgId, address _userAddress) external {
-        Oraganisation storage org = organizations[_orgId];
-        require(
-            msg.sender == org.orgOwner,
-            "Only orgOwner have access to this action"
-        );
-        delete users[_userAddress];
     }
 
     function updateUser(
