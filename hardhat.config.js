@@ -1,3 +1,4 @@
+require("@nomiclabs/hardhat-waffle");
 const PRIVATE_KEY =
   "dfb16812a6d2dd995a1969c0de2ac9600f4f680f115bcbd27608a32c95da649c";
 

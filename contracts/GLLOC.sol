@@ -27,40 +27,46 @@ contract GLLOC {
     }
 
     struct User {
-        uint8 userId;
+        uint64 userId;
         address orgId;
         address userAddress;
         string name;
         string email;
         string avatar;
         string mobile;
-        uint256 dob;
+        uint64 dob;
         string maritalStatus;
+        string skills;
         string role;
         string team;
-        string skills;
-        uint256[] checkIn;
-        uint256[] checkOut;
-        uint256[] tasks;
+        address reportingTo;
+        uint64[] checkIn;
+        uint64[] checkOut;
+        uint64[] tasks;
     }
 
     struct Task {
-        uint256 taskId;
+        uint64 taskId;
         string taskName;
         string taskDescription;
         string taskStatus;
-        uint256 taskCreatedDate;
+        uint64 taskCreatedDate;
+        uint64 taskDueDate;
+        uint64 taskCompletedDate;
     }
     // Structs
 
     // Mapppings
     mapping(address => Oraganisation) private organizations;
     mapping(address => User) private users;
-    mapping(uint256 => Task) private tasks;
+    mapping(uint64 => Task) private tasks;
     // Mapppings
 
     // Events
     event LogOrgCreated(address orgId);
+    event LogUserCreated(address userId);
+    event LogTaskCreated(uint64 taskId);
+    event LogTaskCompleted(uint64 taskId);
 
     // Events
 
@@ -100,7 +106,7 @@ contract GLLOC {
         org.logo = _logo;
         org.departments.push("Management");
         User storage user = users[msg.sender];
-        user.userId = uint8(block.timestamp);
+        user.userId = uint64(block.timestamp);
         user.orgId = msg.sender;
         user.userAddress = msg.sender;
         user.name = _Owner;
@@ -118,32 +124,26 @@ contract GLLOC {
         view
         returns (Oraganisation memory)
     {
-        Oraganisation storage org = organizations[_orgId];
-        require(
-            org.orgId != 0x0000000000000000000000000000000000000000,
-            "Organization not found."
-        );
         return organizations[_orgId];
     }
 
     function addDepartment(string memory _department) external {
-        Oraganisation storage org = organizations[msg.sender];
         require(
-            org.orgId != 0x0000000000000000000000000000000000000000,
-            "Organization not found."
+            organizations[msg.sender].orgId !=
+                0x0000000000000000000000000000000000000000,
+            "Org not found."
         );
-        org.departments.push(_department);
+        organizations[msg.sender].departments.push(_department);
     }
 
     function changeOrgOwner(address _newOrgOwner) external {
-        Oraganisation storage org = organizations[msg.sender];
-
         require(
-            org.orgId != 0x0000000000000000000000000000000000000000,
-            "Organization not found."
+            organizations[msg.sender].orgId !=
+                0x0000000000000000000000000000000000000000,
+            "Org not found."
         );
         require(
-            msg.sender == org.orgOwner,
+            msg.sender == organizations[msg.sender].orgOwner,
             "Only current orgOwner can set new orgOwner"
         );
         User storage oldOwner = users[msg.sender];
@@ -160,21 +160,21 @@ contract GLLOC {
         Oraganisation storage newOrg = organizations[_newOrgOwner];
         newOrg.orgOwner = _newOrgOwner;
         newOrg.orgId = _newOrgOwner;
-        newOrg.name = org.name;
-        newOrg.description = org.description;
-        newOrg.website = org.website;
-        newOrg.logo = org.logo;
-        newOrg.departments = org.departments;
-        newOrg.users = org.users;
+        newOrg.name = organizations[msg.sender].name;
+        newOrg.description = organizations[msg.sender].description;
+        newOrg.website = organizations[msg.sender].website;
+        newOrg.logo = organizations[msg.sender].logo;
+        newOrg.departments = organizations[msg.sender].departments;
+        newOrg.users = organizations[msg.sender].users;
 
-        for (uint256 i = 0; i < org.users.length; i++) {
+        for (uint64 i = 0; i < organizations[msg.sender].users.length; i++) {
             if (newOrg.users[i] == _newOrgOwner) {
                 newOrg.users[i] = msg.sender;
             }
         }
 
-        for (uint256 i = 0; i < org.users.length; i++) {
-            User storage user = users[org.users[i]];
+        for (uint64 i = 0; i < organizations[msg.sender].users.length; i++) {
+            User storage user = users[organizations[msg.sender].users[i]];
             user.orgId = _newOrgOwner;
         }
 
@@ -192,17 +192,18 @@ contract GLLOC {
         string memory _role,
         string memory _team
     ) external {
-        Oraganisation storage org = organizations[msg.sender];
         require(
-            org.orgId != 0x0000000000000000000000000000000000000000,
-            "Organization not found."
+            organizations[msg.sender].orgId !=
+                0x0000000000000000000000000000000000000000,
+            "Org not found."
         );
         require(
-            msg.sender == org.orgOwner,
+            msg.sender == organizations[msg.sender].orgOwner,
             "Only orgOwner have access to this action"
         );
+
         User storage user = users[_userAddress];
-        user.userId = uint8(block.timestamp);
+        user.userId = uint64(block.timestamp);
         user.userAddress = _userAddress;
         user.orgId = msg.sender;
         user.name = _name;
@@ -210,7 +211,9 @@ contract GLLOC {
         user.avatar = _avatar;
         user.role = _role;
         user.team = _team;
-        org.users.push(_userAddress);
+        user.reportingTo = msg.sender;
+        organizations[msg.sender].users.push(_userAddress);
+        emit LogUserCreated(_userAddress);
     }
 
     function assignTask(
@@ -218,59 +221,60 @@ contract GLLOC {
         string memory _taskName,
         string memory _taskDescription
     ) external {
-        Oraganisation memory org = organizations[msg.sender];
         require(
-            org.orgId != 0x0000000000000000000000000000000000000000,
-            "Organization not found."
+            organizations[msg.sender].orgId !=
+                0x0000000000000000000000000000000000000000,
+            "Org not found."
         );
         require(
-            msg.sender == org.orgOwner,
+            msg.sender == organizations[msg.sender].orgOwner,
             "Only orgOwner have access to this action"
         );
 
-        Task storage task = tasks[_taskCount.current()];
-        task.taskId = _taskCount.current();
+        Task storage task = tasks[uint64(_taskCount.current())];
+        task.taskId = uint64(_taskCount.current());
         task.taskName = _taskName;
         task.taskDescription = _taskDescription;
         task.taskStatus = "pending";
-        task.taskCreatedDate = block.timestamp;
+        task.taskCreatedDate = uint64(block.timestamp);
         _taskCount.increment();
 
         User storage user = users[_userAddress];
         user.tasks.push(task.taskId);
+        emit LogTaskCreated(task.taskId);
     }
 
-    function searchTask(uint256 _taskId) external view returns (Task memory) {
-        Task storage task = tasks[_taskId];
-        return task;
+    function searchTask(uint64 _taskId) external view returns (Task memory) {
+        return tasks[_taskId];
     }
 
-    function comleteTask(uint256 _taskId) external {
-        Oraganisation memory org = organizations[msg.sender];
+    function comleteTask(uint64 _taskId) external {
         require(
-            org.orgId != 0x0000000000000000000000000000000000000000,
-            "Organization not found."
+            organizations[msg.sender].orgId !=
+                0x0000000000000000000000000000000000000000,
+            "Org not found."
         );
         require(
-            msg.sender == org.orgOwner,
+            msg.sender == organizations[msg.sender].orgOwner,
             "Only orgOwner have access to this action"
         );
 
         Task storage task = tasks[_taskId];
         task.taskStatus = "completed";
+        emit LogTaskCompleted(_taskId);
     }
 
     function changeUserrole(address _userAddress, string memory _role)
         external
     {
         User storage user = users[_userAddress];
-        Oraganisation storage org = organizations[msg.sender];
         require(
-            org.orgId != 0x0000000000000000000000000000000000000000,
-            "Organization not found."
+            organizations[msg.sender].orgId !=
+                0x0000000000000000000000000000000000000000,
+            "Org not found."
         );
         require(
-            msg.sender == org.orgOwner,
+            msg.sender == organizations[msg.sender].orgOwner,
             "Only orgOwner have access to this action"
         );
 
@@ -281,50 +285,73 @@ contract GLLOC {
         external
     {
         User storage user = users[_userAddress];
-        Oraganisation storage org = organizations[msg.sender];
         require(
-            org.orgId != 0x0000000000000000000000000000000000000000,
-            "Organization not found."
+            organizations[msg.sender].orgId !=
+                0x0000000000000000000000000000000000000000,
+            "Org not found."
         );
         require(
-            msg.sender == org.orgOwner,
+            msg.sender == organizations[msg.sender].orgOwner,
             "Only orgOwner have access to this action"
         );
 
         user.team = _team;
     }
 
-    function removeUser(address _userAddress) external {
-        Oraganisation storage org = organizations[msg.sender];
+    function changeReportingTo(address _userAddress, address _reportingTo)
+        external
+    {
         require(
-            org.orgId != 0x0000000000000000000000000000000000000000,
-            "Organization not found."
+            organizations[msg.sender].orgId !=
+                0x0000000000000000000000000000000000000000,
+            "Org not found."
         );
-
         require(
-            msg.sender == org.orgOwner,
+            msg.sender == organizations[msg.sender].orgOwner,
             "Only orgOwner have access to this action"
         );
 
-        uint256 userIndex = org.users.length + 1;
+        User storage user = users[_userAddress];
+        user.reportingTo = _reportingTo;
+    }
 
-        for (uint256 i = 0; i < org.users.length; i++) {
-            if (org.users[i] == _userAddress) {
+    function removeUser(address _userAddress) external {
+        require(
+            organizations[msg.sender].orgId !=
+                0x0000000000000000000000000000000000000000,
+            "Org not found."
+        );
+
+        require(
+            msg.sender == organizations[msg.sender].orgOwner,
+            "Only orgOwner have access to this action"
+        );
+
+        uint64 userIndex = uint64(organizations[msg.sender].users.length) + 1;
+
+        for (uint64 i = 0; i < organizations[msg.sender].users.length; i++) {
+            if (organizations[msg.sender].users[i] == _userAddress) {
                 userIndex = i;
                 break;
             }
         }
 
         require(
-            userIndex >= 0 && userIndex <= org.users.length,
+            userIndex >= 0 &&
+                userIndex <= organizations[msg.sender].users.length,
             "User not found"
         );
 
-        for (uint256 i = userIndex; i < org.users.length - 1; i++) {
-            org.users[i] = org.users[i + 1];
+        for (
+            uint64 i = userIndex;
+            i < organizations[msg.sender].users.length - 1;
+            i++
+        ) {
+            organizations[msg.sender].users[i] = organizations[msg.sender]
+                .users[i + 1];
         }
 
-        org.users.pop();
+        organizations[msg.sender].users.pop();
         delete users[_userAddress];
     }
 
@@ -333,8 +360,7 @@ contract GLLOC {
     // User specific functions
 
     function loginUser() external view returns (User memory) {
-        User storage user = users[msg.sender];
-        return user;
+        return users[msg.sender];
     }
 
     function searchUser(address _userAddress)
@@ -342,8 +368,7 @@ contract GLLOC {
         view
         returns (User memory)
     {
-        User storage user = users[_userAddress];
-        return user;
+        return users[_userAddress];
     }
 
     function updateUser(
@@ -353,29 +378,25 @@ contract GLLOC {
         string memory _avatar,
         string memory _userSkills,
         string memory _maritalStatus,
-        uint256 _dob
+        uint64 _dob
     ) external {
-        User storage user = users[msg.sender];
-        if (bytes(_name).length > 0) user.name = _name;
-        if (bytes(_email).length > 0) user.email = _email;
-        if (bytes(_mobile).length > 0) user.mobile = _mobile;
-        if (bytes(_avatar).length > 0) user.avatar = _avatar;
-        if (bytes(_userSkills).length > 0) user.skills = _userSkills;
+        if (bytes(_name).length > 0) users[msg.sender].name = _name;
+        if (bytes(_email).length > 0) users[msg.sender].email = _email;
+        if (bytes(_mobile).length > 0) users[msg.sender].mobile = _mobile;
+        if (bytes(_avatar).length > 0) users[msg.sender].avatar = _avatar;
+        if (bytes(_userSkills).length > 0)
+            users[msg.sender].skills = _userSkills;
         if (bytes(_maritalStatus).length > 0)
-            user.maritalStatus = _maritalStatus;
-        if (_dob > 0) user.dob = _dob;
+            users[msg.sender].maritalStatus = _maritalStatus;
+        if (_dob > 0) users[msg.sender].dob = _dob;
     }
 
     function checkIn() external {
-        User storage user = users[msg.sender];
-
-        user.checkIn.push(block.timestamp);
+        users[msg.sender].checkIn.push(uint64(block.timestamp));
     }
 
     function checkOut() external {
-        User storage user = users[msg.sender];
-
-        user.checkOut.push(block.timestamp);
+        users[msg.sender].checkOut.push(uint64(block.timestamp));
     }
     // User specific functions
 }
