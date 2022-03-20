@@ -8,6 +8,8 @@ const nextConfig = {
       "64.media.tumblr.com",
       "cdn.pixabay.com",
       "openweathermap.org",
+      "img.icons8.com",
+      "firebasestorage.googleapis.com",
     ],
   },
   eslint: {

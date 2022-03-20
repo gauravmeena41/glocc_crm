@@ -1,11 +1,12 @@
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { userState } from "../atoms/user";
 import { searchTask } from "../helper";
 
 const TasksCard = () => {
-  const [user, setUser] = useRecoilState(userState);
+  const user = useRecoilValue(userState);
   const [tasks, setTasks] = useState({});
 
   const userTasks = () => {
@@ -24,8 +25,8 @@ const TasksCard = () => {
 
   return (
     <div
-      className="shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none 
-   rounded-xl  transition-all duration-300  dark:bg-card min-h-[250px] pb-10 lg:hover:scale-[1.03]"
+      className="shadow-base dark:shadow-none bg-[#fff] dark:bg-card rounded-[2rem]
+      transition-all duration-300 ease-in-out min-h-[250px] w-full pb-10 sm:pb-0"
     >
       <div className="overflow-x-scroll overflow-y-scroll h-full w-full scrollbar-hide space-y-1 p-5">
         {Object.entries(tasks).length > 0 ? (
@@ -36,10 +37,13 @@ const TasksCard = () => {
           ))
         ) : (
           <div className="flex items-center justify-center w-full h-full">
-            <img
-              src="images/task.svg"
-              className="w-[60%] h-auto dark:opacity-[0.85]"
-            />
+            <div className="relative w-[180px] h-[180px] dark:opacity-[0.85]">
+              <Image
+                src="/images/task.svg"
+                layout="fill"
+                className="object-cover"
+              />
+            </div>
           </div>
         )}
       </div>

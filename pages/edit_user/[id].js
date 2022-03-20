@@ -12,7 +12,7 @@ const edit_user = () => {
     !user && router.push("/");
   }, [user]);
   return (
-    <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-5 m-5">
+    <div className="flex items-center justify-center w-full h-screen m-6">
       <UpdateUserCard />
     </div>
   );

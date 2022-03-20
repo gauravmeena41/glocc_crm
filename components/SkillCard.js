@@ -5,8 +5,8 @@ const SkillCard = ({ currentUser }) => {
   return (
     <div className="space-y-5">
       <div
-        className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none px-5 py-5 space-y-8 font-semibold
-      w-full h-full rounded-xl dark:bg-card transition-all duration-300 lg:hover:scale-[1.03]"
+        className="shadow-base dark:shadow-none lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none px-5 py-5 space-y-8 font-semibold
+      w-full h-full bg-[#fff] dark:bg-card rounded-[2rem] transition-all duration-300 shadow-base dark:shadow-none"
       >
         <h1 className="font-bold text-base-text-light dark:text-primary-text-dark flex items-center">
           Skills

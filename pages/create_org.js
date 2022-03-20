@@ -27,7 +27,7 @@ const create_org = () => {
     <div>
       <div className="flex items-center justify-center h-[calc(100vh-53px)]">
         <div
-          className={`shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none rounded-xl w-full max-w-[700px] mx-5 mt-10
+          className={`shadow-base dark:shadow-none rounded-xl w-full max-w-[700px] mx-5 mt-10
           dark:bg-card relative animate-slide-down transition-all duration-300 ${
             !isCreateOrg ? "hidden" : ""
           }`}
@@ -152,7 +152,7 @@ const create_org = () => {
         <button
           className={`${
             isCreateOrg ? "hidden" : "inline-block"
-          }  shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none px-10 py-4 animate-slide-down rounded-xl text-base-text-light dark:text-base-text-dark text-2xl font-semibold
+          }  shadow-base dark:shadow-none px-10 py-4 animate-slide-down rounded-xl text-base-text-light dark:text-base-text-dark text-2xl font-semibold
         dark:bg-card transition-all duration-300`}
           onClick={() => setIsCreateOrg(true)}
         >

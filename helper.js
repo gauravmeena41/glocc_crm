@@ -3,6 +3,8 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers } from "ethers";
 import { gllocAddress } from "./config";
 import GLLOC from "./artifacts/contracts/GLLOC.sol/GLLOC.json";
+import { storage } from "./firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 export const getWeb3Modal = async () => {
   const web3Modal = new Web3Modal({
@@ -98,6 +100,8 @@ export const loginUser = async () => {
   const GLLOC = await getContract();
   try {
     const user = await GLLOC.loginUser();
+    if (user.userAddress === "0x0000000000000000000000000000000000000000")
+      throw new Error("User not found");
     return user;
   } catch (error) {
     console.log(error);
@@ -193,11 +197,16 @@ export const updateUser = async (
 ) => {
   const GLLOC = await getContract();
   try {
+    let imageUrl;
+    const imageRef = ref(storage, `profile/${_avatar.name}`);
+    await uploadBytesResumable(imageRef, _avatar).then(async (snapshot) => {
+      imageUrl = await getDownloadURL(snapshot.ref);
+    });
     await GLLOC.updateUser(
       _userName,
       _userEmail,
       _userMobile,
-      _avatar,
+      imageUrl,
       _userSkills,
       userMaritalStatus,
       _userDob
@@ -278,8 +287,7 @@ export const getAllUser = async (orgUsers, ceo = "") => {
 
     for (let i = 0; i < orgUsers.length; i++) {
       let user = await searchUser(orgUsers[i]);
-      user.userAddress !== "0x0000000000000000000000000000000000000000" &&
-        users.push(user);
+      users.push(user);
     }
     return users;
   } catch (error) {

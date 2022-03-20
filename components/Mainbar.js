@@ -14,7 +14,7 @@ const Mainbar = () => {
   }, []);
 
   return (
-    <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5 m-5">
+    <div className=" grid sm:grid-cols-2 xl:grid-cols-3 gap-5 p-6 w-full">
       <WeatherCard />
       <TasksCard />
       <BirthdayCard />

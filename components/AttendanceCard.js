@@ -7,23 +7,23 @@ const AttendanceCard = () => {
 
   return (
     <div
-      className="shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none
-    rounded-xl transition-all duration-300 dark:bg-card lg:hover:scale-[1.02] max-h-[320px] overflow-hidden"
+      className="shadow-base dark:shadow-none bg-[#fff] dark:bg-card rounded-[2rem]
+      transition-all duration-300 ease-in-out min-h-[250px] max-h-[320px] overflow-hidden w-full"
     >
-      <div className="flex justify-around border-b border-base-text-light dark:border-secondary-text-dark">
-        <h1 className="text-base-text-light dark:text-primary-text-dark text-lg font-semibold my-2">
+      <div className="flex justify-around my-5">
+        <h1 className="text-[#7e7e7e] dark:text-primary-text-dark text-lg font-semibold">
           Check In
         </h1>
-        <h1 className="text-base-text-light dark:text-primary-text-dark text-lg font-semibold my-2">
+        <h1 className="text-[#7e7e7e] dark:text-primary-text-dark text-lg font-semibold">
           Check Out
         </h1>
       </div>
       <div className=" mt-5 grid grid-cols-2 text-center">
         <div className="space-y-1 h-[80%] overflow-scroll">
-          {user.checkIn?.map((data, idx) => (
+          {user?.checkIn?.map((data, idx) => (
             <h1
               key={idx}
-              className="text-lg text-secondary-text-light dark:text-secondary-text-dark"
+              className="text-[#7e7e7e] dark:text-secondary-text-dark"
             >
               {DateTime.fromJSDate(new Date()).toFormat("d") ===
                 DateTime.fromMillis(data.toNumber() * 1000).toFormat("d") &&
@@ -32,10 +32,10 @@ const AttendanceCard = () => {
           ))}
         </div>
         <div className="space-y-1 h-[80%] overflow-scroll">
-          {user.checkOut?.map((data, idx) => (
+          {user?.checkOut?.map((data, idx) => (
             <h1
               key={idx}
-              className="text-lg text-secondary-text-light dark:text-secondary-text-dark"
+              className="text-[#7e7e7e] dark:text-secondary-text-dark"
             >
               {DateTime.fromJSDate(new Date()).toFormat("d") ===
                 DateTime.fromMillis(data.toNumber() * 1000).toFormat("d") &&

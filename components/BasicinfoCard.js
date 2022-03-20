@@ -6,21 +6,21 @@ import { fetchOrganization } from "../helper";
 const BasicinfoCard = ({ currentUser }) => {
   const [orgData, setOrgData] = useState([]);
   useEffect(async () => {
-    setOrgData(await fetchOrganization(currentUser.userAddress));
+    setOrgData(await fetchOrganization(currentUser.orgId));
   }, [currentUser]);
 
   return (
     <div className="space-y-5">
       <div
-        className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none px-5 py-5 space-y-8 font-semibold
-      w-full h-full rounded-xl dark:bg-card transition-all duration-300 lg:hover:scale-[1.03]"
+        className="shadow-base dark:shadow-none lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none px-5 py-5 space-y-8 font-semibold
+      w-full h-full bg-[#fff] dark:bg-card rounded-[2rem] transition-all duration-300 shadow-base dark:shadow-none"
       >
         <h1 className="font-bold text-base-text-light dark:text-primary-text-dark flex items-center">
           Basic Info
           <IdentificationIcon className="w-[16px] h-[16px] text-primary-text-light font-medium dark:text-primary-text-dark ml-1" />
         </h1>
         <div>
-          <div className="grid grid-cols-3 border-b border-base-text-light dark:border-secondary-text-dark mt-5">
+          <div className="grid grid-cols-3  dark:border-secondary-text-dark mt-5">
             <h1 className="col-span-1 text-base-text-light dark:text-primary-text-dark mb-2">
               Organization
             </h1>
@@ -28,7 +28,7 @@ const BasicinfoCard = ({ currentUser }) => {
               {orgData.name}
             </p>
           </div>
-          <div className="grid grid-cols-3 border-b border-base-text-light dark:border-secondary-text-dark mt-5">
+          <div className="grid grid-cols-3  dark:border-secondary-text-dark mt-5">
             <h1 className="col-span-1 text-base-text-light dark:text-primary-text-dark mb-2">
               EmployeeID
             </h1>
@@ -36,7 +36,7 @@ const BasicinfoCard = ({ currentUser }) => {
               {currentUser.userId.toNumber()}
             </p>
           </div>
-          <div className="grid grid-cols-3 border-b border-base-text-light dark:border-secondary-text-dark mt-5">
+          <div className="grid grid-cols-3  dark:border-secondary-text-dark mt-5">
             <h1 className="col-span-1 text-base-text-light dark:text-primary-text-dark mb-2">
               Name
             </h1>
@@ -44,7 +44,7 @@ const BasicinfoCard = ({ currentUser }) => {
               {currentUser.name}
             </p>
           </div>
-          <div className="grid grid-cols-3 border-b border-base-text-light dark:border-secondary-text-dark mt-5">
+          <div className="grid grid-cols-3  dark:border-secondary-text-dark mt-5">
             <h1 className="col-span-1 text-base-text-light dark:text-primary-text-dark mb-2">
               Email ID
             </h1>
@@ -52,7 +52,7 @@ const BasicinfoCard = ({ currentUser }) => {
               {currentUser.email}
             </p>
           </div>
-          <div className="grid grid-cols-3 border-b border-base-text-light dark:border-secondary-text-dark mt-5">
+          <div className="grid grid-cols-3  dark:border-secondary-text-dark mt-5">
             <h1 className="col-span-1 text-base-text-light dark:text-primary-text-dark mb-2">
               Birth Date
             </h1>
@@ -60,7 +60,7 @@ const BasicinfoCard = ({ currentUser }) => {
               {DateTime.fromMillis(currentUser?.dob.toNumber()).toFormat("DDD")}
             </p>
           </div>
-          <div className="grid grid-cols-3 border-b border-base-text-light dark:border-secondary-text-dark mt-5">
+          <div className="grid grid-cols-3  dark:border-secondary-text-dark mt-5">
             <h1 className="col-span-1 text-base-text-light dark:text-primary-text-dark mb-2">
               Age
             </h1>
@@ -74,12 +74,12 @@ const BasicinfoCard = ({ currentUser }) => {
               years
             </p>
           </div>
-          <div className="grid grid-cols-3 border-b border-base-text-light dark:border-secondary-text-dark mt-5">
+          <div className="grid grid-cols-3  dark:border-secondary-text-dark mt-5">
             <h1 className="col-span-1 text-base-text-light dark:text-primary-text-dark mb-2">
               Marital Status
             </h1>
             <p className="col-span-2 text-base-text-light dark:text-secondary-text-dark font-normal mb-2">
-              {currentUser.maritalStatus}
+              {currentUser.maritalStatus ? currentUser.maritalStatus : "-"}
             </p>
           </div>
         </div>

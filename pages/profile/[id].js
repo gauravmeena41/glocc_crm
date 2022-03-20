@@ -30,8 +30,8 @@ const profile = () => {
     );
 
   return (
-    <div>
-      <div className="relative w-full h-[187px]">
+    <div className="w-full">
+      <div className="relative h-[187px]">
         <Image
           src="https://images.unsplash.com/photo-1626465894806-ba29bfbee59a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80"
           layout="fill"
@@ -41,8 +41,7 @@ const profile = () => {
           <Image
             src={currentUser?.avatar}
             layout="fill"
-            objectFit="cover"
-            className="rounded-full object-cover"
+            className="rounded-full object-cover object-top"
           />
         </div>
         <div className="absolute bottom-2 w-full hidden lg:flex justify-center items-center z-[1] ">
@@ -65,7 +64,7 @@ const profile = () => {
       </div>
 
       <div>
-        <div className="grid lg:grid-cols-3 gap-5 m-2 lg:m-5">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 m-2 lg:m-5">
           <AboutCard currentUser={currentUser} />
           {currentUser?.userAddress === user?.userAddress && (
             <MarkAttendanceCard />

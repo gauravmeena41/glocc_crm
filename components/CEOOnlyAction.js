@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-
-import { useRecoilState } from "recoil";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import { userState } from "../atoms/user";
 import AddDepartmentCard from "./AddDepartmentCard";
 import AddUserCard from "./AddUserCard";
@@ -11,8 +10,8 @@ import ChangeUserTeamCard from "./ChangeUserTeamCard";
 import RemoveUserCard from "./RemoveUserCard";
 import UpdateTaskCard from "./UpdateTaskCard";
 
-const CEOOnlyAction = ({ orgData, employees, roles }) => {
-  const [user] = useRecoilState(userState);
+const CEOOnlyAction = () => {
+  const user = useRecoilValue(userState);
   const [currentAction, setCurrentAction] = useState("");
 
   useEffect(() => {
@@ -20,12 +19,12 @@ const CEOOnlyAction = ({ orgData, employees, roles }) => {
   }, [user]);
 
   return (
-    <div className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none dark:bg-card rounded-xl">
-      <div className="border-b-2 border-secondary-text-dark">
+    <div className="shadow-medium dark:shadow-none bg-[#fff] dark:bg-card rounded-[2rem] transition-all duration-300">
+      <div className="border-b-2 border-gray-200">
         <select
           onChange={(e) => setCurrentAction(e.target.value)}
           className="w-full outline-none border-none bg-transparent text-base-text-light dark:text-primary-text-dark p-2 font-medium
-        text-lg rounded-t-xl text-center cursor-pointer"
+        text-xl text-center cursor-pointer appearance-none"
         >
           <option className="dark:bg-[#333333]" value="Add Department">
             Add Department
@@ -59,20 +58,17 @@ const CEOOnlyAction = ({ orgData, employees, roles }) => {
       {currentAction === "Add Department" ? (
         <AddDepartmentCard />
       ) : currentAction === "Add User" ? (
-        <AddUserCard orgData={orgData} roles={roles} />
+        <AddUserCard />
       ) : currentAction === "Assign Tasks" ? (
-        <AssignTask employees={employees} />
+        <AssignTask />
       ) : currentAction === "Update Task" ? (
-        <UpdateTaskCard employees={employees} />
+        <UpdateTaskCard />
       ) : currentAction === "Remove User" ? (
-        <RemoveUserCard employees={employees} />
+        <RemoveUserCard />
       ) : currentAction === "Change User Team" ? (
-        <ChangeUserTeamCard
-          employees={employees}
-          departments={orgData?.departments}
-        />
+        <ChangeUserTeamCard />
       ) : currentAction === "Change User Role" ? (
-        <ChangeUserRoleCard roles={roles} employees={employees} />
+        <ChangeUserRoleCard />
       ) : (
         currentAction === "Change Organization Owner" && <ChangeOrgOwner />
       )}
