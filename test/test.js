@@ -1,4 +1,3 @@
-const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
 describe("GLLOC", function () {
@@ -48,14 +47,16 @@ describe("GLLOC", function () {
       "Engineering"
     );
 
-    let user = await glloc.removeUser(
-      "0xbdA7F16Dc9c4bCa32D70Ad3f29804F2BE57A78B7"
-    );
+    // let user = await glloc.removeUser(
+    //   "0xbdA7F16Dc9c4bCa32D70Ad3f29804F2BE57A78B7"
+    // );
 
     let orgData = await glloc.fetchOrganization(
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
     );
 
-    console.log(orgData.users);
+    orgData.users?.map(async (user) => {
+      console.log(await glloc.searchUser(user));
+    });
   });
 });

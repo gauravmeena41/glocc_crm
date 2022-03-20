@@ -27,7 +27,7 @@ contract GLLOC {
     }
 
     struct User {
-        uint256 userId;
+        uint8 userId;
         address orgId;
         address userAddress;
         string name;
@@ -100,7 +100,7 @@ contract GLLOC {
         org.logo = _logo;
         org.departments.push("Management");
         User storage user = users[msg.sender];
-        user.userId = block.timestamp;
+        user.userId = uint8(block.timestamp);
         user.orgId = msg.sender;
         user.userAddress = msg.sender;
         user.name = _Owner;
@@ -202,7 +202,7 @@ contract GLLOC {
             "Only orgOwner have access to this action"
         );
         User storage user = users[_userAddress];
-        user.userId = block.timestamp;
+        user.userId = uint8(block.timestamp);
         user.userAddress = _userAddress;
         user.orgId = msg.sender;
         user.name = _name;
