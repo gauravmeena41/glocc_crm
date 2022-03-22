@@ -25,6 +25,7 @@ const SideNavbar = ({ setIsSidebarShow, setShowMenu }) => {
   };
 
   useEffect(async () => {
+    console.log(await loginUser());
     setUser(await loginUser());
     await fetchEmployees();
     user && setShowMenu(true);
