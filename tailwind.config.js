@@ -6,8 +6,8 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        base: "0px 16px 40px rgba(112,144,176, 0.2)",
-        medium: "0px 16px 40px rgba(112, 144, 176, 0.32)",
+        base: "rgba(112, 144, 176, 0.32) 0px 2px 8px 0px;",
+        medium: "0px 16px 15px rgba(112, 144, 176, 0.32)",
         "inner-shadow": "rgba(0, 0, 0, 0.3) 0px -90px 26px 0px inset",
       },
       colors: {
@@ -34,7 +34,7 @@ module.exports = {
             transform: "translateY(0%)",
           },
         },
-        "slide-up": {
+        "slide-left": {
           "0%": {
             opacity: 1,
             transform: "translateY(0%)",
@@ -46,9 +46,11 @@ module.exports = {
         },
         "slide-right": {
           "0%": {
-            transform: "translateX(-100%)",
+            opacity: 0,
+            transform: "translateX(-50%)",
           },
           "100%": {
+            opacity: 1,
             transform: "translateX(0%)",
           },
         },
@@ -62,9 +64,9 @@ module.exports = {
         },
       },
       animation: {
-        "slide-down": "slide-down 0.3s ease-in-out forwards",
-        "slide-up": "slide-up 0.3s ease-in-out forwards",
-        "slide-right": "slide-right 0.3s ease-in-out",
+        "slide-down": "slide-down 0.5s ease-in-out forwards",
+        "slide-left": "slide-left 0.3s ease-in-out forwards",
+        "slide-right": "slide-right 0.5s ease-in-out",
         "fade-in-out": "fade-in-out 0.3s ease-in-out",
       },
     },

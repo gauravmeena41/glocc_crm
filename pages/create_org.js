@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import Head from "next/head";
 import { XCircleIcon } from "@heroicons/react/outline";
 import { PlusCircleIcon } from "@heroicons/react/solid";
-import { addOrganization, loginUser } from "../helper";
+import { addOrganization, addOrgOwner, loginUser } from "../helper";
 import { useRouter } from "next/router";
 import { userState } from "../atoms/user";
 import { useRecoilState } from "recoil";
@@ -24,10 +25,13 @@ const create_org = () => {
   }, [user]);
 
   return (
-    <div>
-      <div className="flex items-center justify-center h-[calc(100vh-53px)]">
+    <div className="w-full h-[100vh] flex items-center justify-center">
+      <Head>
+        <title>GLLOC || Create organization</title>
+      </Head>
+      <div className="">
         <div
-          className={`shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none rounded-xl w-full max-w-[700px] mx-5 mt-10
+          className={`shadow-base dark:shadow-none lg:hover:shadow-medium  lg:dark:hover:shadow-none rounded-2xl w-full max-w-[700px] mx-5 mt-10
           dark:bg-card relative animate-slide-down transition-all duration-300 ${
             !isCreateOrg ? "hidden" : ""
           }`}
@@ -41,12 +45,12 @@ const create_org = () => {
           </h1>
           <div className="grid lg:grid-cols-2">
             <div className="flex flex-col items-center m-5 space-y-5">
-              <h1 className="w-full text-center font-medium underline p-1 text-base-text-light  dark:text-primary-text-dark dark:bg-[#333333] rounded-xl">
+              <h1 className="w-full text-center font-medium underline p-1 text-base-text-light  dark:text-primary-text-dark dark:bg-[#333333] rounded-2xl">
                 Org info
               </h1>
               <input
                 required
-                className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
+                className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-2xl outline-none
               text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
                dark:text-primary-text-dark px-2 py-1"
                 type="text"
@@ -55,7 +59,7 @@ const create_org = () => {
               />
               <input
                 required
-                className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
+                className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-2xl outline-none
               text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
                dark:text-primary-text-dark px-2 py-1"
                 type="text"
@@ -64,7 +68,7 @@ const create_org = () => {
               />
               <input
                 required
-                className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
+                className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-2xl outline-none
               text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
                dark:text-primary-text-dark px-2 py-1"
                 type="text"
@@ -88,13 +92,13 @@ const create_org = () => {
               />
             </div>
             <div className="flex flex-col items-center space-y-5 m-5">
-              <h1 className="w-full text-center font-medium underline p-1 text-base-text-light  dark:text-primary-text-dark dark:bg-[#333333] rounded-xl">
+              <h1 className="w-full text-center font-medium underline p-1 text-base-text-light  dark:text-primary-text-dark dark:bg-[#333333] rounded-2xl">
                 CEO Info
               </h1>
               <input
                 required
                 placeholder="name"
-                className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
+                className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-2xl outline-none
     text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
      dark:text-primary-text-dark px-2 py-1"
                 type="text"
@@ -103,7 +107,7 @@ const create_org = () => {
               <input
                 required
                 placeholder="email"
-                className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
+                className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-2xl outline-none
     text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
      dark:text-primary-text-dark px-2 py-1"
                 type="text"
@@ -112,7 +116,7 @@ const create_org = () => {
               <input
                 required
                 placeholder="mobile"
-                className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
+                className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-2xl outline-none
     text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
      dark:text-primary-text-dark px-2 py-1"
                 type="text"
@@ -121,7 +125,7 @@ const create_org = () => {
               <input
                 required
                 placeholder="skills"
-                className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-xl outline-none
+                className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%] rounded-2xl outline-none
     text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
      dark:text-primary-text-dark px-2 py-1"
                 type="text"
@@ -142,6 +146,7 @@ const create_org = () => {
                 ownerMobile,
                 ownerSkills
               );
+              setIsCreateOrg(false);
               setUser(await loginUser());
             }}
           >
@@ -151,7 +156,7 @@ const create_org = () => {
         <button
           className={`${
             isCreateOrg ? "hidden" : "inline-block"
-          }  shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none px-10 py-4 animate-slide-down rounded-xl text-base-text-light dark:text-base-text-dark text-2xl font-semibold
+          }  shadow-base dark:shadow-none lg:hover:shadow-medium  lg:dark:hover:shadow-none px-10 py-4 animate-slide-down rounded-2xl text-base-text-light dark:text-base-text-dark text-2xl font-semibold
         dark:bg-card transition-all duration-300`}
           onClick={() => setIsCreateOrg(true)}
         >

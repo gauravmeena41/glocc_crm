@@ -5,14 +5,15 @@ const main = async () => {
   const GLLOC = await hre.ethers.getContractFactory("GLLOC");
   const glloc = await GLLOC.deploy();
   await glloc.deployed();
-  console.log("GLLOC deployed: ", glloc.address);
+
+  const GLLOCTOKEN = await ethers.getContractFactory("GLLOCTOKEN");
+  const glloctoken = await GLLOCTOKEN.deploy();
+  await glloctoken.deployed();
 
   fs.writeFileSync(
     "./config.js",
-    `
-    export const gllocAddress = "${glloc.address}";
-    export const ownerAddress = "${glloc.signer.address}"
-    `
+    `export const gllocAddress = "${glloc.address}";
+    export const gllocToken = "${glloctoken.address}";`
   );
 };
 

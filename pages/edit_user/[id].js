@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Head from "next/head";
 import UpdateUserCard from "../../components/UpdateUserCard";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
@@ -12,9 +13,14 @@ const edit_user = () => {
     !user && router.push("/");
   }, [user]);
   return (
-    <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-5 m-5">
-      <UpdateUserCard />
-    </div>
+    <>
+      <Head>
+        <title>GLLOC || Edit Profile</title>
+      </Head>
+      <div className="flex items-center justify-center w-full h-screen m-6">
+        <UpdateUserCard />
+      </div>
+    </>
   );
 };
 

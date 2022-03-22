@@ -8,6 +8,10 @@ const nextConfig = {
       "64.media.tumblr.com",
       "cdn.pixabay.com",
       "openweathermap.org",
+<<<<<<< HEAD
+=======
+      "img.icons8.com",
+>>>>>>> dev
       "firebasestorage.googleapis.com",
     ],
   },

@@ -19,6 +19,45 @@
       "type": "event"
     },
     {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "taskId",
+          "type": "uint64"
+        }
+      ],
+      "name": "LogTaskCompleted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "taskId",
+          "type": "uint64"
+        }
+      ],
+      "name": "LogTaskCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "userId",
+          "type": "address"
+        }
+      ],
+      "name": "LogUserCreated",
+      "type": "event"
+    },
+    {
       "inputs": [
         {
           "internalType": "string",
@@ -27,49 +66,6 @@
         }
       ],
       "name": "addDepartment",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_orgOwnerName",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_orgOwnerEmail",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_orgOwnerAvatar",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_orgOwnerMobile",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_orgOwnerRole",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_orgOwnerTeam",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_orgOwnerSkills",
-          "type": "string"
-        }
-      ],
-      "name": "addOrgOwner",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -94,6 +90,31 @@
         {
           "internalType": "string",
           "name": "_logo",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_Owner",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_ownerEmail",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_ownerAvatar",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_ownerMobile",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_ownerSkills",
           "type": "string"
         }
       ],
@@ -167,12 +188,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_orgId",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "_orgOwner",
+          "name": "_newOrgOwner",
           "type": "address"
         }
       ],
@@ -234,9 +250,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint64",
           "name": "_taskId",
-          "type": "uint256"
+          "type": "uint64"
         }
       ],
       "name": "comleteTask",
@@ -312,9 +328,9 @@
         {
           "components": [
             {
-              "internalType": "uint256",
+              "internalType": "uint64",
               "name": "userId",
-              "type": "uint256"
+              "type": "uint64"
             },
             {
               "internalType": "address",
@@ -347,13 +363,18 @@
               "type": "string"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint64",
               "name": "dob",
-              "type": "uint256"
+              "type": "uint64"
             },
             {
               "internalType": "string",
               "name": "maritalStatus",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "skills",
               "type": "string"
             },
             {
@@ -367,24 +388,24 @@
               "type": "string"
             },
             {
-              "internalType": "string",
-              "name": "skills",
-              "type": "string"
+              "internalType": "address",
+              "name": "reportingTo",
+              "type": "address"
             },
             {
-              "internalType": "uint256[]",
+              "internalType": "uint64[]",
               "name": "checkIn",
-              "type": "uint256[]"
+              "type": "uint64[]"
             },
             {
-              "internalType": "uint256[]",
+              "internalType": "uint64[]",
               "name": "checkOut",
-              "type": "uint256[]"
+              "type": "uint64[]"
             },
             {
-              "internalType": "uint256[]",
+              "internalType": "uint64[]",
               "name": "tasks",
-              "type": "uint256[]"
+              "type": "uint64[]"
             }
           ],
           "internalType": "struct GLLOC.User",
@@ -399,11 +420,6 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_orgId",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
           "name": "_userAddress",
           "type": "address"
         }
@@ -416,9 +432,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint64",
           "name": "_taskId",
-          "type": "uint256"
+          "type": "uint64"
         }
       ],
       "name": "searchTask",
@@ -426,9 +442,9 @@
         {
           "components": [
             {
-              "internalType": "uint256",
+              "internalType": "uint64",
               "name": "taskId",
-              "type": "uint256"
+              "type": "uint64"
             },
             {
               "internalType": "string",
@@ -446,9 +462,19 @@
               "type": "string"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint64",
               "name": "taskCreatedDate",
-              "type": "uint256"
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "taskDueDate",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "taskCompletedDate",
+              "type": "uint64"
             }
           ],
           "internalType": "struct GLLOC.Task",
@@ -472,9 +498,9 @@
         {
           "components": [
             {
-              "internalType": "uint256",
+              "internalType": "uint64",
               "name": "userId",
-              "type": "uint256"
+              "type": "uint64"
             },
             {
               "internalType": "address",
@@ -507,13 +533,18 @@
               "type": "string"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint64",
               "name": "dob",
-              "type": "uint256"
+              "type": "uint64"
             },
             {
               "internalType": "string",
               "name": "maritalStatus",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "skills",
               "type": "string"
             },
             {
@@ -527,24 +558,24 @@
               "type": "string"
             },
             {
-              "internalType": "string",
-              "name": "skills",
-              "type": "string"
+              "internalType": "address",
+              "name": "reportingTo",
+              "type": "address"
             },
             {
-              "internalType": "uint256[]",
+              "internalType": "uint64[]",
               "name": "checkIn",
-              "type": "uint256[]"
+              "type": "uint64[]"
             },
             {
-              "internalType": "uint256[]",
+              "internalType": "uint64[]",
               "name": "checkOut",
-              "type": "uint256[]"
+              "type": "uint64[]"
             },
             {
-              "internalType": "uint256[]",
+              "internalType": "uint64[]",
               "name": "tasks",
-              "type": "uint256[]"
+              "type": "uint64[]"
             }
           ],
           "internalType": "struct GLLOC.User",
@@ -588,9 +619,9 @@
           "type": "string"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint64",
           "name": "_dob",
-          "type": "uint256"
+          "type": "uint64"
         }
       ],
       "name": "updateUser",

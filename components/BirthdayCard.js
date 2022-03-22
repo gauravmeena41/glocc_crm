@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { userState } from "../atoms/user";
+import { useRecoilValue } from "recoil";
 import Link from "next/link";
 import Image from "next/image";
-import { fetchOrganization, getAllUser } from "../helper";
+import { employeesState } from "../atoms/employees";
 
 const BirthdayCard = () => {
-  const [user] = useRecoilState(userState);
   const [birthdays, setBirthdays] = useState({});
-  const [employees, setEmployees] = useState([]);
+  const employees = useRecoilValue(employeesState);
   const currentDate = new Date().getDate();
-
-  useEffect(async () => {
-    let orgId = await fetchOrganization(user?.orgId);
-    let users = orgId?.users;
-    setEmployees(await getAllUser(users));
-  }, [user]);
 
   const orgEmployees = () => {
     employees?.map((employee) => {
@@ -27,22 +19,22 @@ const BirthdayCard = () => {
     });
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     orgEmployees();
-  }, []);
+  }, [employees]);
 
   return (
     <div
-      className="shadow-base hover:shadow-medium dark:shadow-none dark:hover:shadow-none
-      rounded-xl  transition-all duration-300 dark:bg-card min-h-[250px] pb-10 lg:hover:scale-[1.03]"
+      className="shadow-medium dark:shadow-none bg-[#fff] dark:bg-card rounded-2xl
+      transition-all duration-300 ease-in-out min-h-[250px] pb-10 sm:pb-0 w-full"
     >
       <div className="overflow-scroll h-full w-full scrollbar-hide space-y-3 p-5">
         {Object.entries(birthdays).length > 0 ? (
           Object.entries(birthdays)?.map(([idx, birthday]) => (
             <Link href={`/profile/${birthday.userAddress}`} key={idx}>
               <div
-                className="shadow-base lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none p-1 px-2 rounded-xl flex items-center space-x-4
-                cursor-pointer transition-all duration-300 mx-5  dark:bg-[#333333] lg:hover:scale-[1.03]"
+                className="shadow-base dark:shadow-none lg:hover:shadow-medium  lg:dark:hover:shadow-none p-1 px-2 rounded-2xl flex items-center space-x-4
+                cursor-pointer transition-all duration-300 mx-5  dark:bg-[#333333]"
               >
                 <div className="relative w-[32px] h-[32px] bg-bg-danger rounded-full">
                   <Image
@@ -63,12 +55,14 @@ const BirthdayCard = () => {
             </Link>
           ))
         ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <img
-              src="images/birthday.svg"
-              alt=""
-              className="w-[60%] h-auto dark:opacity-[0.85]"
-            />
+          <div className="flex items-center justify-center w-full h-full">
+            <div className="relative w-[200px] h-[200px] dark:opacity-[0.85]">
+              <Image
+                src="/images/birthday.svg"
+                layout="fill"
+                className="object-contain"
+              />
+            </div>
           </div>
         )}
       </div>
