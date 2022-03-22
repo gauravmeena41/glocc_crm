@@ -21,10 +21,6 @@
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.4",
     "firebase": "^9.6.9",
-<<<<<<< HEAD
-=======
-    "googleapis": "^97.0.0",
->>>>>>> dev
     "hardhat": "^2.9.0",
     "luxon": "^2.3.1",
     "next": "12.1.0",
