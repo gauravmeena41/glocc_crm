@@ -24,13 +24,9 @@ const AddUserCard = () => {
     });
   };
 
-<<<<<<< HEAD
-  console.log(orgData);
-=======
   useEffect(() => {
     setRoles(userRoles());
   }, [orgData]);
->>>>>>> dev
 
   return (
     <div className="flex flex-col m-5 py-2 space-y-3 overflow-scroll h-[350px]">

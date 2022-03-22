@@ -6,22 +6,11 @@ import { gllocAddress, gllocToken } from "./config";
 // import GLLOCTOKEN from "./artifacts/contracts/GLLOCTOKEN.sol/GLLOCTOKEN.json";
 
 import GLLOC from "./utils/GLLOC.json";
-<<<<<<< HEAD
-import { storage } from "./firebase";
-import {
-  getDownloadURL,
-  ref,
-  uploadBytesResumable,
-  uploadString,
-} from "firebase/storage";
-import { async } from "@firebase/util";
-=======
 import GLLOCTOKEN from "./utils/GLLOCTOKEN.json";
 
 import { storage } from "./firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Holidays from "date-holidays";
->>>>>>> dev
 
 export const getWeb3Modal = async () => {
   const web3Modal = new Web3Modal({

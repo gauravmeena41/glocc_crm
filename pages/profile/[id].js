@@ -42,11 +42,7 @@ const profile = () => {
           <Image
             src={currentUser?.avatar}
             layout="fill"
-<<<<<<< HEAD
-            className="rounded-full object-cover"
-=======
             className="rounded-full object-cover object-top"
->>>>>>> dev
           />
         </div>
         <div className="absolute bottom-2 w-full hidden lg:flex justify-center items-center z-[1] ">
@@ -69,11 +65,7 @@ const profile = () => {
       </div>
 
       <div>
-<<<<<<< HEAD
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 m-2 lg:m-5">
-=======
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 m-2 sm:m-5">
->>>>>>> dev
           <AboutCard currentUser={currentUser} />
           {currentUser?.userAddress === user?.userAddress && (
             <MarkAttendanceCard />
