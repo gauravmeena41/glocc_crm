@@ -307,22 +307,22 @@ contract GLLOC {
         user.team = _team;
     }
 
-    function changeReportingTo(address _userAddress, address _reportingTo)
-        external
-    {
-        require(
-            organizations[msg.sender].orgId !=
-                0x0000000000000000000000000000000000000000,
-            "Org not found."
-        );
-        require(
-            msg.sender == organizations[msg.sender].orgOwner,
-            "Only orgOwner have access to this action"
-        );
+    // function changeReportingTo(address _userAddress, address _reportingTo)
+    //     external
+    // {
+    //     require(
+    //         organizations[msg.sender].orgId !=
+    //             0x0000000000000000000000000000000000000000,
+    //         "Org not found."
+    //     );
+    //     require(
+    //         msg.sender == organizations[msg.sender].orgOwner,
+    //         "Only orgOwner have access to this action"
+    //     );
 
-        User storage user = users[_userAddress];
-        user.reportingTo = _reportingTo;
-    }
+    //     User storage user = users[_userAddress];
+    //     user.reportingTo = _reportingTo;
+    // }
 
     function removeUser(address _userAddress) external {
         require(
