@@ -377,12 +377,7 @@ contract GLLOC {
         view
         returns (User memory)
     {
-<<<<<<< HEAD
-        User storage user = users[_userAddress];
-        return user;
-=======
         return users[_userAddress];
->>>>>>> dev
     }
 
     function updateUser(
