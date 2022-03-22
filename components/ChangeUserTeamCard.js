@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import { employeesState } from "../atoms/employees";
 import { orgState } from "../atoms/org";
 
-const ChangeUserTeamCard = ({ employees, departments }) => {
+const ChangeUserTeamCard = () => {
   const employees = useRecoilValue(employeesState);
   const orgData = useRecoilValue(orgState);
   const [assignee, setAssignee] = useState("");

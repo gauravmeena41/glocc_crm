@@ -25,7 +25,7 @@ const BirthdayCard = () => {
 
   return (
     <div
-      className="shadow-base dark:shadow-none bg-[#fff] dark:bg-card rounded-[2rem]
+      className="shadow-medium dark:shadow-none bg-[#fff] dark:bg-card rounded-2xl
       transition-all duration-300 ease-in-out min-h-[250px] pb-10 sm:pb-0 w-full"
     >
       <div className="overflow-scroll h-full w-full scrollbar-hide space-y-3 p-5">
@@ -33,7 +33,7 @@ const BirthdayCard = () => {
           Object.entries(birthdays)?.map(([idx, birthday]) => (
             <Link href={`/profile/${birthday.userAddress}`} key={idx}>
               <div
-                className="shadow-base dark:shadow-none p-1 px-2 rounded-[2rem] flex items-center space-x-4
+                className="shadow-base dark:shadow-none lg:hover:shadow-medium  lg:dark:hover:shadow-none p-1 px-2 rounded-2xl flex items-center space-x-4
                 cursor-pointer transition-all duration-300 mx-5  dark:bg-[#333333]"
               >
                 <div className="relative w-[32px] h-[32px] bg-bg-danger rounded-full">

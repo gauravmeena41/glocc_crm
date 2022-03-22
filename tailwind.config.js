@@ -7,7 +7,7 @@ module.exports = {
     extend: {
       boxShadow: {
         base: "rgba(112, 144, 176, 0.32) 0px 2px 8px 0px;",
-        medium: "0px 16px 40px rgba(112, 144, 176, 0.32)",
+        medium: "0px 16px 15px rgba(112, 144, 176, 0.32)",
         "inner-shadow": "rgba(0, 0, 0, 0.3) 0px -90px 26px 0px inset",
       },
       colors: {
@@ -64,9 +64,9 @@ module.exports = {
         },
       },
       animation: {
-        "slide-down": "slide-down 0.3s ease-in-out forwards",
+        "slide-down": "slide-down 0.5s ease-in-out forwards",
         "slide-left": "slide-left 0.3s ease-in-out forwards",
-        "slide-right": "slide-right 0.3s ease-in-out",
+        "slide-right": "slide-right 0.5s ease-in-out",
         "fade-in-out": "fade-in-out 0.3s ease-in-out",
       },
     },

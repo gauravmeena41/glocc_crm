@@ -4,8 +4,8 @@ import { CheckCircleIcon } from "@heroicons/react/outline";
 const MarkAttendanceCard = ({ currentUser }) => {
   return (
     <div
-      className="shadow-base dark:shadow-none lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none px-5 py-5 space-y-8 font-semibold w-full bg-[#fff] dark:bg-card rounded-[2rem]
-    transition-all duration-300 shadow-base dark:shadow-none"
+      className="shadow-medium dark:shadow-none lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none px-5 py-5 space-y-8 font-semibold w-full bg-[#fff] dark:bg-card rounded-2xl
+    transition-all duration-300 shadow-medium dark:shadow-none"
     >
       <h1 className="font-bold text-base-text-light dark:text-primary-text-dark flex items-center">
         Attendance

@@ -23,7 +23,7 @@ const UpdateUserCard = () => {
 
   return (
     <div className="flex items-center justify-center w-full">
-      <div className="shadow-base dark:shadow-none bg-[#fff] dark:bg-card rounded-[2rem] transition-all duration-300 w-full max-w-[500px] min-h-[250px] m-5">
+      <div className="shadow-medium dark:shadow-none bg-[#fff] dark:bg-card rounded-2xl transition-all duration-300 w-full max-w-[500px] min-h-[250px] m-5">
         <h1 className="text-center text-lg font-medium text-base-text-light dark:text-primary-text-dark p-2 border-b-2 border-secondary-text-dark">
           Update your profile
         </h1>
@@ -33,7 +33,7 @@ const UpdateUserCard = () => {
             placeholder={user?.name}
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
-            className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%]  rounded-[2rem] outline-none
+            className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%]  rounded-2xl outline-none
           text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
      dark:text-primary-text-dark px-2 py-1"
           />
@@ -42,7 +42,7 @@ const UpdateUserCard = () => {
             placeholder={user?.email}
             value={userEmail}
             onChange={(e) => setUserEmail(e.target.value)}
-            className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%]  rounded-[2rem] outline-none
+            className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%]  rounded-2xl outline-none
     text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
     dark:text-primary-text-dark px-2 py-1"
           />
@@ -51,13 +51,13 @@ const UpdateUserCard = () => {
             placeholder={user?.mobile ? user?.mobile : "your mobile"}
             value={userMobile}
             onChange={(e) => setUserMobile(e.target.value)}
-            className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%]  rounded-[2rem] outline-none
+            className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%]  rounded-2xl outline-none
     text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
      dark:text-primary-text-dark px-2 py-1"
           />
           <label
             htmlFor="file"
-            className="text-primary-text-light dark:text-secondary-text-dark text-lg border-2 border-secondary-text-dark w-full text-center rounded-[2rem]
+            className="text-primary-text-light dark:text-secondary-text-dark text-lg border-2 border-secondary-text-dark w-full text-center rounded-2xl
           px-2 py-1 cursor-pointer font-medium"
           >
             Choose Profile
@@ -89,7 +89,7 @@ const UpdateUserCard = () => {
             placeholder={user?.skills ? user?.skills : "your skills"}
             value={userSkills}
             onChange={(e) => setUserSkills(e.target.value)}
-            className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%]  rounded-[2rem] outline-none
+            className="border-2 border-primary-text-light dark:border-secondary-text-dark bg-transparent  w-[100%]  rounded-2xl outline-none
     text-primary-text-light font-semibold  placeholder:text-secondary-text-light placeholder:dark:text-secondary-text-dark
     dark:text-primary-text-dark px-2 py-1"
           />
@@ -103,7 +103,7 @@ const UpdateUserCard = () => {
             maritalStatus ||
             dob) && (
             <button
-              className="bg-bg-btn p-1 px-4  rounded-[2rem] w-fit text-lg text-primary-text-light dark:text-base-text-dark font-medium animate-slide-down"
+              className="bg-bg-btn p-1 px-4  rounded-2xl w-fit text-lg text-primary-text-light dark:text-base-text-dark font-medium animate-slide-down"
               onClick={async () => {
                 await updateUser(
                   userName,
@@ -130,11 +130,11 @@ const UpdateUserCard = () => {
         </div>
       </div>
       {userAvatar && (
-        <div className="relative w-[400px] h-[500px] rounded-[2rem]">
+        <div className="relative w-[400px] h-[500px] rounded-2xl">
           <Image
             src={URL.createObjectURL(userAvatar)}
             layout="fill"
-            className="rounded-[2rem] object-cover"
+            className="rounded-2xl object-cover"
           />
         </div>
       )}

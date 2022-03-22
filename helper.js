@@ -1,10 +1,16 @@
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers } from "ethers";
-import { gllocAddress } from "./config";
-import GLLOC from "./artifacts/contracts/GLLOC.sol/GLLOC.json";
+import { gllocAddress, gllocToken } from "./config";
+// import GLLOC from "./artifacts/contracts/GLLOC.sol/GLLOC.json";
+// import GLLOCTOKEN from "./artifacts/contracts/GLLOCTOKEN.sol/GLLOCTOKEN.json";
+
+import GLLOC from "./utils/GLLOC.json";
+import GLLOCTOKEN from "./utils/GLLOCTOKEN.json";
+
 import { storage } from "./firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import Holidays from "date-holidays";
 
 export const getWeb3Modal = async () => {
   const web3Modal = new Web3Modal({
@@ -22,15 +28,26 @@ export const getWeb3Modal = async () => {
   return web3Modal;
 };
 
-export const getContract = async () => {
+export const getGllocContract = async () => {
   try {
     const web3modal = new Web3Modal();
     const connection = await web3modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
-    let account = await provider.listAccounts();
 
     return new ethers.Contract(gllocAddress, GLLOC.abi, signer);
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getGllocTokenContract = async () => {
+  try {
+    const web3modal = new Web3Modal();
+    const connection = await web3modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+
+    return new ethers.Contract(gllocToken, GLLOCTOKEN.abi, signer);
   } catch (error) {
     console.log(error);
   }
@@ -43,7 +60,7 @@ export const addOrgOwner = async (
   _ownerSkills
 ) => {
   try {
-    const GLLOC = await getContract();
+    const GLLOC = await getGllocContract();
     const tx = await GLLOC.addOrgOwner(
       _Owner,
       _ownerEmail,
@@ -67,7 +84,7 @@ export const addOrganization = async (
   _ownerMobile,
   _ownerSkills
 ) => {
-  const GLLOC = await getContract();
+  const GLLOC = await getGllocContract();
 
   try {
     const tx = await GLLOC.addOrganisation(
@@ -82,13 +99,15 @@ export const addOrganization = async (
       _ownerSkills
     );
     await tx.wait();
+    const GLLOCTOKEN = await getGllocTokenContract();
+    await GLLOCTOKEN.issueToken(1000000000000000);
   } catch (error) {
     console.log(error);
   }
 };
 
 export const changeOrgOwner = async (_newOrgOwner) => {
-  const GLLOC = await getContract();
+  const GLLOC = await getGllocContract();
   try {
     await GLLOC.changeOrgOwner(_newOrgOwner);
   } catch (error) {
@@ -97,7 +116,7 @@ export const changeOrgOwner = async (_newOrgOwner) => {
 };
 
 export const loginUser = async () => {
-  const GLLOC = await getContract();
+  const GLLOC = await getGllocContract();
   try {
     const user = await GLLOC.loginUser();
     if (user.userAddress === "0x0000000000000000000000000000000000000000")
@@ -109,7 +128,7 @@ export const loginUser = async () => {
 };
 
 export const fetchOrganization = async (_orgId) => {
-  const GLLOC = await getContract();
+  const GLLOC = await getGllocContract();
   try {
     const org = await GLLOC.fetchOrganization(_orgId);
     return org;
@@ -119,7 +138,7 @@ export const fetchOrganization = async (_orgId) => {
 };
 
 export const addDepartment = async (_departmentName) => {
-  const GLLOC = await getContract();
+  const GLLOC = await getGllocContract();
   try {
     await GLLOC.addDepartment(_departmentName);
   } catch (error) {
@@ -151,7 +170,7 @@ export const userRoles = () => {
 };
 
 export const addUser = async (_orgUser) => {
-  const GLLOC = await getContract();
+  const GLLOC = await getGllocContract();
   try {
     await GLLOC.addUser(
       _orgUser.userAddress,
@@ -167,7 +186,7 @@ export const addUser = async (_orgUser) => {
 };
 
 export const removeUser = async (_userAddress) => {
-  const GLLOC = await getContract();
+  const GLLOC = await getGllocContract();
   console.log(_userAddress);
   try {
     await GLLOC.removeUser(_userAddress);
@@ -177,7 +196,7 @@ export const removeUser = async (_userAddress) => {
 };
 
 export const searchUser = async (_userAddress) => {
-  const GLLOC = await getContract();
+  const GLLOC = await getGllocContract();
   try {
     const user = await GLLOC.searchUser(_userAddress);
     return user;
@@ -195,7 +214,7 @@ export const updateUser = async (
   userMaritalStatus = "",
   _userDob = 0
 ) => {
-  const GLLOC = await getContract();
+  const GLLOC = await getGllocContract();
   try {
     let imageUrl;
     const imageRef = ref(storage, `profile/${_avatar.name}`);
@@ -234,7 +253,7 @@ export const assignTask = async (
   _taskName,
   _taskDescription
 ) => {
-  const GLLOC = await getContract();
+  const GLLOC = await getGllocContract();
 
   try {
     await GLLOC.assignTask(_userAddress, _taskName, _taskDescription);
@@ -244,7 +263,7 @@ export const assignTask = async (
 };
 
 export const searchTask = async (_taskId) => {
-  const GLLOC = await getContract();
+  const GLLOC = await getGllocContract();
   try {
     const task = await GLLOC.searchTask(_taskId);
     return task;
@@ -254,7 +273,7 @@ export const searchTask = async (_taskId) => {
 };
 
 export const updateTask = async (_taskId) => {
-  const GLLOC = await getContract();
+  const GLLOC = await getGllocContract();
   try {
     await GLLOC.comleteTask(_taskId);
   } catch (error) {
@@ -263,7 +282,7 @@ export const updateTask = async (_taskId) => {
 };
 
 export const checkIn = async () => {
-  const GLLOC = await getContract();
+  const GLLOC = await getGllocContract();
   try {
     await GLLOC.checkIn();
   } catch (error) {
@@ -271,7 +290,7 @@ export const checkIn = async () => {
   }
 };
 export const checkOut = async () => {
-  const GLLOC = await getContract();
+  const GLLOC = await getGllocContract();
   try {
     await GLLOC.checkOut();
   } catch (error) {
@@ -296,7 +315,7 @@ export const getAllUser = async (orgUsers, ceo = "") => {
 };
 
 export const changeUserteam = async (_userAddress, _teamName) => {
-  const GLLOC = await getContract();
+  const GLLOC = await getGllocContract();
   try {
     await GLLOC.changeUserteam(_userAddress, _teamName);
   } catch (error) {
@@ -305,9 +324,39 @@ export const changeUserteam = async (_userAddress, _teamName) => {
 };
 
 export const changeUserrole = async (_userAddress, _teamName) => {
-  const GLLOC = await getContract();
+  const GLLOC = await getGllocContract();
   try {
     await GLLOC.changeUserrole(_userAddress, _teamName);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUserBalance = async (_userAddress) => {
+  const GLLOCTOKEN = await getGllocTokenContract();
+
+  try {
+    const balance = await GLLOCTOKEN.balanceOf(_userAddress);
+    return ethers.utils.formatEther(balance);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const sendAmount = async (_userAddress, _amount) => {
+  const GLLOCTOKEN = await getGllocTokenContract();
+  try {
+    await GLLOCTOKEN.transfer(_userAddress, ethers.utils.parseEther(_amount));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchHolidays = (_year) => {
+  try {
+    const hd = new Holidays("US", "la", "no");
+
+    return hd.getHolidays(_year);
   } catch (error) {
     console.log(error);
   }

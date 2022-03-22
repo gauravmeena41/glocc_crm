@@ -15,8 +15,8 @@ const AboutCard = ({ currentUser }) => {
 
   return (
     <div
-      className="shadow-base dark:shadow-none lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none p-8 space-y-5 bg-[#fff] dark:bg-card rounded-[2rem]
-     transition-all duration-300 shadow-base dark:shadow-none"
+      className="shadow-medium dark:shadow-none lg:hover:shadow-medium  lg:dark:hover:shadow-none p-8 space-y-5 bg-[#fff] dark:bg-card rounded-2xl
+     transition-all duration-300 "
     >
       <div className="flex justify-between">
         <div className="flex items-center space-x-1">
@@ -27,7 +27,7 @@ const AboutCard = ({ currentUser }) => {
         </div>
         {currentUser && user && currentUser.userAddress === user.userAddress && (
           <Link href={`/edit_user/${currentUser.userAddress}`}>
-            <div className="flex items-center space-x-2 dark:bg-[#333333] px-3 py-1 rounded-[2rem] shadow-base dark:shadow-none cursor-pointer">
+            <div className="flex items-center space-x-2 dark:bg-[#333333] px-3 py-1 rounded-2xl shadow-base dark:shadow-none cursor-pointer">
               <h1 className="text-base-text-light dark:text-primary-text-dark">
                 Edit
               </h1>

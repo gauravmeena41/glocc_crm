@@ -12,7 +12,7 @@ const TasksCard = () => {
   const userTasks = () => {
     user?.tasks?.map(async (task) => {
       let data = await searchTask(task);
-      data.taskStatus === "pending" &&
+      data?.taskStatus === "pending" &&
         setTasks((prevState) => {
           return { ...prevState, [task]: data };
         });
@@ -25,7 +25,7 @@ const TasksCard = () => {
 
   return (
     <div
-      className="shadow-base dark:shadow-none bg-[#fff] dark:bg-card rounded-[2rem]
+      className="shadow-medium dark:shadow-none bg-[#fff] dark:bg-card rounded-2xl
       transition-all duration-300 ease-in-out min-h-[250px] w-full pb-10 sm:pb-0"
     >
       <div className="overflow-x-scroll overflow-y-scroll h-full w-full scrollbar-hide space-y-1 p-5">

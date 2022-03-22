@@ -19,7 +19,7 @@ const CEOOnlyAction = () => {
   }, [user]);
 
   return (
-    <div className="shadow-medium dark:shadow-none bg-[#fff] dark:bg-card rounded-[2rem] transition-all duration-300">
+    <div className="shadow-medium dark:shadow-none bg-[#fff] dark:bg-card rounded-2xl transition-all duration-300">
       <div className="border-b-2 border-gray-200">
         <select
           onChange={(e) => setCurrentAction(e.target.value)}

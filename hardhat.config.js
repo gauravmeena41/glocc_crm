@@ -4,6 +4,10 @@ const PRIVATE_KEY =
 
 module.exports = {
   solidity: "0.8.13",
+  optimizer: {
+    enabled: true,
+    runs: 200,
+  },
   networks: {
     hardhat: {
       chainId: 1337,

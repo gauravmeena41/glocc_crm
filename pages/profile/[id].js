@@ -9,6 +9,7 @@ import MarkAttendanceCard from "../../components/MarkAttendanceCard";
 import AboutCard from "../../components/AboutCard";
 import SkillCard from "../../components/SkillCard";
 import BasicinfoCard from "../../components/BasicinfoCard";
+import WalletCard from "../../components/WalletCard";
 
 const profile = () => {
   const [user] = useRecoilState(userState);
@@ -64,13 +65,14 @@ const profile = () => {
       </div>
 
       <div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 m-2 lg:m-5">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 m-2 sm:m-5">
           <AboutCard currentUser={currentUser} />
           {currentUser?.userAddress === user?.userAddress && (
             <MarkAttendanceCard />
           )}
           <SkillCard currentUser={currentUser} />
           <BasicinfoCard currentUser={currentUser} />
+          <WalletCard currentUser={currentUser} />
         </div>
       </div>
     </div>

@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import { LogoutIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { userState } from "../atoms/user";
 import { employeesState } from "../atoms/employees";
 import { orgState } from "../atoms/org";
 import { fetchOrganization, getAllUser, loginUser } from "../helper";
 
-const SideNavbar = ({ setIsSidebarShow }) => {
+const SideNavbar = ({ setIsSidebarShow, setShowMenu }) => {
   const [user, setUser] = useRecoilState(userState);
   const [loadData, setLoadData] = useState(false);
   const [employees, setEmployees] = useRecoilState(employeesState);
   const [orgData, setOrgData] = useRecoilState(orgState);
+  const router = useRouter();
 
   const fetchEmployees = async () => {
     let org = await fetchOrganization(user?.orgId);
@@ -25,10 +27,12 @@ const SideNavbar = ({ setIsSidebarShow }) => {
   useEffect(async () => {
     setUser(await loginUser());
     await fetchEmployees();
+    user && setShowMenu(true);
+    !user && router.push("/create_org");
   }, [loadData]);
 
   return (
-    <div className="h-screen bg-[#fff] dark:bg-card rounded-r-[2rem] flex flex-col justify-between p-10 shadow-base dark:shadow-none">
+    <div className="h-screen bg-[#fff] dark:bg-[#333333] rounded-r-2xl flex flex-col justify-between p-10 shadow-medium dark:shadow-none">
       <Link href="/">
         <div onClick={() => setIsSidebarShow(false)}>
           <h1 className="text-3xl font-semibold cursor-pointer dark:text-[#fff]">

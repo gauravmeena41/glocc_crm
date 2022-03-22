@@ -19,20 +19,26 @@ Router.events.on("routeChangeError", progress.finish);
 
 const MyApp = ({ Component, pageProps }) => {
   const [isSidebarShow, setIsSidebarShow] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   return (
     <div className="flex relative">
       <RecoilRoot>
         <MenuAlt1Icon
-          className="absolute w-[32px] h-[32px] z-[3] cursor-pointer dark:text-[#fff]"
+          className={`${
+            showMenu ? "fixed" : "hidden"
+          } w-[32px] h-[32px] z-[3] cursor-pointer opacity-10 hover:opacity-100 dark:text-[#fff] transition-all duration-300`}
           onClick={() => setIsSidebarShow(!isSidebarShow)}
         />
         <div
           className={`${
             isSidebarShow ? "inline-block" : "hidden"
-          } absolute animate-slide-right z-[2]`}
+          } fixed animate-slide-right z-[2]`}
         >
-          <SideNavbar setIsSidebarShow={setIsSidebarShow} />
+          <SideNavbar
+            setIsSidebarShow={setIsSidebarShow}
+            setShowMenu={setShowMenu}
+          />
         </div>
         <Component {...pageProps} />
       </RecoilRoot>

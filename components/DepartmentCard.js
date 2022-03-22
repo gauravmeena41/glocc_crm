@@ -23,12 +23,12 @@ const DepartmentCard = () => {
   }, [currentDepartment]);
 
   useEffect(async () => {
-    setCurrentDepartment(orgData?.departments[0]);
+    orgData?.departments && setCurrentDepartment(orgData?.departments[0]);
   }, [orgData]);
 
   return (
     <div
-      className="shadow-medium dark:shadow-none bg-[#fff] dark:bg-card rounded-[2rem]
+      className="shadow-medium dark:shadow-none bg-[#fff] dark:bg-card rounded-2xl
     transition-all duration-300"
     >
       <div className="border-b-2 border-gray-200">
@@ -48,7 +48,7 @@ const DepartmentCard = () => {
         {Object.entries(departmentUsers)?.map(([idx, user]) => (
           <Link href={`/profile/${user.userAddress}`} key={idx}>
             <div
-              className="shadow-base dark:shadow-none lg:hover:shadow-medium  lg:dark:hover:shadow-none p-1 px-2 rounded-[2rem] flex items-center space-x-4
+              className="shadow-base dark:shadow-none lg:hover:shadow-medium  lg:dark:hover:shadow-none p-1 px-2 rounded-2xl flex items-center space-x-4
           cursor-pointer transition-all duration-300 mx-5  dark:bg-[#333333] lg:hover:scale-[1.01]"
             >
               <div className="relative w-[32px] h-[32px] bg-bg-danger rounded-full">

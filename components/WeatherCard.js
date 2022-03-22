@@ -1,11 +1,4 @@
 import { fetchWeather } from "../helper";
-import {
-  CloudIcon,
-  EyeIcon,
-  LightBulbIcon,
-  LightningBoltIcon,
-  LocationMarkerIcon,
-} from "@heroicons/react/outline";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -27,8 +20,8 @@ const WeatherCard = () => {
 
   return (
     <div
-      className="shadow-base dark:shadow-none bg-[#fff] dark:bg-card rounded-[2rem]
-     transition-all duration-300 ease-in-out min-h-[250px] sm:grid sm:grid-cols-3 w-full pb-10 sm:pb-0
+      className="shadow-medium dark:shadow-none bg-[#fff] dark:bg-card rounded-2xl
+     transition-all duration-300 ease-in-out h-full sm:grid sm:grid-cols-3 w-full pb-10 sm:pb-0
       "
     >
       <div className="flex items-center justify-center col-span-1">

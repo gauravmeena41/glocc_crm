@@ -392,10 +392,20 @@ contract GLLOC {
     }
 
     function checkIn() external {
+        require(
+            users[msg.sender].checkIn.length ==
+                users[msg.sender].checkOut.length,
+            "You have already checked in"
+        );
         users[msg.sender].checkIn.push(uint64(block.timestamp));
     }
 
     function checkOut() external {
+        require(
+            users[msg.sender].checkIn.length >
+                users[msg.sender].checkOut.length,
+            "You have already checked out"
+        );
         users[msg.sender].checkOut.push(uint64(block.timestamp));
     }
     // User specific functions

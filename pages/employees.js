@@ -1,26 +1,17 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import { useRecoilState } from "recoil";
-import { userState } from "../atoms/user";
+import { useRecoilValue } from "recoil";
 import { employeesState } from "../atoms/employees";
-import { fetchOrganization, getAllUser, searchUser } from "../helper";
 import Link from "next/link";
 
 const employees = () => {
-  const [user] = useRecoilState(userState);
-  // const [employees, setEmployees] = useRecoilState(employeesState);
-  const [employees, setEmployees] = useState([]);
+  const employees = useRecoilValue(employeesState);
   const [currentUser, setCurrentUser] = useState([]);
-
-  useEffect(async () => {
-    let res = await fetchOrganization(user?.orgId);
-    setEmployees(await getAllUser(res?.users));
-  }, [user]);
 
   return (
     <div className="grid sm:grid-cols-2 m-5 md:m-6 gap-10 w-full">
-      <div className="gap-5 bg-[#fff] dark:bg-card shadow-base dark:shadow-none rounded-[2rem]">
+      <div className="gap-5 bg-[#fff] dark:bg-card shadow-medium dark:shadow-none rounded-2xl">
         <div className="border-b-2 border-gray-200 dark:border-secondary-text-dark p-2 text-xl text-base-text-light dark:text-primary-text-dark font-semibold text-center">
           <h1>Employees</h1>
         </div>
@@ -33,7 +24,7 @@ const employees = () => {
             employees?.map((value, idx) => (
               <div
                 key={idx}
-                className={`shadow-base dark:shadow-none lg:hover:shadow-medium dark:shadow-none lg:dark:hover:shadow-none p-1 px-2 rounded-[2rem] flex items-center space-x-4
+                className={`shadow-base dark:shadow-none p-1 px-2 rounded-2xl flex items-center space-x-4
                 cursor-pointer transition-all duration-300 md:mx-5 dark:bg-[#333333] ${
                   currentUser.name === value.name &&
                   "dark:bg-[#343a40] lg:scale-[1.03]"
@@ -61,10 +52,10 @@ const employees = () => {
         </div>
       </div>
       {currentUser.length > 0 && (
-        <div className="sm:flex flex-col bg-[#fff] dark:bg-card relative shadow-base dark:shadow-none rounded-[2rem] animate-slide-down transition-all duration-300 ">
+        <div className="sm:flex flex-col bg-[#fff] dark:bg-card relative shadow-medium dark:shadow-none rounded-2xl animate-slide-down transition-all duration-300 ">
           <Link href={`profile/${currentUser.userAddress}`}>
             <button
-              className="absolute top-4 right-4 text-base-text-light dark:text-base-text-dark rounded-xl font-medium dark:bg-[#333333] shadow-base dark:shadow-none
+              className="absolute top-4 right-4 text-base-text-light dark:text-base-text-dark rounded-2xl font-medium dark:bg-[#333333] shadow-base dark:shadow-none
             px-2 py-1  transition-all duration-300"
             >
               View Profile
