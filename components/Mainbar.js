@@ -9,13 +9,13 @@ import TasksCard from "./TasksCard";
 import WeatherCard from "./WeatherCard";
 
 const Mainbar = () => {
-  const [user, setUser] = useRecoilState(userState);
-  useEffect(async () => {
-    setUser(await loginUser());
-  }, []);
+  // const [user, setUser] = useRecoilState(userState);
+  // useEffect(async () => {
+  //   setUser(await loginUser());
+  // }, []);
 
   return (
-    <div className=" grid grid-rows-2 sm:grid-cols-2 xl:grid-cols-3 gap-5 p-6 w-full">
+    <div className=" grid grid-rows-2 sm:grid-cols-2 xl:grid-cols-3 gap-5 p-6 w-full 2xl:h-screen">
       <WeatherCard />
       <TasksCard />
       <BirthdayCard />

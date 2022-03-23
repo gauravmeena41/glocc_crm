@@ -9,16 +9,17 @@ const HolidaysCard = () => {
     setHolidays(fetchHolidays(2022));
   }, []);
 
-  console.log(holidays);
-
   return (
     <div
       className="shadow-medium dark:shadow-none bg-[#fff] dark:bg-card rounded-2xl
-      transition-all duration-300 ease-in-out min-h-[250px] max-h-[320px] overflow-hidden w-full p-5"
+      transition-all duration-300 ease-in-out overflow-hidden w-full h-full p-5"
     >
       <div className="h-full overflow-scroll">
         {holidays?.map((holiday, idx) => (
-          <div className="grid grid-cols-5 border-b-2 dark:border-[#414141] mt-2">
+          <div
+            key={idx}
+            className="grid grid-cols-5 border-b-2 dark:border-[#414141] mt-2"
+          >
             <div className="col-span-4">
               <h1 className="text-primary-text-light dark:text-primary-text-dark">
                 {holiday.name}

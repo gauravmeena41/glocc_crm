@@ -205,6 +205,24 @@
           "type": "address"
         },
         {
+          "internalType": "address",
+          "name": "_reportingTo",
+          "type": "address"
+        }
+      ],
+      "name": "changeReportingTo",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_userAddress",
+          "type": "address"
+        },
+        {
           "internalType": "string",
           "name": "_role",
           "type": "string"
