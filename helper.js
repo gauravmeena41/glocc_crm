@@ -2,11 +2,11 @@ import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers } from "ethers";
 import { gllocAddress, gllocToken } from "./config";
-import GLLOC from "./artifacts/contracts/GLLOC.sol/GLLOC.json";
-import GLLOCTOKEN from "./artifacts/contracts/GLLOCTOKEN.sol/GLLOCTOKEN.json";
+// import GLLOC from "./artifacts/contracts/GLLOC.sol/GLLOC.json";
+// import GLLOCTOKEN from "./artifacts/contracts/GLLOCTOKEN.sol/GLLOCTOKEN.json";
 
-// import GLLOC from "./utils/GLLOC.json";
-// import GLLOCTOKEN from "./utils/GLLOCTOKEN.json";
+import GLLOC from "./utils/GLLOC.json";
+import GLLOCTOKEN from "./utils/GLLOCTOKEN.json";
 
 import { storage } from "./firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
