@@ -198,6 +198,63 @@
       "type": "function"
     },
     {
+<<<<<<< HEAD
+=======
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_userAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_reportingTo",
+          "type": "address"
+        }
+      ],
+      "name": "changeReportingTo",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_userAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "_role",
+          "type": "string"
+        }
+      ],
+      "name": "changeUserrole",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_userAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "_team",
+          "type": "string"
+        }
+      ],
+      "name": "changeUserteam",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+>>>>>>> dev
       "inputs": [],
       "name": "checkIn",
       "outputs": [],

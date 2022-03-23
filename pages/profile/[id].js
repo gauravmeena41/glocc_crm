@@ -10,6 +10,7 @@ import AboutCard from "../../components/AboutCard";
 import SkillCard from "../../components/SkillCard";
 import BasicinfoCard from "../../components/BasicinfoCard";
 import WalletCard from "../../components/WalletCard";
+import AttendanceCard from "../../components/AttendanceCard";
 
 const profile = () => {
   const [user] = useRecoilState(userState);
@@ -71,6 +72,7 @@ const profile = () => {
             <MarkAttendanceCard />
           )}
           <SkillCard currentUser={currentUser} />
+          <AttendanceCard currentUser={currentUser} />
           <BasicinfoCard currentUser={currentUser} />
           <WalletCard currentUser={currentUser} />
         </div>
